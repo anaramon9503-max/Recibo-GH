@@ -71,7 +71,8 @@ function formatearHora(valor) {
 
   let horas = Number(horaTexto);
 
-  const periodo = horas >= 12 ? "p. m." : "a. m.";
+  const periodo =
+    horas >= 12 ? "p. m." : "a. m.";
 
   horas = horas % 12;
 
@@ -94,7 +95,7 @@ function formatearImporte(valor) {
 
 
 /* =========================================
-   ACTUALIZAR CONFIRMACIÓN
+   CONFIRMACIÓN
 ========================================= */
 
 function actualizarConfirmacion() {
@@ -123,7 +124,7 @@ function actualizarConfirmacion() {
 
 
 /* =========================================
-   ACTUALIZAR RECIBO
+   RECIBO
 ========================================= */
 
 function actualizarRecibo() {
@@ -180,7 +181,7 @@ function actualizarTodo() {
 
 
 /* =========================================
-   CAMBIAR TIPO DE DOCUMENTO
+   CAMBIAR DOCUMENTO
 ========================================= */
 
 function mostrarConfirmacion() {
@@ -269,16 +270,14 @@ btnRecibo.addEventListener(
 
 
 /* =========================================
-   VALIDACIÓN
+   VALIDAR
 ========================================= */
 
 function validarDatos() {
 
   if (!nombre.value.trim()) {
 
-    alert(
-      "Escribe el nombre del paciente."
-    );
+    alert("Escribe el nombre del paciente.");
 
     nombre.focus();
 
@@ -288,9 +287,7 @@ function validarDatos() {
 
   if (!fecha.value) {
 
-    alert(
-      "Selecciona la fecha de la sesión."
-    );
+    alert("Selecciona la fecha de la sesión.");
 
     fecha.focus();
 
@@ -300,9 +297,7 @@ function validarDatos() {
 
   if (!hora.value) {
 
-    alert(
-      "Selecciona la hora."
-    );
+    alert("Selecciona la hora.");
 
     hora.focus();
 
@@ -315,9 +310,7 @@ function validarDatos() {
     Number(importe.value) <= 0
   ) {
 
-    alert(
-      "Escribe un importe válido."
-    );
+    alert("Escribe un importe válido.");
 
     importe.focus();
 
@@ -364,7 +357,6 @@ async function esperarImagenes(elemento) {
     elemento.querySelectorAll("img");
 
   await Promise.all(
-
     Array.from(imagenes).map(img => {
 
       if (img.complete) {
@@ -379,160 +371,12 @@ async function esperarImagenes(elemento) {
       });
 
     })
-
   );
 }
 
 
 /* =========================================
-   CREAR COPIA PARA DESCARGA
-========================================= */
-
-async function crearCopiaParaDescarga(original) {
-
-  const contenedor =
-    document.createElement("div");
-
-  contenedor.style.position =
-    "fixed";
-
-  contenedor.style.left =
-    "-20000px";
-
-  contenedor.style.top =
-    "0";
-
-  contenedor.style.width =
-    "1080px";
-
-  contenedor.style.background =
-    "#fffaf6";
-
-  contenedor.style.overflow =
-    "visible";
-
-  contenedor.style.zIndex =
-    "-99999";
-
-
-  const copia =
-    original.cloneNode(true);
-
-
-  copia.classList.remove(
-    "oculto"
-  );
-
-  copia.classList.add(
-    "exportando"
-  );
-
-
-  copia.style.setProperty(
-    "display",
-    "block",
-    "important"
-  );
-
-  copia.style.setProperty(
-    "width",
-    "1080px",
-    "important"
-  );
-
-  copia.style.setProperty(
-    "max-width",
-    "none",
-    "important"
-  );
-
-  copia.style.setProperty(
-    "transform",
-    "none",
-    "important"
-  );
-
-  copia.style.setProperty(
-    "transform-origin",
-    "top left",
-    "important"
-  );
-
-  copia.style.setProperty(
-    "margin",
-    "0",
-    "important"
-  );
-
-  copia.style.setProperty(
-    "position",
-    "relative",
-    "important"
-  );
-
-  copia.style.setProperty(
-    "background",
-    "#fffaf6",
-    "important"
-  );
-
-  copia.style.setProperty(
-    "background-image",
-    "none",
-    "important"
-  );
-
-
-  contenedor.appendChild(
-    copia
-  );
-
-  document.body.appendChild(
-    contenedor
-  );
-
-
-  await esperarImagenes(
-    copia
-  );
-
-
-  if (
-    document.fonts &&
-    document.fonts.ready
-  ) {
-
-    try {
-
-      await document.fonts.ready;
-
-    } catch (e) {}
-
-  }
-
-
-  await new Promise(resolve => {
-
-    requestAnimationFrame(() => {
-
-      requestAnimationFrame(
-        resolve
-      );
-
-    });
-
-  });
-
-
-  return {
-    copia,
-    contenedor
-  };
-}
-
-
-/* =========================================
-   DESCARGAR DOCUMENTO
+   DESCARGAR
 ========================================= */
 
 btnDescargar.addEventListener(
@@ -553,42 +397,107 @@ btnDescargar.addEventListener(
         : recibo;
 
 
-    btnDescargar.disabled =
-      true;
+    btnDescargar.disabled = true;
 
     btnDescargar.textContent =
       "Generando documento...";
 
 
-    let contenedorTemporal =
-      null;
+    const scrollAnteriorX =
+      window.scrollX;
+
+    const scrollAnteriorY =
+      window.scrollY;
 
 
     try {
 
-      const resultado =
-        await crearCopiaParaDescarga(
-          documentoActual
-        );
+      await esperarImagenes(
+        documentoActual
+      );
 
 
-      const copia =
-        resultado.copia;
+      if (
+        document.fonts &&
+        document.fonts.ready
+      ) {
 
-      contenedorTemporal =
-        resultado.contenedor;
+        try {
+          await document.fonts.ready;
+        } catch (e) {}
+
+      }
+
+
+      /*
+        Quitamos temporalmente el escalado
+        del celular usando la clase que
+        ya existe en tu CSS.
+      */
+
+      documentoActual.classList.add(
+        "exportando"
+      );
+
+
+      documentoActual.style.setProperty(
+        "width",
+        "1080px",
+        "important"
+      );
+
+      documentoActual.style.setProperty(
+        "max-width",
+        "1080px",
+        "important"
+      );
+
+      documentoActual.style.setProperty(
+        "transform",
+        "none",
+        "important"
+      );
+
+      documentoActual.style.setProperty(
+        "margin",
+        "0",
+        "important"
+      );
+
+      documentoActual.style.setProperty(
+        "background",
+        "#fffaf6",
+        "important"
+      );
+
+
+      await new Promise(resolve => {
+
+        requestAnimationFrame(() => {
+
+          requestAnimationFrame(resolve);
+
+        });
+
+      });
 
 
       const alto =
         Math.max(
-          copia.scrollHeight,
+          documentoActual.scrollHeight,
           1600
         );
 
 
+      /*
+        Capturamos EL DOCUMENTO REAL.
+        Ya no usamos copia escondida.
+        Ya no usamos foreignObjectRendering.
+      */
+
       const canvas =
         await html2canvas(
-          copia,
+          documentoActual,
           {
 
             scale: 1,
@@ -614,84 +523,7 @@ btnDescargar.addEventListener(
 
             windowHeight: alto,
 
-            foreignObjectRendering:
-              true,
-
-            onclone: (
-              documentoClonado
-            ) => {
-
-              const doc =
-                documentoClonado
-                  .getElementById(
-                    tipoDocumento ===
-                    "confirmacion"
-                      ? "confirmacion"
-                      : "recibo"
-                  );
-
-
-              if (doc) {
-
-                doc.style.setProperty(
-                  "background",
-                  "#fffaf6",
-                  "important"
-                );
-
-                doc.style.setProperty(
-                  "background-image",
-                  "none",
-                  "important"
-                );
-
-                doc.style.setProperty(
-                  "transform",
-                  "none",
-                  "important"
-                );
-
-                doc.style.setProperty(
-                  "width",
-                  "1080px",
-                  "important"
-                );
-
-                doc.style.setProperty(
-                  "max-width",
-                  "1080px",
-                  "important"
-                );
-
-                doc.style.setProperty(
-                  "margin",
-                  "0",
-                  "important"
-                );
-
-                doc.style.setProperty(
-                  "box-shadow",
-                  "none",
-                  "important"
-                );
-
-              }
-
-
-              documentoClonado
-                .body
-                .style
-                .background =
-                  "#fffaf6";
-
-
-              documentoClonado
-                .documentElement
-                .style
-                .background =
-                  "#fffaf6";
-
-            }
+            removeContainer: true
 
           }
         );
@@ -712,14 +544,11 @@ btnDescargar.addEventListener(
 
 
       const enlace =
-        document.createElement(
-          "a"
-        );
+        document.createElement("a");
 
 
       if (
-        tipoDocumento ===
-        "confirmacion"
+        tipoDocumento === "confirmacion"
       ) {
 
         enlace.download =
@@ -740,6 +569,10 @@ btnDescargar.addEventListener(
         );
 
 
+      enlace.style.display =
+        "none";
+
+
       document.body.appendChild(
         enlace
       );
@@ -748,34 +581,67 @@ btnDescargar.addEventListener(
       enlace.click();
 
 
-      document.body.removeChild(
-        enlace
-      );
+      setTimeout(() => {
+
+        if (enlace.parentNode) {
+
+          enlace.parentNode.removeChild(
+            enlace
+          );
+
+        }
+
+      }, 100);
 
 
     } catch (error) {
 
-      console.error(error);
+      console.error(
+        "Error al generar:",
+        error
+      );
 
       alert(
-        "No se pudo generar el documento. Intenta nuevamente."
+        "No se pudo generar la imagen."
       );
 
 
     } finally {
 
-      if (
-        contenedorTemporal &&
-        contenedorTemporal.parentNode
-      ) {
+      /*
+        Regresamos la vista exactamente
+        como estaba.
+      */
 
-        contenedorTemporal
-          .parentNode
-          .removeChild(
-            contenedorTemporal
-          );
+      documentoActual.classList.remove(
+        "exportando"
+      );
 
-      }
+      documentoActual.style.removeProperty(
+        "width"
+      );
+
+      documentoActual.style.removeProperty(
+        "max-width"
+      );
+
+      documentoActual.style.removeProperty(
+        "transform"
+      );
+
+      documentoActual.style.removeProperty(
+        "margin"
+      );
+
+      documentoActual.style.removeProperty(
+        "background"
+      );
+
+
+      window.scrollTo(
+        scrollAnteriorX,
+        scrollAnteriorY
+      );
 
 
       btnDescargar.disabled =
@@ -783,8 +649,7 @@ btnDescargar.addEventListener(
 
 
       btnDescargar.textContent =
-        tipoDocumento ===
-        "confirmacion"
+        tipoDocumento === "confirmacion"
           ? "Descargar confirmación"
           : "Descargar recibo";
 
