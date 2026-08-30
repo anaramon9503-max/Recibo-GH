@@ -38,6 +38,11 @@ const transferencia = document.getElementById("transferencia");
 
 let tipoDocumento = "confirmacion";
 
+
+/* ===============================
+   FORMATO
+=============================== */
+
 function formatearFecha(valor) {
   if (!valor) return "--";
 
@@ -59,6 +64,7 @@ function formatearFecha(valor) {
   return texto.charAt(0).toUpperCase() + texto.slice(1);
 }
 
+
 function formatearHora(valor) {
   if (!valor) return "--";
 
@@ -70,10 +76,13 @@ function formatearHora(valor) {
 
   horas = horas % 12;
 
-  if (horas === 0) horas = 12;
+  if (horas === 0) {
+    horas = 12;
+  }
 
   return `${horas}:${minutos} ${periodo}`;
 }
+
 
 function formatearImporte(valor) {
   if (!valor) return "0";
@@ -83,6 +92,11 @@ function formatearImporte(valor) {
     maximumFractionDigits: 2
   });
 }
+
+
+/* ===============================
+   CONFIRMACIÓN
+=============================== */
 
 function actualizarConfirmacion() {
   confNombre.textContent =
@@ -100,11 +114,17 @@ function actualizarConfirmacion() {
   confImporte.textContent =
     formatearImporte(importe.value);
 
-  confTransferencia.style.display =
-    metodoPago.value === "Transferencia bancaria"
-      ? "block"
-      : "none";
+  if (metodoPago.value === "Transferencia bancaria") {
+    confTransferencia.style.display = "block";
+  } else {
+    confTransferencia.style.display = "none";
+  }
 }
+
+
+/* ===============================
+   RECIBO
+=============================== */
 
 function actualizarRecibo() {
   reciboNombre.textContent =
@@ -133,16 +153,23 @@ function actualizarRecibo() {
     estadoBanner.textContent = "PENDIENTE DE PAGO";
   }
 
-  transferencia.style.display =
-    metodoPago.value === "Transferencia bancaria"
-      ? "block"
-      : "none";
+  if (metodoPago.value === "Transferencia bancaria") {
+    transferencia.style.display = "block";
+  } else {
+    transferencia.style.display = "none";
+  }
 }
+
 
 function actualizarTodo() {
   actualizarConfirmacion();
   actualizarRecibo();
 }
+
+
+/* ===============================
+   CAMBIAR DOCUMENTO
+=============================== */
 
 function mostrarConfirmacion() {
   tipoDocumento = "confirmacion";
@@ -164,6 +191,7 @@ function mostrarConfirmacion() {
   actualizarTodo();
 }
 
+
 function mostrarRecibo() {
   tipoDocumento = "recibo";
 
@@ -184,8 +212,21 @@ function mostrarRecibo() {
   actualizarTodo();
 }
 
-btnConfirmacion.addEventListener("click", mostrarConfirmacion);
-btnRecibo.addEventListener("click", mostrarRecibo);
+
+btnConfirmacion.addEventListener(
+  "click",
+  mostrarConfirmacion
+);
+
+btnRecibo.addEventListener(
+  "click",
+  mostrarRecibo
+);
+
+
+/* ===============================
+   ACTUALIZACIÓN AUTOMÁTICA
+=============================== */
 
 [
   nombre,
@@ -196,9 +237,21 @@ btnRecibo.addEventListener("click", mostrarRecibo);
   metodoPago,
   estadoPago
 ].forEach(campo => {
-  campo.addEventListener("input", actualizarTodo);
-  campo.addEventListener("change", actualizarTodo);
+  campo.addEventListener(
+    "input",
+    actualizarTodo
+  );
+
+  campo.addEventListener(
+    "change",
+    actualizarTodo
+  );
 });
+
+
+/* ===============================
+   VALIDAR
+=============================== */
 
 function validarDatos() {
   if (!nombre.value.trim()) {
@@ -219,7 +272,10 @@ function validarDatos() {
     return false;
   }
 
-  if (!importe.value || Number(importe.value) <= 0) {
+  if (
+    !importe.value ||
+    Number(importe.value) <= 0
+  ) {
     alert("Escribe un importe válido.");
     importe.focus();
     return false;
@@ -228,19 +284,33 @@ function validarDatos() {
   return true;
 }
 
-btnGenerar.addEventListener("click", () => {
-  if (!validarDatos()) return;
 
-  actualizarTodo();
+btnGenerar.addEventListener(
+  "click",
+  () => {
+    if (!validarDatos()) {
+      return;
+    }
 
-  document.querySelector(".vista").scrollIntoView({
-    behavior: "smooth",
-    block: "start"
-  });
-});
+    actualizarTodo();
+
+    document
+      .querySelector(".vista")
+      .scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+  }
+);
+
+
+/* ===============================
+   ESPERAR IMÁGENES
+=============================== */
 
 async function esperarImagenes(elemento) {
-  const imagenes = elemento.querySelectorAll("img");
+  const imagenes =
+    elemento.querySelectorAll("img");
 
   await Promise.all(
     Array.from(imagenes).map(img => {
@@ -256,130 +326,322 @@ async function esperarImagenes(elemento) {
   );
 }
 
-async function crearCopiaParaDescarga(elementoOriginal) {
-  const copia = elementoOriginal.cloneNode(true);
+
+/* ===============================
+   CREAR COPIA PARA EXPORTAR
+=============================== */
+
+async function crearCopiaParaDescarga(original) {
+  const contenedor =
+    document.createElement("div");
+
+  contenedor.style.position = "fixed";
+  contenedor.style.left = "-20000px";
+  contenedor.style.top = "0";
+  contenedor.style.width = "1080px";
+  contenedor.style.background = "#fffaf6";
+  contenedor.style.overflow = "visible";
+  contenedor.style.zIndex = "-99999";
+
+  const copia =
+    original.cloneNode(true);
 
   copia.classList.remove("oculto");
+  copia.classList.add("exportando");
 
-  copia.style.display = "block";
-  copia.style.transform = "none";
-  copia.style.margin = "0";
-  copia.style.position = "relative";
-  copia.style.left = "0";
-  copia.style.top = "0";
+  copia.style.setProperty(
+    "display",
+    "block",
+    "important"
+  );
 
-  const contenedorTemporal = document.createElement("div");
+  copia.style.setProperty(
+    "width",
+    "1080px",
+    "important"
+  );
 
-  contenedorTemporal.style.position = "fixed";
-  contenedorTemporal.style.left = "-20000px";
-  contenedorTemporal.style.top = "0";
-  contenedorTemporal.style.width = "1080px";
-  contenedorTemporal.style.background = "#fffaf6";
-  contenedorTemporal.style.zIndex = "-9999";
+  copia.style.setProperty(
+    "max-width",
+    "none",
+    "important"
+  );
 
-  contenedorTemporal.appendChild(copia);
-  document.body.appendChild(contenedorTemporal);
+  copia.style.setProperty(
+    "transform",
+    "none",
+    "important"
+  );
+
+  copia.style.setProperty(
+    "transform-origin",
+    "top left",
+    "important"
+  );
+
+  copia.style.setProperty(
+    "margin",
+    "0",
+    "important"
+  );
+
+  copia.style.setProperty(
+    "position",
+    "relative",
+    "important"
+  );
+
+  copia.style.setProperty(
+    "background",
+    "#fffaf6",
+    "important"
+  );
+
+  copia.style.setProperty(
+    "background-image",
+    "none",
+    "important"
+  );
+
+  contenedor.appendChild(copia);
+
+  document.body.appendChild(contenedor);
 
   await esperarImagenes(copia);
 
-  await new Promise(resolve =>
-    requestAnimationFrame(() =>
-      requestAnimationFrame(resolve)
-    )
-  );
+  if (
+    document.fonts &&
+    document.fonts.ready
+  ) {
+    try {
+      await document.fonts.ready;
+    } catch (e) {}
+  }
+
+  await new Promise(resolve => {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(resolve);
+    });
+  });
 
   return {
     copia,
-    contenedorTemporal
+    contenedor
   };
 }
 
-btnDescargar.addEventListener("click", async () => {
-  if (!validarDatos()) return;
 
-  actualizarTodo();
+/* ===============================
+   DESCARGAR
+=============================== */
 
-  const documentoActual =
-    tipoDocumento === "confirmacion"
-      ? confirmacion
-      : recibo;
-
-  btnDescargar.disabled = true;
-  btnDescargar.textContent =
-    "Generando documento...";
-
-  let contenedorTemporal = null;
-
-  try {
-    const resultado =
-      await crearCopiaParaDescarga(documentoActual);
-
-    const copia = resultado.copia;
-    contenedorTemporal =
-      resultado.contenedorTemporal;
-
-    const canvas = await html2canvas(copia, {
-      scale: 1,
-      backgroundColor: "#fffaf6",
-      useCORS: true,
-      allowTaint: false,
-      logging: false,
-      scrollX: 0,
-      scrollY: 0,
-      width: 1080,
-      height: copia.scrollHeight,
-      windowWidth: 1400,
-      windowHeight: copia.scrollHeight
-    });
-
-    const nombreArchivo =
-      nombre.value
-        .trim()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .replace(/[^a-zA-Z0-9]/g, "_");
-
-    const enlace =
-      document.createElement("a");
-
-    enlace.download =
-      tipoDocumento === "confirmacion"
-        ? `Confirmacion_${nombreArchivo}.png`
-        : `Recibo_${nombreArchivo}.png`;
-
-    enlace.href =
-      canvas.toDataURL("image/png", 1);
-
-    document.body.appendChild(enlace);
-    enlace.click();
-    document.body.removeChild(enlace);
-
-  } catch (error) {
-    console.error(error);
-
-    alert(
-      "No se pudo generar el documento. Intenta nuevamente."
-    );
-
-  } finally {
-
-    if (
-      contenedorTemporal &&
-      contenedorTemporal.parentNode
-    ) {
-      contenedorTemporal.parentNode.removeChild(
-        contenedorTemporal
-      );
+btnDescargar.addEventListener(
+  "click",
+  async () => {
+    if (!validarDatos()) {
+      return;
     }
 
-    btnDescargar.disabled = false;
+    actualizarTodo();
 
-    btnDescargar.textContent =
+    const documentoActual =
       tipoDocumento === "confirmacion"
-        ? "Descargar confirmación"
-        : "Descargar recibo";
+        ? confirmacion
+        : recibo;
+
+    btnDescargar.disabled = true;
+    btnDescargar.textContent =
+      "Generando documento...";
+
+    let contenedorTemporal = null;
+
+    try {
+      const resultado =
+        await crearCopiaParaDescarga(
+          documentoActual
+        );
+
+      const copia = resultado.copia;
+      contenedorTemporal =
+        resultado.contenedor;
+
+      const alto = Math.max(
+        copia.scrollHeight,
+        1600
+      );
+
+      const canvas = await html2canvas(
+        copia,
+        {
+          scale: 1,
+
+          backgroundColor:
+            "#fffaf6",
+
+          useCORS: true,
+
+          allowTaint: false,
+
+          logging: false,
+
+          scrollX: 0,
+
+          scrollY: 0,
+
+          width: 1080,
+
+          height: alto,
+
+          windowWidth: 1080,
+
+          windowHeight: alto,
+
+          foreignObjectRendering: true,
+
+          onclone: (
+            documentoClonado
+          ) => {
+            const doc =
+              documentoClonado.getElementById(
+                tipoDocumento ===
+                  "confirmacion"
+                  ? "confirmacion"
+                  : "recibo"
+              );
+
+            if (doc) {
+              doc.style.setProperty(
+                "background",
+                "#fffaf6",
+                "important"
+              );
+
+              doc.style.setProperty(
+                "background-image",
+                "none",
+                "important"
+              );
+
+              doc.style.setProperty(
+                "transform",
+                "none",
+                "important"
+              );
+
+              doc.style.setProperty(
+                "width",
+                "1080px",
+                "important"
+              );
+
+              doc.style.setProperty(
+                "max-width",
+                "1080px",
+                "important"
+              );
+
+              doc.style.setProperty(
+                "margin",
+                "0",
+                "important"
+              );
+
+              doc.style.setProperty(
+                "box-shadow",
+                "none",
+                "important"
+              );
+            }
+
+            documentoClonado.body
+              .style.background =
+              "#fffaf6";
+
+            documentoClonado
+              .documentElement
+              .style.background =
+              "#fffaf6";
+          }
+        }
+      );
+
+      const nombreArchivo =
+        nombre.value
+          .trim()
+          .normalize("NFD")
+          .replace(
+            /[\u0300-\u036f]/g,
+            ""
+          )
+          .replace(
+            /[^a-zA-Z0-9]/g,
+            "_"
+          );
+
+      const enlace =
+        document.createElement("a");
+
+      if (
+        tipoDocumento ===
+        "confirmacion"
+      ) {
+        enlace.download =
+          `Confirmacion_${nombreArchivo}.png`;
+      } else {
+        enlace.download =
+          `Recibo_${nombreArchivo}.png`;
+      }
+
+      enlace.href =
+        canvas.toDataURL(
+          "image/png",
+          1
+        );
+
+      document.body.appendChild(
+        enlace
+      );
+
+      enlace.click();
+
+      document.body.removeChild(
+        enlace
+      );
+
+    } catch (error) {
+      console.error(error);
+
+      alert(
+        "No se pudo generar el documento. Intenta nuevamente."
+      );
+
+    } finally {
+      if (
+        contenedorTemporal &&
+        contenedorTemporal.parentNode
+      ) {
+        contenedorTemporal
+          .parentNode
+          .removeChild(
+            contenedorTemporal
+          );
+      }
+
+      btnDescargar.disabled =
+        false;
+
+      btnDescargar.textContent =
+        tipoDocumento === "confirmacion"
+          ? "Descargar confirmación"
+          : "Descargar recibo";
+    }
   }
-});
+);
+
+
+/* ===============================
+   INICIO
+=============================== */
 
 actualizarTodo();
 mostrarConfirmacion();
