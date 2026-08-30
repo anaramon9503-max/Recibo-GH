@@ -1,764 +1,379 @@
-* {
-  box-sizing: border-box;
-}
+const nombre = document.getElementById("nombre");
+const fecha = document.getElementById("fecha");
+const hora = document.getElementById("hora");
+const modalidad = document.getElementById("modalidad");
+const importe = document.getElementById("importe");
+const metodoPago = document.getElementById("metodoPago");
+const estadoPago = document.getElementById("estadoPago");
 
-body {
-  margin: 0;
-  background: #f2efec;
-  font-family: Arial, Helvetica, sans-serif;
-  color: #383332;
-}
+const reciboNombre = document.getElementById("reciboNombre");
+const reciboFecha = document.getElementById("reciboFecha");
+const reciboHora = document.getElementById("reciboHora");
+const reciboModalidad = document.getElementById("reciboModalidad");
+const reciboImporte = document.getElementById("reciboImporte");
+const reciboMetodo = document.getElementById("reciboMetodo");
+const reciboEstado = document.getElementById("reciboEstado");
 
-.app {
-  width: 100%;
-  max-width: 1400px;
-  margin: auto;
-  padding: 25px;
-  display: grid;
-  grid-template-columns: 360px 1fr;
-  gap: 30px;
-}
+const estadoBanner = document.getElementById("estadoBanner");
+const transferencia = document.getElementById("transferencia");
 
-/* =========================
-   FORMULARIO
-========================= */
+const btnGenerar = document.getElementById("btnGenerar");
+const btnDescargar = document.getElementById("btnDescargar");
 
-.formulario {
-  background: white;
-  border-radius: 22px;
-  padding: 24px;
-  height: fit-content;
-  box-shadow: 0 10px 30px rgba(0,0,0,.07);
-  position: sticky;
-  top: 20px;
-}
+const recibo = document.getElementById("recibo");
 
-.formulario h1 {
-  margin: 0;
-  color: #559d99;
-  font-size: 27px;
-}
 
-.formulario p {
-  color: #777;
-  margin-top: 6px;
-  margin-bottom: 22px;
-}
+// ===============================
+// FECHA
+// ===============================
 
-.formulario label {
-  display: block;
-  margin-top: 15px;
-  margin-bottom: 6px;
-  font-size: 14px;
-  font-weight: bold;
-}
+function formatearFecha(valor) {
 
-.formulario input,
-.formulario select {
-  width: 100%;
-  padding: 13px 14px;
-  border: 1px solid #ddd5d0;
-  border-radius: 12px;
-  font-size: 15px;
-  background: white;
-}
+  if (!valor) {
+    return "--";
+  }
 
-.formulario input:focus,
-.formulario select:focus {
-  outline: none;
-  border-color: #6aa7a3;
-}
+  const partes = valor.split("-");
 
-button {
-  width: 100%;
-  padding: 14px;
-  border: none;
-  border-radius: 14px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-#btnGenerar {
-  margin-top: 24px;
-  color: white;
-  background: linear-gradient(135deg,#68aaa7,#4f9692);
-}
-
-#btnDescargar {
-  margin-top: 18px;
-  color: white;
-  background: linear-gradient(135deg,#e6939b,#d76f7a);
-}
-
-/* =========================
-   VISTA PREVIA
-========================= */
-
-.vista {
-  text-align: center;
-}
-
-.vista > h3 {
-  color: #777;
-  margin-top: 0;
-}
-
-.escala-recibo {
-  width: 100%;
-  overflow: auto;
-}
-
-/* =========================
-   LIENZO FIJO DEL RECIBO
-========================= */
-
-#recibo {
-  position: relative;
-  width: 1080px;
-  min-height: 1600px;
-  margin: auto;
-  padding: 35px 80px 40px;
-
-  text-align: left;
-
-  background:
-    radial-gradient(circle at 0% 20%, rgba(238,160,168,.12), transparent 27%),
-    radial-gradient(circle at 100% 22%, rgba(95,164,160,.11), transparent 28%),
-    radial-gradient(circle at 0% 85%, rgba(238,160,168,.10), transparent 25%),
-    radial-gradient(circle at 100% 83%, rgba(95,164,160,.10), transparent 27%),
-    #fffaf6;
-
-  border: 4px solid #cdbdb2;
-  border-radius: 62px;
-  overflow: hidden;
-
-  box-shadow: 0 15px 45px rgba(0,0,0,.08);
-}
-
-/* =========================
-   DECORACIONES
-========================= */
-
-.rama {
-  position: absolute;
-  top: 70px;
-  font-family: Georgia, serif;
-  font-size: 160px;
-  opacity: .5;
-}
-
-.rama.rosa {
-  left: -20px;
-  color: #e99ba4;
-  transform: rotate(-20deg);
-}
-
-.rama.verde {
-  right: -25px;
-  color: #67a9a5;
-  transform: scaleX(-1) rotate(-20deg);
-}
-
-.logo {
-  text-align: center;
-  position: relative;
-  z-index: 2;
-}
-
-.logo img {
-  width: 310px;
-  height: 310px;
-  object-fit: contain;
-}
-
-/* =========================
-   TITULO
-========================= */
-
-.titulo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  margin-top: 5px;
-}
-
-.titulo h1 {
-  margin: 0;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 76px;
-  font-weight: 500;
-  letter-spacing: 18px;
-  color: #423a37;
-}
-
-.linea {
-  width: 110px;
-  height: 2px;
-  background: #dbb6b0;
-}
-
-.punto {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: #e99aa1;
-}
-
-.subtitulo {
-  text-align: center;
-  font-size: 30px;
-  letter-spacing: 15px;
-  margin-top: 4px;
-}
-
-.corazon-arriba,
-.corazon-centro {
-  text-align: center;
-  color: #ed9aa3;
-}
-
-.corazon-arriba {
-  font-size: 40px;
-  height: 40px;
-}
-
-.corazon-centro {
-  font-size: 28px;
-  margin-top: 8px;
-}
-
-/* =========================
-   BANNER PAGO
-========================= */
-
-.banner {
-  width: 72%;
-  min-height: 105px;
-  margin: 0 auto;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 28px;
-
-  background: linear-gradient(
-    90deg,
-    #e7f0ed,
-    #eee9e2
+  const fechaLocal = new Date(
+    Number(partes[0]),
+    Number(partes[1]) - 1,
+    Number(partes[2])
   );
 
-  border: 2px solid #b9cac5;
+  let texto = fechaLocal.toLocaleDateString("es-MX", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric"
+  });
 
-  clip-path: polygon(
-    0 0,
-    100% 0,
-    94% 50%,
-    100% 100%,
-    0 100%,
-    6% 50%
+  return texto.charAt(0).toUpperCase() + texto.slice(1);
+}
+
+
+// ===============================
+// HORA
+// ===============================
+
+function formatearHora(valor) {
+
+  if (!valor) {
+    return "--";
+  }
+
+  const [horaTexto, minutos] = valor.split(":");
+
+  let horas = Number(horaTexto);
+
+  const periodo = horas >= 12
+    ? "p. m."
+    : "a. m.";
+
+  horas = horas % 12;
+
+  if (horas === 0) {
+    horas = 12;
+  }
+
+  return `${horas}:${minutos} ${periodo}`;
+}
+
+
+// ===============================
+// IMPORTE
+// ===============================
+
+function formatearImporte(valor) {
+
+  if (!valor) {
+    return "0";
+  }
+
+  return Number(valor).toLocaleString("es-MX", {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 2
+  });
+}
+
+
+// ===============================
+// ACTUALIZAR RECIBO
+// ===============================
+
+function actualizarRecibo() {
+
+  reciboNombre.textContent =
+    nombre.value.trim() || "Nombre del paciente";
+
+  reciboFecha.textContent =
+    formatearFecha(fecha.value);
+
+  reciboHora.textContent =
+    formatearHora(hora.value);
+
+  reciboModalidad.textContent =
+    modalidad.value;
+
+  reciboImporte.textContent =
+    formatearImporte(importe.value);
+
+  reciboMetodo.textContent =
+    metodoPago.value;
+
+
+  if (estadoPago.value === "Pago recibido") {
+
+    reciboEstado.textContent =
+      "PAGO RECIBIDO";
+
+    estadoBanner.textContent =
+      "PAGO RECIBIDO";
+
+  } else {
+
+    reciboEstado.textContent =
+      "PENDIENTE DE PAGO";
+
+    estadoBanner.textContent =
+      "PENDIENTE DE PAGO";
+
+  }
+
+
+  if (metodoPago.value === "Transferencia bancaria") {
+
+    transferencia.style.display = "block";
+
+  } else {
+
+    transferencia.style.display = "none";
+
+  }
+
+}
+
+
+// ===============================
+// CAMBIOS EN TIEMPO REAL
+// ===============================
+
+[
+  nombre,
+  fecha,
+  hora,
+  modalidad,
+  importe,
+  metodoPago,
+  estadoPago
+].forEach(campo => {
+
+  campo.addEventListener("input", actualizarRecibo);
+  campo.addEventListener("change", actualizarRecibo);
+
+});
+
+
+// ===============================
+// VALIDAR
+// ===============================
+
+function validarDatos() {
+
+  if (!nombre.value.trim()) {
+    alert("Escribe el nombre del paciente.");
+    nombre.focus();
+    return false;
+  }
+
+  if (!fecha.value) {
+    alert("Selecciona la fecha de la sesión.");
+    fecha.focus();
+    return false;
+  }
+
+  if (!hora.value) {
+    alert("Selecciona la hora.");
+    hora.focus();
+    return false;
+  }
+
+  if (!importe.value || Number(importe.value) <= 0) {
+    alert("Escribe un importe válido.");
+    importe.focus();
+    return false;
+  }
+
+  return true;
+}
+
+
+// ===============================
+// VISTA PREVIA
+// ===============================
+
+btnGenerar.addEventListener("click", () => {
+
+  if (!validarDatos()) {
+    return;
+  }
+
+  actualizarRecibo();
+
+  document.querySelector(".vista").scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+
+});
+
+
+// ===============================
+// ESPERAR LOGO
+// ===============================
+
+async function esperarImagenes() {
+
+  const imagenes = recibo.querySelectorAll("img");
+
+  await Promise.all(
+    Array.from(imagenes).map(img => {
+
+      if (img.complete) {
+        return Promise.resolve();
+      }
+
+      return new Promise(resolve => {
+
+        img.onload = resolve;
+        img.onerror = resolve;
+
+      });
+
+    })
   );
 
-  color: #589d99;
-  font-size: 43px;
-  font-weight: bold;
-  letter-spacing: 3px;
 }
 
-.check {
-  width: 76px;
-  height: 76px;
-  border: 5px solid #579f9b;
-  border-radius: 50%;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+// ===============================
+// DESCARGAR PNG
+// ===============================
 
-  font-size: 48px;
-}
+btnDescargar.addEventListener("click", async () => {
 
-.confirmacion {
-  text-align: center;
-  font-size: 26px;
-  margin-top: 22px;
-}
-
-.gracias {
-  text-align: center;
-  margin-top: 7px;
-  color: #569e9a;
-  font-family: Georgia, serif;
-  font-style: italic;
-  font-size: 36px;
-}
-
-/* =========================
-   CAJAS
-========================= */
-
-.caja {
-  position: relative;
-  border-radius: 26px;
-  padding: 48px 35px 22px;
-  margin-top: 38px;
-}
-
-.sesion {
-  border: 2px solid #e4a0a6;
-  background: rgba(255,255,255,.48);
-}
-
-.pago,
-.banco {
-  border: 2px solid #6ba8a5;
-  background: rgba(248,252,250,.72);
-}
-
-.cabecera {
-  position: absolute;
-  left: 78px;
-  top: -26px;
-
-  min-height: 62px;
-  padding: 13px 30px 13px 80px;
-
-  display: flex;
-  align-items: center;
-
-  color: white;
-  font-size: 27px;
-  font-weight: bold;
-  letter-spacing: 1px;
-
-  border-radius: 10px 16px 16px 10px;
-}
-
-.rosa-bg {
-  background: linear-gradient(90deg,#e79ca3,#dd838c);
-}
-
-.verde-bg {
-  background: linear-gradient(90deg,#67aaa7,#4f9894);
-}
-
-.cabecera-icono {
-  position: absolute;
-  left: -32px;
-  top: -11px;
-
-  width: 82px;
-  height: 82px;
-
-  border-radius: 50%;
-  border: 4px solid rgba(255,255,255,.85);
-
-  background: inherit;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  color: white;
-  font-size: 39px;
-}
-
-/* =========================
-   DATOS DE SESIÓN
-========================= */
-
-.dato {
-  min-height: 86px;
-
-  display: grid;
-  grid-template-columns: 70px 305px 1fr;
-  align-items: center;
-
-  border-bottom: 1px dotted #dcc8c3;
-}
-
-.sin-linea {
-  border-bottom: none;
-}
-
-.icono {
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: #f4d1d1;
-  position: relative;
-}
-
-.etiqueta {
-  font-size: 26px;
-}
-
-.valor {
-  min-height: 46px;
-  padding-left: 36px;
-
-  display: flex;
-  align-items: center;
-
-  border-left: 1px solid #dfc8c4;
-
-  color: #d9767e;
-  font-size: 27px;
-  font-weight: 600;
-  line-height: 1.25;
-}
-
-/* =========================
-   ICONOS CSS
-========================= */
-
-.persona-icono::before {
-  content: "";
-  position: absolute;
-  width: 17px;
-  height: 17px;
-  border-radius: 50%;
-  background: #d77981;
-  left: 19px;
-  top: 10px;
-}
-
-.persona-icono::after {
-  content: "";
-  position: absolute;
-  width: 30px;
-  height: 17px;
-  border-radius: 16px 16px 5px 5px;
-  background: #d77981;
-  left: 13px;
-  bottom: 9px;
-}
-
-.calendario-pequeno::before,
-.calendario-icono::before {
-  content: "";
-  position: absolute;
-  width: 30px;
-  height: 27px;
-  border: 3px solid currentColor;
-  border-radius: 4px;
-  left: 13px;
-  top: 15px;
-}
-
-.calendario-pequeno::after,
-.calendario-icono::after {
-  content: "";
-  position: absolute;
-  width: 24px;
-  height: 3px;
-  background: currentColor;
-  left: 16px;
-  top: 23px;
-}
-
-.calendario-pequeno {
-  color: #d77981;
-}
-
-.calendario-icono {
-  color: white;
-}
-
-.reloj-icono::before {
-  content: "";
-  position: absolute;
-  width: 29px;
-  height: 29px;
-  border: 3px solid #d77981;
-  border-radius: 50%;
-  left: 13px;
-  top: 13px;
-}
-
-.reloj-icono::after {
-  content: "";
-  position: absolute;
-  width: 3px;
-  height: 13px;
-  background: #d77981;
-  left: 28px;
-  top: 19px;
-  transform-origin: bottom;
-  transform: rotate(-30deg);
-}
-
-.monitor-icono::before {
-  content: "";
-  position: absolute;
-  width: 32px;
-  height: 22px;
-  border: 3px solid #d77981;
-  left: 11px;
-  top: 12px;
-}
-
-.monitor-icono::after {
-  content: "";
-  position: absolute;
-  width: 25px;
-  height: 3px;
-  background: #d77981;
-  left: 15px;
-  bottom: 11px;
-}
-
-.dinero-icono {
-  font-family: Georgia, serif;
-}
-
-.banco-icono::before {
-  content: "▲";
-  font-size: 32px;
-}
-
-.banco-icono::after {
-  content: "|||";
-  position: absolute;
-  font-size: 20px;
-  bottom: 12px;
-  letter-spacing: 4px;
-}
-
-/* =========================
-   DETALLE DE PAGO
-========================= */
-
-.pago-fila {
-  min-height: 72px;
-  padding: 0 12px;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  border-bottom: 1px dotted #c6d4d0;
-
-  font-size: 25px;
-}
-
-.pago-fila strong {
-  font-weight: 500;
-}
-
-.estatus {
-  min-height: 82px;
-  margin-top: 14px;
-  padding: 10px 18px;
-
-  border: 1px solid #d7d0ca;
-  border-radius: 16px;
-
-  display: grid;
-  grid-template-columns: 65px 1fr auto;
-  align-items: center;
-
-  font-size: 25px;
-}
-
-.estatus-check {
-  width: 54px;
-  height: 54px;
-
-  border-radius: 50%;
-  background: #6eaaa7;
-
-  color: white;
-  font-size: 34px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.estatus strong {
-  color: #549b97;
-  font-size: 27px;
-}
-
-/* =========================
-   BANCO
-========================= */
-
-.banco-contenido {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 25px;
-}
-
-.banco-datos {
-  flex: 1;
-}
-
-.banco-datos > div {
-  display: grid;
-  grid-template-columns: 145px 1fr;
-  margin: 11px 0;
-  font-size: 24px;
-}
-
-.banco-datos strong {
-  color: #529995;
-  font-weight: 500;
-}
-
-.tarjeta-dibujo {
-  width: 210px;
-  height: 155px;
-  position: relative;
-}
-
-.telefono {
-  position: absolute;
-  right: 10px;
-  top: 0;
-
-  width: 100px;
-  height: 145px;
-
-  border: 4px solid #62a5a2;
-  border-radius: 17px;
-  background: #f9fbfa;
-}
-
-.telefono-check {
-  width: 52px;
-  height: 52px;
-  margin: 28px auto;
-
-  border-radius: 50%;
-  background: #6ba8a5;
-
-  color: white;
-  font-size: 34px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.tarjeta {
-  position: absolute;
-  left: 12px;
-  bottom: 5px;
-
-  width: 120px;
-  height: 75px;
-
-  border: 4px solid #5ca09d;
-  border-radius: 10px;
-  background: #f2f8f7;
-
-  transform: rotate(9deg);
-}
-
-.tarjeta div {
-  width: 65px;
-  height: 8px;
-  background: #5ca09d;
-  margin: 15px 0 0 12px;
-}
-
-/* =========================
-   MENSAJE FINAL
-========================= */
-
-.mensaje {
-  width: 82%;
-  margin: 28px auto 0;
-
-  padding: 14px 24px;
-
-  display: flex;
-  align-items: center;
-  gap: 22px;
-
-  border: 1px solid #e2c8c2;
-  border-radius: 24px;
-
-  background: rgba(255,247,243,.87);
-}
-
-.circulo-corazon {
-  width: 74px;
-  height: 74px;
-  min-width: 74px;
-
-  border-radius: 50%;
-  background: #f4d0ce;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  color: #da727a;
-  font-size: 42px;
-}
-
-.mensaje-texto {
-  flex: 1;
-}
-
-.mensaje-texto strong {
-  color: #d7737b;
-  font-size: 25px;
-}
-
-.mensaje-texto p {
-  margin: 5px 0;
-  font-size: 22px;
-}
-
-.mensaje-texto em {
-  display: block;
-  text-align: center;
-
-  color: #559d99;
-  font-family: Georgia, serif;
-  font-size: 28px;
-}
-
-.decoracion-final {
-  margin-top: 14px;
-  text-align: center;
-  color: #7eb4b1;
-  font-size: 38px;
-}
-
-/* =========================
-   CELULAR
-========================= */
-
-@media (max-width: 850px) {
-
-  .app {
-    display: block;
-    padding: 12px;
+  if (!validarDatos()) {
+    return;
   }
 
-  .formulario {
-    position: static;
-    margin-bottom: 20px;
+  actualizarRecibo();
+
+  btnDescargar.disabled = true;
+  btnDescargar.textContent = "Generando recibo...";
+
+  try {
+
+    await esperarImagenes();
+
+
+    // Guardar estilos actuales
+    const transformAnterior = recibo.style.transform;
+    const marginAnterior = recibo.style.margin;
+    const positionAnterior = recibo.style.position;
+
+
+    // Quitar escala del celular
+    recibo.style.transform = "none";
+    recibo.style.margin = "0";
+    recibo.style.position = "relative";
+
+
+    // Esperar un instante para que el navegador
+    // termine de redibujar el recibo
+    await new Promise(resolve =>
+      setTimeout(resolve, 200)
+    );
+
+
+    const canvas = await html2canvas(recibo, {
+
+      scale: 1,
+
+      width: 1080,
+
+      height: recibo.scrollHeight,
+
+      backgroundColor: "#fffaf6",
+
+      useCORS: true,
+
+      allowTaint: true,
+
+      logging: false,
+
+      scrollX: 0,
+
+      scrollY: 0,
+
+      windowWidth: 1400
+
+    });
+
+
+    // Restaurar estilos
+    recibo.style.transform = transformAnterior;
+    recibo.style.margin = marginAnterior;
+    recibo.style.position = positionAnterior;
+
+
+    const enlace = document.createElement("a");
+
+
+    const nombreArchivo =
+      nombre.value
+        .trim()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-zA-Z0-9]/g, "_");
+
+
+    enlace.download =
+      `Recibo_${nombreArchivo}.png`;
+
+
+    enlace.href =
+      canvas.toDataURL("image/png", 1);
+
+
+    document.body.appendChild(enlace);
+
+    enlace.click();
+
+    document.body.removeChild(enlace);
+
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert(
+      "No se pudo generar el recibo. Intenta nuevamente."
+    );
+
+  } finally {
+
+    btnDescargar.disabled = false;
+
+    btnDescargar.textContent =
+      "Descargar recibo";
+
   }
 
-  .escala-recibo {
-    overflow: hidden;
-  }
+});
 
-  #recibo {
-    transform-origin: top left;
-    transform: scale(.33);
-    margin-bottom: -1060px;
-  }
 
-  .vista {
-    overflow: hidden;
-  }
-}
+// ===============================
+// INICIAR
+// ===============================
+
+actualizarRecibo();
