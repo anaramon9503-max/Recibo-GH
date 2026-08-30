@@ -1,0 +1,1536 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #f2efec;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #383332;
+}
+
+.app {
+  width: 100%;
+  max-width: 1400px;
+  margin: auto;
+  padding: 25px;
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 30px;
+}
+
+/* =========================
+   FORMULARIO
+========================= */
+
+.formulario {
+  background: #ffffff;
+  border-radius: 22px;
+  padding: 24px;
+  height: fit-content;
+  box-shadow: 0 10px 30px rgba(0,0,0,.07);
+  position: sticky;
+  top: 20px;
+}
+
+.formulario h1 {
+  margin: 0;
+  color: #559d99;
+  font-size: 27px;
+}
+
+.form-subtitulo {
+  color: #777;
+  margin-top: 6px;
+  margin-bottom: 22px;
+}
+
+.formulario label {
+  display: block;
+  margin-top: 15px;
+  margin-bottom: 6px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.formulario input,
+.formulario select {
+  width: 100%;
+  padding: 13px 14px;
+  border: 1px solid #ddd5d0;
+  border-radius: 12px;
+  font-size: 15px;
+  background: white;
+}
+
+.formulario input:focus,
+.formulario select:focus {
+  outline: none;
+  border-color: #6aa7a3;
+}
+
+/* =========================
+   SELECTOR
+========================= */
+
+.titulo-selector {
+  margin-top: 20px !important;
+  margin-bottom: 10px !important;
+  font-size: 15px !important;
+}
+
+.selector-documento {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.opcion-documento {
+  min-height: 105px;
+  border-radius: 14px;
+  border: 1.5px solid #d9d2ce;
+  background: #fff;
+  color: #555;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.opcion-documento:first-child {
+  color: #d96f79;
+}
+
+.opcion-documento:last-child {
+  color: #579c98;
+}
+
+.opcion-documento.activa:first-child {
+  border: 2px solid #e47c87;
+  background: linear-gradient(180deg,#fffafa,#fff1f2);
+}
+
+.opcion-documento.activa:last-child {
+  border: 2px solid #579d99;
+  background: linear-gradient(180deg,#fbffff,#eef8f7);
+}
+
+.selector-icono {
+  width: 43px;
+  height: 43px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 23px;
+}
+
+.check-selector {
+  font-size: 26px;
+}
+
+.ayuda-selector {
+  margin: 8px 0 18px;
+  font-size: 12px;
+  color: #888;
+}
+
+/* =========================
+   BOTONES
+========================= */
+
+button {
+  font-family: inherit;
+}
+
+#btnGenerar,
+#btnDescargar {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#btnGenerar {
+  margin-top: 24px;
+  color: white;
+  background: linear-gradient(135deg,#68aaa7,#4f9692);
+}
+
+#btnDescargar {
+  margin-top: 18px;
+  color: white;
+  background: linear-gradient(135deg,#e6939b,#d76f7a);
+}
+
+#btnDescargar:disabled {
+  opacity: .65;
+}
+
+/* =========================
+   VISTA
+========================= */
+
+.vista {
+  text-align: center;
+}
+
+.vista > h3 {
+  margin-top: 0;
+  color: #777;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+
+.escala-recibo {
+  width: 100%;
+  overflow: auto;
+}
+
+.documento {
+  position: relative;
+  width: 1080px;
+  margin: auto;
+}
+
+.oculto {
+  display: none !important;
+}
+
+/* =====================================================
+   CONFIRMACIÓN
+===================================================== */
+
+#confirmacion {
+  min-height: 1600px;
+  padding: 35px 80px 35px;
+  text-align: left;
+
+  background:
+    radial-gradient(circle at 0% 20%,rgba(238,160,168,.12),transparent 27%),
+    radial-gradient(circle at 100% 22%,rgba(95,164,160,.11),transparent 28%),
+    radial-gradient(circle at 0% 90%,rgba(238,160,168,.10),transparent 24%),
+    radial-gradient(circle at 100% 87%,rgba(95,164,160,.10),transparent 25%),
+    #fffaf6;
+
+  border: 4px solid #cdbdb2;
+  border-radius: 62px;
+  overflow: hidden;
+  box-shadow: 0 15px 45px rgba(0,0,0,.08);
+}
+
+.rama-conf {
+  position: absolute;
+  top: 55px;
+  font-family: Georgia, serif;
+  font-size: 170px;
+  opacity: .48;
+}
+
+.rama-conf-rosa {
+  left: -20px;
+  color: #e99ba4;
+  transform: rotate(-20deg);
+}
+
+.rama-conf-verde {
+  right: -25px;
+  color: #67a9a5;
+  transform: scaleX(-1) rotate(-20deg);
+}
+
+.logo-confirmacion {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+.logo-confirmacion img {
+  width: 310px;
+  height: 310px;
+  object-fit: contain;
+}
+
+.bienvenida {
+  margin: 5px 0 0;
+  text-align: center;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 68px;
+  font-weight: 500;
+  letter-spacing: 4px;
+  color: #423a37;
+}
+
+.linea-bienvenida {
+  width: 250px;
+  height: 2px;
+  margin: 7px auto 0;
+  background: #e3b6b3;
+}
+
+.corazon-conf {
+  text-align: center;
+  color: #ed9ba4;
+  font-size: 34px;
+  height: 38px;
+}
+
+.saludo-confirmacion {
+  margin: 4px 0 25px;
+  text-align: center;
+  font-size: 27px;
+  line-height: 1.35;
+}
+
+.nombre-confirmacion {
+  min-height: 105px;
+  padding: 15px 30px;
+  border: 2px solid #e7a3a9;
+  border-radius: 26px;
+  display: grid;
+  grid-template-columns: 75px 385px 1fr;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255,255,255,.55);
+}
+
+.nombre-confirmacion strong {
+  color: #dc737d;
+  font-size: 26px;
+}
+
+.nombre-confirmacion span {
+  color: #519a97;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.icono-persona-conf {
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  background: #f3cdcf;
+  position: relative;
+}
+
+.icono-persona-conf::before {
+  content: "";
+  position: absolute;
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  background: #d9727b;
+  left: 21px;
+  top: 11px;
+}
+
+.icono-persona-conf::after {
+  content: "";
+  position: absolute;
+  width: 34px;
+  height: 20px;
+  border-radius: 18px 18px 5px 5px;
+  background: #d9727b;
+  left: 14px;
+  bottom: 10px;
+}
+
+.caja-confirmacion {
+  position: relative;
+  margin-top: 38px;
+  border-radius: 27px;
+  background: rgba(255,255,255,.50);
+}
+
+.sesion-confirmacion {
+  border: 2px solid #e39da4;
+  padding: 50px 32px 0;
+}
+
+.banco-confirmacion {
+  border: 2px solid #68aaa6;
+  padding: 48px 35px 25px;
+  background: rgba(247,252,250,.78);
+}
+
+.titulo-confirmacion {
+  position: absolute;
+  top: -27px;
+  left: 230px;
+  min-height: 62px;
+  padding: 13px 32px 13px 77px;
+  border-radius: 10px 16px 16px 10px;
+  background: linear-gradient(90deg,#69aaa7,#4c9692);
+  color: white;
+  display: flex;
+  align-items: center;
+  font-size: 27px;
+  font-weight: bold;
+}
+
+.titulo-verde {
+  left: 80px;
+}
+
+.icono-titulo-conf {
+  position: absolute;
+  left: -31px;
+  top: -10px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 4px solid rgba(255,255,255,.85);
+  background: inherit;
+}
+
+.calendario-conf::before {
+  content: "";
+  position: absolute;
+  width: 36px;
+  height: 32px;
+  border: 4px solid white;
+  border-radius: 5px;
+  left: 20px;
+  top: 23px;
+}
+
+.calendario-conf::after {
+  content: "";
+  position: absolute;
+  width: 28px;
+  height: 4px;
+  background: white;
+  left: 24px;
+  top: 33px;
+}
+
+.datos-confirmacion {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  min-height: 220px;
+}
+
+.dato-confirmacion {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  position: relative;
+}
+
+.dato-confirmacion:not(:last-child) {
+  border-right: 1px solid #e1cdca;
+}
+
+.dato-confirmacion strong {
+  font-size: 25px;
+  font-weight: 500;
+}
+
+.dato-confirmacion span {
+  width: 90%;
+  text-align: center;
+  color: #519a97;
+  font-size: 23px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.icono-conf {
+  width: 65px;
+  height: 65px;
+  position: relative;
+  margin-bottom: 4px;
+}
+
+.icono-calendario-conf::before {
+  content: "";
+  position: absolute;
+  width: 44px;
+  height: 40px;
+  border: 5px solid #df7881;
+  border-radius: 5px;
+  left: 10px;
+  top: 13px;
+}
+
+.icono-calendario-conf::after {
+  content: "";
+  position: absolute;
+  width: 34px;
+  height: 5px;
+  background: #df7881;
+  left: 15px;
+  top: 26px;
+}
+
+.reloj-conf::before {
+  content: "";
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  border: 5px solid #df7881;
+  border-radius: 50%;
+  left: 8px;
+  top: 8px;
+}
+
+.reloj-conf::after {
+  content: "";
+  position: absolute;
+  width: 4px;
+  height: 21px;
+  background: #df7881;
+  left: 31px;
+  top: 19px;
+  transform-origin: bottom;
+  transform: rotate(-28deg);
+}
+
+.monitor-conf::before {
+  content: "";
+  position: absolute;
+  width: 51px;
+  height: 36px;
+  border: 5px solid #df7881;
+  left: 5px;
+  top: 8px;
+}
+
+.monitor-conf::after {
+  content: "";
+  position: absolute;
+  width: 42px;
+  height: 5px;
+  background: #df7881;
+  left: 10px;
+  bottom: 9px;
+}
+
+.valor-confirmacion {
+  min-height: 105px;
+  border-top: 1px solid #e4ceca;
+  display: grid;
+  grid-template-columns: 90px 1fr auto;
+  align-items: center;
+  gap: 15px;
+  padding: 10px 25px;
+}
+
+.circulo-dinero {
+  width: 67px;
+  height: 67px;
+  border-radius: 50%;
+  background: #f2cfd0;
+  color: #d87079;
+  font-family: Georgia, serif;
+  font-size: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.valor-confirmacion > strong {
+  font-size: 25px;
+}
+
+.importe-confirmacion {
+  padding: 14px 25px;
+  border-radius: 14px;
+  background: linear-gradient(135deg,#ea818c,#d86573);
+  color: white;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.aviso-confirmacion {
+  min-height: 105px;
+  margin: 0 -32px;
+  padding: 18px 35px;
+  background: rgba(249,231,229,.70);
+  border-radius: 0 0 25px 25px;
+  display: grid;
+  grid-template-columns: 75px 1fr;
+  align-items: center;
+  gap: 20px;
+}
+
+.aviso-confirmacion p {
+  margin: 0;
+  font-size: 22px;
+  line-height: 1.35;
+}
+
+.aviso-confirmacion p strong {
+  display: block;
+  color: #db6975;
+  margin-top: 3px;
+}
+
+.reloj-aviso {
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  border: 5px solid #dc767e;
+  position: relative;
+}
+
+.reloj-aviso::before {
+  content: "";
+  position: absolute;
+  width: 4px;
+  height: 21px;
+  background: #dc767e;
+  left: 26px;
+  top: 12px;
+}
+
+.reloj-aviso::after {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 4px;
+  background: #dc767e;
+  left: 26px;
+  top: 31px;
+  transform: rotate(25deg);
+  transform-origin: left center;
+}
+
+.banco-conf::before {
+  content: "▲";
+  position: absolute;
+  left: 21px;
+  top: 12px;
+  font-size: 36px;
+}
+
+.banco-conf::after {
+  content: "|||";
+  position: absolute;
+  left: 20px;
+  bottom: 10px;
+  font-size: 20px;
+  letter-spacing: 5px;
+}
+
+.contenido-banco-confirmacion {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+}
+
+.datos-banco-confirmacion {
+  flex: 1;
+}
+
+.datos-banco-confirmacion p {
+  margin: 10px 0;
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  font-size: 23px;
+}
+
+.datos-banco-confirmacion strong {
+  color: #519995;
+  font-weight: 500;
+}
+
+.tarjeta-confirmacion {
+  width: 220px;
+  height: 165px;
+  position: relative;
+}
+
+.telefono-confirmacion {
+  position: absolute;
+  right: 10px;
+  top: 0;
+  width: 105px;
+  height: 150px;
+  border: 4px solid #5da19e;
+  border-radius: 17px;
+  background: #f7fbfa;
+}
+
+.telefono-confirmacion div {
+  width: 55px;
+  height: 55px;
+  margin: 30px auto;
+  border-radius: 50%;
+  background: #67a6a3;
+  color: white;
+  font-size: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tarjeta-conf {
+  position: absolute;
+  left: 10px;
+  bottom: 5px;
+  width: 135px;
+  height: 82px;
+  border: 4px solid #5da19e;
+  border-radius: 12px;
+  background: #eef7f6;
+  transform: rotate(10deg);
+}
+
+.mensaje-confirmacion {
+  min-height: 105px;
+  margin-top: 20px;
+  padding: 15px 28px;
+  border-radius: 23px;
+  display: grid;
+  grid-template-columns: 75px 1fr;
+  align-items: center;
+  gap: 20px;
+}
+
+.mensaje-confirmacion p {
+  margin: 0;
+  font-size: 22px;
+  line-height: 1.35;
+}
+
+.mensaje-whatsapp {
+  border: 2px solid #7db0ad;
+  background: rgba(247,252,251,.75);
+}
+
+.mensaje-whatsapp strong {
+  color: #539894;
+}
+
+.circulo-whatsapp {
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  background: #70aaa7;
+  color: white;
+  font-size: 33px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mensaje-ayuda {
+  border: 1px solid #e6c9c4;
+  background: rgba(255,244,241,.82);
+}
+
+.circulo-ayuda {
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  background: #f2d3d1;
+  color: #d9747c;
+  font-size: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.frase-final-confirmacion {
+  margin-top: 18px;
+  text-align: center;
+  color: #d96f79;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 29px;
+  font-style: italic;
+}
+
+.flores-confirmacion {
+  margin-top: 5px;
+  text-align: center;
+  color: #7eb4b1;
+  font-size: 38px;
+}
+
+/* =====================================================
+   RECIBO
+===================================================== */
+
+#recibo {
+  min-height: 1600px;
+  padding: 35px 80px 45px;
+  text-align: left;
+
+  background:
+    radial-gradient(circle at 0% 20%,rgba(238,160,168,.12),transparent 27%),
+    radial-gradient(circle at 100% 22%,rgba(95,164,160,.11),transparent 28%),
+    radial-gradient(circle at 0% 85%,rgba(238,160,168,.10),transparent 25%),
+    radial-gradient(circle at 100% 83%,rgba(95,164,160,.10),transparent 27%),
+    #fffaf6;
+
+  border: 4px solid #cdbdb2;
+  border-radius: 62px;
+  overflow: hidden;
+  box-shadow: 0 15px 45px rgba(0,0,0,.08);
+}
+
+#recibo .rama {
+  position: absolute;
+  top: 70px;
+  font-family: Georgia, serif;
+  font-size: 160px;
+  opacity: .5;
+}
+
+#recibo .rama.rosa {
+  left: -20px;
+  color: #e99ba4;
+  transform: rotate(-20deg);
+}
+
+#recibo .rama.verde {
+  right: -25px;
+  color: #67a9a5;
+  transform: scaleX(-1) rotate(-20deg);
+}
+
+#recibo .logo {
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+#recibo .logo img {
+  width: 310px;
+  height: 310px;
+  object-fit: contain;
+}
+
+#recibo .titulo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 5px;
+}
+
+#recibo .titulo h1 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 76px;
+  font-weight: 500;
+  letter-spacing: 18px;
+  color: #423a37;
+}
+
+#recibo .linea {
+  width: 110px;
+  height: 2px;
+  background: #dbb6b0;
+}
+
+#recibo .punto {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #e99aa1;
+}
+
+#recibo .subtitulo {
+  text-align: center;
+  font-size: 30px;
+  letter-spacing: 15px;
+  margin-top: 4px;
+}
+
+#recibo .corazon-arriba,
+#recibo .corazon-centro {
+  text-align: center;
+  color: #ed9aa3;
+}
+
+#recibo .corazon-arriba {
+  font-size: 40px;
+  height: 40px;
+}
+
+#recibo .corazon-centro {
+  font-size: 28px;
+  margin-top: 8px;
+}
+
+#recibo .banner {
+  width: 72%;
+  min-height: 105px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  background: #edf4f1;
+  border: 2px solid #b9cac5;
+  color: #589d99;
+  font-size: 43px;
+  font-weight: bold;
+  letter-spacing: 3px;
+}
+
+#recibo .check {
+  width: 76px;
+  height: 76px;
+  border: 5px solid #579f9b;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+}
+
+#recibo .confirmacion {
+  text-align: center;
+  font-size: 26px;
+  margin-top: 22px;
+}
+
+#recibo .gracias {
+  text-align: center;
+  margin-top: 7px;
+  color: #569e9a;
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-size: 36px;
+}
+
+#recibo .caja {
+  position: relative;
+  border-radius: 26px;
+  padding: 55px 35px 28px;
+  margin-top: 42px;
+}
+
+#recibo .sesion {
+  border: 2px solid #e4a0a6;
+  background: rgba(255,255,255,.72);
+}
+
+#recibo .pago,
+#recibo .banco {
+  border: 2px solid #6ba8a5;
+  background: rgba(248,252,250,.88);
+}
+
+#recibo .cabecera {
+  position: absolute;
+  left: 78px;
+  top: -28px;
+  min-height: 64px;
+  padding: 14px 30px 14px 80px;
+  display: flex;
+  align-items: center;
+  color: white;
+  font-size: 27px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  border-radius: 10px 16px 16px 10px;
+}
+
+#recibo .rosa-bg {
+  background: #df8790;
+}
+
+#recibo .verde-bg {
+  background: #569e9a;
+}
+
+#recibo .cabecera-icono {
+  position: absolute;
+  left: -31px;
+  top: -9px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 4px solid rgba(255,255,255,.9);
+  background: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 38px;
+}
+
+#recibo .dato {
+  min-height: 72px;
+  display: grid;
+  grid-template-columns: 75px 220px 1fr;
+  gap: 15px;
+  align-items: center;
+  border-bottom: 1px solid #ecdada;
+  font-size: 24px;
+}
+
+#recibo .dato:last-child {
+  border-bottom: none;
+}
+
+#recibo .icono {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #f5d8da;
+  color: #dc747d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 29px;
+}
+
+#recibo .etiqueta {
+  font-weight: bold;
+  color: #4b4441;
+}
+
+#recibo .valor {
+  color: #519a97;
+  font-size: 25px;
+  font-weight: 600;
+}
+
+#reciboNombre,
+#reciboFecha,
+#reciboHora,
+#reciboModalidad {
+  color: #519a97;
+  font-size: 25px;
+  font-weight: 600;
+}
+
+#recibo .pago-fila {
+  min-height: 72px;
+  display: grid;
+  grid-template-columns: 330px 1fr;
+  gap: 20px;
+  align-items: center;
+  border-bottom: 1px solid #d4e4e2;
+  font-size: 24px;
+}
+
+#recibo .pago-fila:last-child {
+  border-bottom: none;
+}
+
+#recibo .pago-fila strong {
+  color: #494240;
+}
+
+#recibo .pago-fila span {
+  color: #519a97;
+  font-size: 25px;
+  font-weight: 600;
+}
+
+#reciboImporte,
+#reciboMetodo {
+  color: #519a97;
+  font-size: 25px;
+  font-weight: 600;
+}
+
+#reciboEstado {
+  display: inline-block;
+  width: fit-content;
+  padding: 10px 20px;
+  border-radius: 999px;
+  background: #e3f1ef;
+  color: #4f9692 !important;
+  font-size: 22px !important;
+  font-weight: bold;
+}
+
+#recibo .banco-contenido {
+  display: grid;
+  grid-template-columns: 1fr 210px;
+  gap: 25px;
+  align-items: center;
+}
+
+#recibo .banco p,
+#recibo .banco-contenido p {
+  margin: 12px 0;
+  font-size: 24px;
+  line-height: 1.4;
+}
+
+#recibo .banco strong,
+#recibo .banco-contenido strong {
+  color: #519a97;
+}
+
+#recibo .mensaje,
+#recibo .mensaje-final,
+#recibo .final-recibo {
+  margin-top: 28px;
+  padding: 22px 28px;
+  border-radius: 24px;
+  text-align: center;
+  font-size: 24px;
+  line-height: 1.55;
+}
+
+#recibo .mensaje {
+  border: 2px solid #e5c5c2;
+  background: #fff8f5;
+}
+
+#recibo .mensaje-final,
+#recibo .final-recibo {
+  border: 2px solid #75aaa7;
+  background: #f7fcfb;
+}
+
+#recibo .mensaje-final em,
+#recibo .final-recibo em {
+  display: block;
+  margin-top: 8px;
+  color: #d66f78;
+  font-family: Georgia, serif;
+  font-size: 30px;
+}
+
+
+/* =====================================================
+   ICONOS Y DETALLES DEL RECIBO
+   (clases que sí existen en index.html)
+===================================================== */
+
+/* Icono de calendario en la cabecera */
+#recibo .calendario-icono::before {
+  content: "";
+  width: 36px;
+  height: 31px;
+  border: 4px solid #fff;
+  border-radius: 5px;
+  position: absolute;
+  left: 19px;
+  top: 23px;
+}
+
+#recibo .calendario-icono::after {
+  content: "";
+  width: 28px;
+  height: 4px;
+  background: #fff;
+  position: absolute;
+  left: 23px;
+  top: 33px;
+}
+
+/* Persona */
+#recibo .persona-icono {
+  position: relative;
+}
+
+#recibo .persona-icono::before {
+  content: "";
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #dc747d;
+  position: absolute;
+  top: 9px;
+  left: 20px;
+}
+
+#recibo .persona-icono::after {
+  content: "";
+  width: 30px;
+  height: 17px;
+  border-radius: 18px 18px 7px 7px;
+  background: #dc747d;
+  position: absolute;
+  left: 13px;
+  bottom: 9px;
+}
+
+/* Calendario pequeño */
+#recibo .calendario-pequeno {
+  position: relative;
+}
+
+#recibo .calendario-pequeno::before {
+  content: "";
+  width: 30px;
+  height: 27px;
+  border: 3px solid #dc747d;
+  border-radius: 4px;
+  position: absolute;
+  left: 13px;
+  top: 15px;
+}
+
+#recibo .calendario-pequeno::after {
+  content: "";
+  width: 24px;
+  height: 3px;
+  background: #dc747d;
+  position: absolute;
+  left: 16px;
+  top: 24px;
+}
+
+/* Reloj */
+#recibo .reloj-icono {
+  position: relative;
+}
+
+#recibo .reloj-icono::before {
+  content: "";
+  width: 31px;
+  height: 31px;
+  border: 3px solid #dc747d;
+  border-radius: 50%;
+  position: absolute;
+  left: 12px;
+  top: 12px;
+}
+
+#recibo .reloj-icono::after {
+  content: "";
+  width: 3px;
+  height: 14px;
+  background: #dc747d;
+  position: absolute;
+  left: 27px;
+  top: 18px;
+  transform-origin: bottom center;
+  transform: rotate(-28deg);
+}
+
+/* Monitor */
+#recibo .monitor-icono {
+  position: relative;
+}
+
+#recibo .monitor-icono::before {
+  content: "";
+  width: 35px;
+  height: 24px;
+  border: 3px solid #dc747d;
+  border-radius: 3px;
+  position: absolute;
+  left: 10px;
+  top: 11px;
+}
+
+#recibo .monitor-icono::after {
+  content: "";
+  width: 28px;
+  height: 3px;
+  background: #dc747d;
+  position: absolute;
+  left: 14px;
+  bottom: 10px;
+}
+
+/* Cabecera detalle de pago */
+#recibo .dinero-icono {
+  color: #fff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 46px;
+  font-weight: 600;
+}
+
+/* Filas de detalle de pago */
+#recibo .pago-fila {
+  grid-template-columns: 62px 285px 1fr;
+  gap: 18px;
+  padding: 4px 0;
+}
+
+#recibo .pago-fila > span {
+  color: #4b4441;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+#recibo .pago-fila > strong {
+  color: #519a97;
+  font-size: 25px;
+  font-weight: 700;
+}
+
+#recibo .pago-icono {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #dcefee;
+  color: #569e9a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  flex: 0 0 auto;
+}
+
+#recibo .dinero-pago-icono {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 29px;
+}
+
+#recibo .tarjeta-pago-icono {
+  font-size: 24px;
+  line-height: 1;
+}
+
+/* Estatus */
+#recibo .estatus {
+  min-height: 78px;
+  display: grid;
+  grid-template-columns: 62px 285px 1fr;
+  gap: 18px;
+  align-items: center;
+  padding: 4px 0;
+}
+
+#recibo .estatus-check {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #69aaa7;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 29px;
+  font-weight: 700;
+}
+
+#recibo .estatus > span {
+  color: #4b4441;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+/* Banco */
+#recibo .banco-icono {
+  position: absolute;
+}
+
+#recibo .banco-icono::before {
+  content: "▲";
+  color: #fff;
+  font-size: 34px;
+  position: absolute;
+  top: 9px;
+  left: 21px;
+}
+
+#recibo .banco-icono::after {
+  content: "|||";
+  color: #fff;
+  font-size: 18px;
+  letter-spacing: 4px;
+  position: absolute;
+  bottom: 10px;
+  left: 19px;
+}
+
+#recibo .banco-datos > div {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 12px;
+  align-items: center;
+  margin: 12px 0;
+  font-size: 24px;
+  line-height: 1.35;
+}
+
+#recibo .banco-datos span {
+  color: #4b4441;
+}
+
+#recibo .banco-datos strong {
+  color: #519a97;
+  font-weight: 700;
+}
+
+/* Dibujo tarjeta/teléfono */
+#recibo .tarjeta-dibujo {
+  width: 200px;
+  height: 150px;
+  position: relative;
+  margin-left: auto;
+}
+
+#recibo .telefono {
+  width: 96px;
+  height: 140px;
+  border: 4px solid #5da19e;
+  border-radius: 17px;
+  background: #f7fbfa;
+  position: absolute;
+  right: 5px;
+  top: 0;
+}
+
+#recibo .telefono-check {
+  width: 52px;
+  height: 52px;
+  margin: 28px auto 0;
+  border-radius: 50%;
+  background: #67a6a3;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 31px;
+  font-weight: 700;
+}
+
+#recibo .tarjeta {
+  width: 125px;
+  height: 78px;
+  border: 4px solid #5da19e;
+  border-radius: 11px;
+  background: #eef7f6;
+  position: absolute;
+  left: 4px;
+  bottom: 5px;
+  transform: rotate(9deg);
+}
+
+#recibo .tarjeta > div {
+  width: 32px;
+  height: 9px;
+  border-radius: 4px;
+  background: #73aaa7;
+  position: absolute;
+  right: 12px;
+  bottom: 13px;
+}
+
+/* Mensaje final */
+#recibo .mensaje {
+  min-height: 118px;
+  display: grid;
+  grid-template-columns: 86px 1fr;
+  gap: 18px;
+  align-items: center;
+  text-align: left;
+  border: 2px solid #e5c5c2;
+  background: #fff8f5;
+}
+
+#recibo .circulo-corazon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #f2d5d5;
+  color: #d9727c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 33px;
+}
+
+#recibo .mensaje-texto strong {
+  color: #4b4441;
+  font-size: 25px;
+}
+
+#recibo .mensaje-texto p {
+  margin: 4px 0 0;
+  font-size: 22px;
+  color: #4b4441;
+}
+
+#recibo .mensaje-texto em {
+  display: block;
+  margin-top: 5px;
+  color: #d66f78;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 28px;
+}
+
+#recibo .decoracion-final {
+  margin-top: 12px;
+  text-align: center;
+  color: #7eb4b1;
+  font-size: 36px;
+}
+
+/* =========================
+   EXPORTACIÓN
+========================= */
+
+.documento.exportando {
+  width: 1080px !important;
+  max-width: none !important;
+  transform: none !important;
+  transform-origin: top left !important;
+  margin: 0 !important;
+  position: relative !important;
+}
+
+/*
+  IMPORTANTE:
+  el fondo de la descarga se vuelve sólido.
+  Esto evita las franjas de html2canvas en Android.
+*/
+#confirmacion.exportando,
+#recibo.exportando {
+  background: #fffaf6 !important;
+  background-image: none !important;
+}
+
+/* =========================
+   CELULAR
+========================= */
+
+@media (max-width: 850px) {
+
+  .app {
+    display: block;
+    padding: 12px;
+  }
+
+  .formulario {
+    position: static;
+    margin-bottom: 20px;
+  }
+
+  .selector-documento {
+    gap: 8px;
+  }
+
+  .opcion-documento {
+    min-height: 95px;
+  }
+
+  .escala-recibo {
+    overflow: hidden;
+  }
+
+  #confirmacion,
+  #recibo {
+    transform-origin: top left;
+    transform: scale(.33);
+    margin-bottom: -1060px;
+  }
+
+  #confirmacion.exportando,
+  #recibo.exportando {
+    transform: none !important;
+    margin: 0 !important;
+  }
+
+  .vista {
+    overflow: hidden;
+  }
+}
