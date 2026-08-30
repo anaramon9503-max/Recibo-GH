@@ -173,23 +173,8 @@ function actualizarRecibo() {
     metodoPago.value;
 
 
-  if (estadoPago.value === "Pago recibido") {
-
-    reciboEstado.textContent =
-      "PAGO RECIBIDO";
-
-    estadoBanner.textContent =
-      "PAGO RECIBIDO";
-
-  } else {
-
-    reciboEstado.textContent =
-      "PENDIENTE DE PAGO";
-
-    estadoBanner.textContent =
-      "PENDIENTE DE PAGO";
-
-  }
+  reciboEstado.textContent = "PAGO RECIBIDO";
+  estadoBanner.textContent = "PAGO RECIBIDO";
 
 
   if (metodoPago.value === "Transferencia bancaria") {
