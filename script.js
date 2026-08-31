@@ -4,7 +4,6 @@ const hora = document.getElementById("hora");
 const modalidad = document.getElementById("modalidad");
 const importe = document.getElementById("importe");
 const metodoPago = document.getElementById("metodoPago");
-const estadoPago = document.getElementById("estadoPago");
 
 const btnConfirmacion = document.getElementById("btnConfirmacion");
 const btnRecibo = document.getElementById("btnRecibo");
@@ -15,7 +14,6 @@ const confirmacion = document.getElementById("confirmacion");
 const recibo = document.getElementById("recibo");
 
 const tituloVista = document.getElementById("tituloVista");
-const grupoEstadoPago = document.getElementById("grupoEstadoPago");
 
 const confNombre = document.getElementById("confNombre");
 const confFecha = document.getElementById("confFecha");
@@ -173,23 +171,11 @@ function actualizarRecibo() {
     metodoPago.value;
 
 
-  if (estadoPago.value === "Pago recibido") {
+  reciboEstado.textContent =
+    "PAGO RECIBIDO";
 
-    reciboEstado.textContent =
-      "PAGO RECIBIDO";
-
-    estadoBanner.textContent =
-      "PAGO RECIBIDO";
-
-  } else {
-
-    reciboEstado.textContent =
-      "PENDIENTE DE PAGO";
-
-    estadoBanner.textContent =
-      "PENDIENTE DE PAGO";
-
-  }
+  estadoBanner.textContent =
+    "PAGO RECIBIDO";
 
 
   if (metodoPago.value === "Transferencia bancaria") {
@@ -234,9 +220,6 @@ function mostrarConfirmacion() {
   tituloVista.textContent =
     "Vista previa - Confirmación de cita";
 
-  grupoEstadoPago.style.display =
-    "none";
-
   btnDescargar.textContent =
     "Descargar confirmación";
 
@@ -261,9 +244,6 @@ function mostrarRecibo() {
 
   tituloVista.textContent =
     "Vista previa - Recibo de pago";
-
-  grupoEstadoPago.style.display =
-    "block";
 
   btnDescargar.textContent =
     "Descargar recibo";
@@ -298,8 +278,7 @@ btnRecibo.addEventListener(
   hora,
   modalidad,
   importe,
-  metodoPago,
-  estadoPago
+  metodoPago
 ].forEach(campo => {
 
   campo.addEventListener(
@@ -475,12 +454,6 @@ btnDescargar.addEventListener(
       );
 
 
-      /*
-        EXACTAMENTE COMO EL PRIMER JS
-        QUE SÍ DESCARGABA:
-        guardamos los estilos actuales.
-      */
-
       const transformAnterior =
         documentoActual.style.transform;
 
@@ -490,15 +463,6 @@ btnDescargar.addEventListener(
       const positionAnterior =
         documentoActual.style.position;
 
-
-      /*
-        Quitamos solamente la escala
-        del celular.
-
-        NO usamos exportando.
-        NO hacemos clones.
-        NO usamos foreignObjectRendering.
-      */
 
       documentoActual.style.transform =
         "none";
@@ -510,21 +474,10 @@ btnDescargar.addEventListener(
         "relative";
 
 
-      /*
-        Igual que en tu primer código:
-        esperamos 200 ms para que Android
-        redibuje el documento.
-      */
-
       await new Promise(resolve =>
         setTimeout(resolve, 200)
       );
 
-
-      /*
-        MISMA CONFIGURACIÓN DEL
-        PRIMER SCRIPT QUE SÍ DESCARGABA.
-      */
 
       const canvas =
         await html2canvas(
@@ -556,10 +509,6 @@ btnDescargar.addEventListener(
           }
         );
 
-
-      /*
-        Restauramos la vista del celular.
-      */
 
       documentoActual.style.transform =
         transformAnterior;
@@ -603,11 +552,6 @@ btnDescargar.addEventListener(
 
       }
 
-
-      /*
-        También conservamos toDataURL,
-        igual que el primer script.
-      */
 
       enlace.href =
         canvas.toDataURL(
