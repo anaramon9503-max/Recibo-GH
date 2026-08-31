@@ -125,6 +125,11 @@ select:focus{
   border-color:var(--turquesa);
 }
 
+input[readonly]{
+  background:#faf7f4;
+  color:#746963;
+}
+
 .botones{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -175,7 +180,7 @@ button{
   background:var(--crema);
   border:2px solid #d5c8c2;
   border-radius:26px;
-  padding:35px 40px;
+  padding:35px 40px 30px;
   position:relative;
 }
 
@@ -445,6 +450,68 @@ button{
 }
 
 /* =========================
+   FIRMA / PIE DECORATIVO
+========================= */
+
+.firma-documento{
+  margin-top:30px;
+  padding-top:20px;
+  text-align:center;
+  position:relative;
+}
+
+.firma-linea{
+  width:180px;
+  height:1px;
+  margin:0 auto 13px;
+  background:linear-gradient(
+    90deg,
+    transparent,
+    #e998a8,
+    #69aaa8,
+    transparent
+  );
+}
+
+.firma-corazon{
+  width:35px;
+  height:35px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:0 auto -18px;
+  position:relative;
+  z-index:2;
+  background:#fffaf6;
+  color:#e998a8;
+  font-size:22px;
+}
+
+.firma-nombre{
+  font-family:Georgia, serif;
+  font-size:18px;
+  font-style:italic;
+  color:#69aaa8;
+  margin-bottom:4px;
+}
+
+.firma-profesion{
+  font-size:12px;
+  font-weight:bold;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:#e998a8;
+}
+
+.firma-frase{
+  margin-top:9px;
+  font-family:Georgia, serif;
+  font-style:italic;
+  font-size:13px;
+  color:#948781;
+}
+
+/* =========================
    BOTÓN DESCARGAR
 ========================= */
 
@@ -453,27 +520,19 @@ button{
   display:block;
   margin:22px auto 0;
   min-height:58px;
-
   border:none;
   border-radius:18px;
-
   background:linear-gradient(
     90deg,
     #e996a5,
     #68aaa8
   );
-
   color:white;
-
   font-size:17px;
   font-weight:700;
   letter-spacing:.5px;
-
-  box-shadow:
-    0 10px 24px rgba(104,170,168,.22);
-
+  box-shadow:0 10px 24px rgba(104,170,168,.22);
   cursor:pointer;
-
   transition:
     transform .2s ease,
     box-shadow .2s ease,
@@ -482,9 +541,7 @@ button{
 
 .btn-descargar:hover{
   transform:translateY(-2px);
-
-  box-shadow:
-    0 14px 28px rgba(104,170,168,.28);
+  box-shadow:0 14px 28px rgba(104,170,168,.28);
 }
 
 .btn-descargar:active{
@@ -537,15 +594,11 @@ button{
     <img src="logo.jpg" alt="Logo">
 
     <div>
-
-      <h1>
-        Generador de sesiones
-      </h1>
+      <h1>Generador de sesiones</h1>
 
       <p>
         Nancy Gabriela Hernández V. · Psicóloga
       </p>
-
     </div>
 
   </header>
@@ -553,18 +606,13 @@ button{
 
   <section class="panel">
 
-    <h2>
-      Datos de la sesión
-    </h2>
-
+    <h2>Datos de la sesión</h2>
 
     <div class="grid">
 
       <div class="campo full">
 
-        <label>
-          Nombre del paciente
-        </label>
+        <label>Nombre del paciente</label>
 
         <input
           id="nombre"
@@ -577,9 +625,7 @@ button{
 
       <div class="campo">
 
-        <label>
-          Fecha
-        </label>
+        <label>Fecha</label>
 
         <input
           id="fecha"
@@ -591,9 +637,7 @@ button{
 
       <div class="campo">
 
-        <label>
-          Hora
-        </label>
+        <label>Hora</label>
 
         <input
           id="hora"
@@ -605,9 +649,7 @@ button{
 
       <div class="campo">
 
-        <label>
-          Modalidad
-        </label>
+        <label>Modalidad</label>
 
         <select id="modalidad">
 
@@ -626,9 +668,7 @@ button{
 
       <div class="campo">
 
-        <label>
-          Valor de la sesión
-        </label>
+        <label>Valor de la sesión</label>
 
         <input
           id="importe"
@@ -641,60 +681,13 @@ button{
 
       <div class="campo">
 
-        <label>
-          Método de pago
-        </label>
-
-        <select id="metodo">
-
-          <option value="Transferencia bancaria">
-            Transferencia bancaria
-          </option>
-
-          <option value="Efectivo">
-            Efectivo
-          </option>
-
-          <option value="Depósito">
-            Depósito
-          </option>
-
-        </select>
-
-      </div>
-
-
-      <div class="campo">
-
-        <label>
-          Estado del pago
-        </label>
-
-        <select id="estado">
-
-          <option value="Pago recibido">
-            Pago recibido
-          </option>
-
-          <option value="Pendiente">
-            Pendiente
-          </option>
-
-        </select>
-
-      </div>
-
-
-      <div class="campo">
-
-        <label>
-          Titular transferencia
-        </label>
+        <label>Método de pago</label>
 
         <input
-          id="titular"
+          id="metodo"
           type="text"
-          value="Nancy Gabriela Hernández Villa"
+          value="Transferencia bancaria"
+          readonly
         >
 
       </div>
@@ -702,14 +695,41 @@ button{
 
       <div class="campo">
 
-        <label>
-          Banco
-        </label>
+        <label>Estado del pago</label>
+
+        <input
+          id="estado"
+          type="text"
+          value="Pago recibido"
+          readonly
+        >
+
+      </div>
+
+
+      <div class="campo">
+
+        <label>Titular transferencia</label>
+
+        <input
+          id="titular"
+          type="text"
+          value="Nancy Gabriela Hernández Villa"
+          readonly
+        >
+
+      </div>
+
+
+      <div class="campo">
+
+        <label>Banco</label>
 
         <input
           id="banco"
           type="text"
           value="Hey Banco"
+          readonly
         >
 
       </div>
@@ -717,15 +737,14 @@ button{
 
       <div class="campo full">
 
-        <label>
-          CLABE
-        </label>
+        <label>CLABE</label>
 
         <input
           id="clabe"
           type="text"
           inputmode="numeric"
           value="167180000014587725"
+          readonly
         >
 
       </div>
@@ -894,35 +913,23 @@ button{
         <div class="transferencia-body">
 
           <div>
-
-            <strong>
-              Titular:
-            </strong>
-
+            <strong>Titular:</strong>
             <span id="confTitular"></span>
-
           </div>
 
 
           <div>
-
-            <strong>
-              Institución:
-            </strong>
-
+            <strong>Institución:</strong>
             <span id="confBanco"></span>
-
           </div>
 
 
           <div>
-
             <strong>
               Clave interbancaria (CLABE):
             </strong>
 
             <span id="confClabe"></span>
-
           </div>
 
         </div>
@@ -961,6 +968,29 @@ button{
         <p>
           Nos vemos pronto, con mucho gusto. ♥
         </p>
+
+      </div>
+
+
+      <div class="firma-documento">
+
+        <div class="firma-corazon">
+          ♡
+        </div>
+
+        <div class="firma-linea"></div>
+
+        <div class="firma-nombre">
+          Nancy Gabriela Hernández V.
+        </div>
+
+        <div class="firma-profesion">
+          Psicóloga
+        </div>
+
+        <div class="firma-frase">
+          Un espacio para escucharte, acompañarte y crecer.
+        </div>
 
       </div>
 
@@ -1035,9 +1065,7 @@ button{
 
           <div class="rec-fila">
 
-            <span>
-              Paciente:
-            </span>
+            <span>Paciente:</span>
 
             <strong id="recNombre"></strong>
 
@@ -1057,9 +1085,7 @@ button{
 
           <div class="rec-fila">
 
-            <span>
-              Hora:
-            </span>
+            <span>Hora:</span>
 
             <strong id="recHora"></strong>
 
@@ -1068,9 +1094,7 @@ button{
 
           <div class="rec-fila">
 
-            <span>
-              Modalidad:
-            </span>
+            <span>Modalidad:</span>
 
             <strong id="recModalidad"></strong>
 
@@ -1136,50 +1160,35 @@ button{
 
         <div class="bloque-body">
 
-          <div class="campo">
+          <div class="rec-fila">
 
-  <label>
-    Titular transferencia
-  </label>
+            <span>Titular:</span>
 
-  <input
-    id="titular"
-    type="text"
-    value="Nancy Gabriela Hernández Villa"
-  >
+            <strong id="recTitular"></strong>
 
-</div>
+          </div>
 
 
-<div class="campo">
+          <div class="rec-fila">
 
-  <label>
-    Banco
-  </label>
+            <span>Banco:</span>
 
-  <input
-    id="banco"
-    type="text"
-    value="Hey Banco"
-  >
+            <strong id="recBanco"></strong>
 
-</div>
+          </div>
 
 
-<div class="campo full">
+          <div class="rec-fila">
 
-  <label>
-    CLABE
-  </label>
+            <span>CLABE:</span>
 
-  <input
-    id="clabe"
-    type="text"
-    inputmode="numeric"
-    value="167180000014587725"
-  >
+            <strong id="recClabe"></strong>
 
-</div>
+          </div>
+
+        </div>
+
+      </div>
 
 
       <div class="confirmada">
@@ -1193,6 +1202,29 @@ button{
           <br>
           ¡Nos vemos pronto!
         </span>
+
+      </div>
+
+
+      <div class="firma-documento">
+
+        <div class="firma-corazon">
+          ♡
+        </div>
+
+        <div class="firma-linea"></div>
+
+        <div class="firma-nombre">
+          Nancy Gabriela Hernández V.
+        </div>
+
+        <div class="firma-profesion">
+          Psicóloga
+        </div>
+
+        <div class="firma-frase">
+          Un espacio para escucharte, acompañarte y crecer.
+        </div>
 
       </div>
 
@@ -1492,25 +1524,12 @@ function actualizar(){
     clabeTexto;
 
 
-  if(estadoTexto === "Pago recibido"){
-
-    document.getElementById("recPagoPrincipal").textContent =
-      "✓ PAGO RECIBIDO";
+  document.getElementById("recPagoPrincipal").textContent =
+    "✓ PAGO RECIBIDO";
 
 
-    document.getElementById("mensajeRecibo").textContent =
-      "Tu sesión está confirmada";
-
-  }else{
-
-    document.getElementById("recPagoPrincipal").textContent =
-      "PAGO PENDIENTE";
-
-
-    document.getElementById("mensajeRecibo").textContent =
-      "Tu sesión está registrada";
-
-  }
+  document.getElementById("mensajeRecibo").textContent =
+    "Tu sesión está confirmada";
 
 }
 
@@ -1524,7 +1543,6 @@ btnConfirmacion.addEventListener(
   function(){
 
     actualizar();
-
 
     documentoActivo =
       "confirmacion";
@@ -1552,7 +1570,6 @@ btnRecibo.addEventListener(
   function(){
 
     actualizar();
-
 
     documentoActivo =
       "recibo";
