@@ -1,889 +1,1337 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+<title>Generador de sesión | Gabriela Hernández</title>
 
-  <title>Generador de Sesiones | Nancy Gabriela Hernández V.</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
-  <link rel="stylesheet" href="style.css">
+<style>
+:root{
+  --rosa:#e998a8;
+  --rosa-claro:#f9e4e8;
+  --turquesa:#69aaa8;
+  --turquesa-claro:#e1f1ef;
+  --crema:#fffaf6;
+  --texto:#554d49;
+  --borde:#eadbd5;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Arial, Helvetica, sans-serif;
+  background:#f6efeb;
+  color:var(--texto);
+}
+
+.app{
+  width:min(950px,94%);
+  margin:25px auto 60px;
+}
+
+/* =========================
+   CABECERA
+========================= */
+
+.header{
+  background:white;
+  border-radius:22px;
+  padding:20px;
+  display:flex;
+  align-items:center;
+  gap:16px;
+  margin-bottom:20px;
+  box-shadow:0 8px 25px rgba(0,0,0,.06);
+}
+
+.header img{
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  object-fit:cover;
+}
+
+.header h1{
+  margin:0;
+  font-family:Georgia,serif;
+  font-weight:500;
+  font-size:27px;
+}
+
+.header p{
+  margin:6px 0 0;
+  color:#817773;
+}
+
+/* =========================
+   FORMULARIO
+========================= */
+
+.panel{
+  background:white;
+  padding:22px;
+  border-radius:22px;
+  box-shadow:0 8px 25px rgba(0,0,0,.06);
+  margin-bottom:25px;
+}
+
+.panel h2{
+  margin-top:0;
+  font-family:Georgia,serif;
+  font-weight:500;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+}
+
+.campo{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+.campo.full{
+  grid-column:1/-1;
+}
+
+label{
+  font-size:13px;
+  font-weight:bold;
+}
+
+input,
+select{
+  width:100%;
+  min-height:48px;
+  border:1px solid #dfd3ce;
+  border-radius:12px;
+  padding:0 13px;
+  font-size:15px;
+  background:#fffdfb;
+}
+
+input:focus,
+select:focus{
+  outline:none;
+  border-color:var(--turquesa);
+}
+
+.botones{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-top:22px;
+}
+
+button{
+  min-height:52px;
+  border:none;
+  border-radius:13px;
+  font-size:15px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.btn-confirmacion{
+  background:var(--rosa);
+  color:white;
+}
+
+.btn-recibo{
+  background:var(--turquesa);
+  color:white;
+}
+
+/* =========================
+   PREVIEW
+========================= */
+
+.preview-wrap{
+  background:white;
+  padding:18px;
+  border-radius:22px;
+  box-shadow:0 8px 25px rgba(0,0,0,.06);
+}
+
+.preview-titulo{
+  margin:0 0 15px;
+  font-family:Georgia,serif;
+  font-weight:500;
+}
+
+.documento{
+  width:700px;
+  max-width:100%;
+  margin:auto;
+  background:var(--crema);
+  border:2px solid #d5c8c2;
+  border-radius:26px;
+  padding:35px 40px;
+  position:relative;
+}
+
+.oculto{
+  display:none !important;
+}
+
+/* =========================
+   LOGO DOCUMENTO
+========================= */
+
+.logo-doc{
+  text-align:center;
+  margin-bottom:15px;
+}
+
+.logo-doc img{
+  width:145px;
+  height:145px;
+  object-fit:cover;
+  border-radius:50%;
+}
+
+/* =========================
+   CONFIRMACIÓN
+========================= */
+
+.titulo-doc{
+  text-align:center;
+  font-family:Georgia,serif;
+  letter-spacing:3px;
+  font-size:28px;
+  font-weight:500;
+  margin:10px 0;
+}
+
+.separador{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  color:var(--rosa);
+}
+
+.separador::before,
+.separador::after{
+  content:"";
+  width:130px;
+  height:1px;
+  background:#d7c4bd;
+}
+
+.saludo{
+  text-align:center;
+  color:var(--turquesa);
+  font-family:Georgia,serif;
+  font-style:italic;
+  font-size:22px;
+  margin:17px 0 5px;
+}
+
+.intro{
+  text-align:center;
+  margin-bottom:22px;
+}
+
+.datos{
+  border:2px solid #f0c3cb;
+  border-radius:20px;
+  padding:8px 20px;
+}
+
+.fila{
+  display:grid;
+  grid-template-columns:170px 1fr;
+  gap:12px;
+  min-height:52px;
+  align-items:center;
+  border-bottom:1px solid #eaded9;
+}
+
+.fila:last-child{
+  border-bottom:none;
+}
+
+.etiqueta{
+  font-weight:bold;
+}
+
+.valor{
+  color:#d56f83;
+  font-weight:bold;
+  word-break:break-word;
+}
+
+.precio{
+  display:inline-block;
+  background:var(--rosa);
+  color:white;
+  border-radius:10px;
+  padding:10px 16px;
+  font-size:18px;
+}
+
+.transferencia{
+  border:2px solid #a9d4d1;
+  border-radius:19px;
+  overflow:hidden;
+  margin-top:18px;
+}
+
+.transferencia-titulo{
+  background:var(--turquesa);
+  color:white;
+  font-weight:bold;
+  padding:11px 18px;
+}
+
+.transferencia-body{
+  padding:17px 20px;
+  line-height:1.7;
+}
+
+.transferencia-body strong{
+  color:var(--texto);
+}
+
+.transferencia-body span{
+  color:var(--turquesa);
+}
+
+.aviso{
+  margin-top:15px;
+  border:1px solid var(--borde);
+  border-radius:13px;
+  padding:13px 15px;
+  font-size:14px;
+  line-height:1.5;
+}
+
+.final{
+  text-align:center;
+  margin-top:20px;
+}
+
+.final strong{
+  color:var(--turquesa);
+  font-family:Georgia,serif;
+  font-size:19px;
+}
+
+/* =========================
+   RECIBO
+========================= */
+
+.recibo-titulo{
+  text-align:center;
+  font-family:Georgia,serif;
+  letter-spacing:7px;
+  font-size:34px;
+  margin:5px 0;
+}
+
+.recibo-subtitulo{
+  text-align:center;
+  letter-spacing:5px;
+  font-size:14px;
+}
+
+.pagado{
+  width:72%;
+  margin:22px auto;
+  padding:16px;
+  border:2px solid #aad0ce;
+  border-radius:13px;
+  text-align:center;
+  color:var(--turquesa);
+  font-size:22px;
+  font-weight:bold;
+}
+
+.bloque{
+  border:2px solid #efbec6;
+  border-radius:18px;
+  margin-top:25px;
+  overflow:hidden;
+}
+
+.bloque.turquesa{
+  border-color:#9acbc8;
+}
+
+.bloque-titulo{
+  background:var(--rosa);
+  color:white;
+  padding:11px 17px;
+  font-weight:bold;
+}
+
+.bloque.turquesa .bloque-titulo{
+  background:var(--turquesa);
+}
+
+.bloque-body{
+  padding:10px 19px;
+}
+
+.rec-fila{
+  display:grid;
+  grid-template-columns:180px 1fr;
+  gap:10px;
+  min-height:48px;
+  align-items:center;
+  border-bottom:1px solid #eaded9;
+}
+
+.rec-fila:last-child{
+  border-bottom:none;
+}
+
+.rec-fila strong{
+  color:#d56f83;
+}
+
+.bloque.turquesa .rec-fila strong{
+  color:var(--turquesa);
+}
+
+.confirmada{
+  margin:25px auto 0;
+  width:80%;
+  background:#fff4f5;
+  border:1px solid #efd4d8;
+  border-radius:15px;
+  padding:16px;
+  text-align:center;
+}
+
+.confirmada strong{
+  display:block;
+  color:#d46f82;
+  font-family:Georgia,serif;
+  font-size:19px;
+  margin-bottom:5px;
+}
+
+/* =========================
+   DESCARGAR
+========================= */
+
+.btn-descargar{
+  width:min(700px,100%);
+  display:block;
+  margin:16px auto 0;
+  background:#4f9996;
+  color:white;
+}
+
+.btn-descargar:disabled{
+  opacity:.6;
+}
+
+/* =========================
+   MÓVIL
+========================= */
+
+@media(max-width:650px){
+
+  .header{
+    flex-direction:column;
+    text-align:center;
+  }
+
+  .grid,
+  .botones{
+    grid-template-columns:1fr;
+  }
+
+  .campo.full{
+    grid-column:auto;
+  }
+
+  .preview-wrap{
+    overflow-x:auto;
+  }
+
+  .documento{
+    width:700px;
+    max-width:none;
+  }
+}
+</style>
 </head>
 
-<body>a
+<body>
 
-  <main class="app">
+<div class="app">
 
-    <!-- =====================================================
-         ENCABEZADO
-    ====================================================== -->
+  <header class="header">
+    <img src="logo.jpg" alt="Logo">
+    <div>
+      <h1>Generador de sesiones</h1>
+      <p>Gabriela Hernández · Psicología</p>
+    </div>
+  </header>
 
-    <header class="encabezado">
+  <section class="panel">
 
-      <img
-        src="logo.jpg"
-        alt="Nancy Gabriela Hernández V. Psicóloga"
-        class="logo-principal"
-      >
+    <h2>Datos</h2>
 
-      <div>
-        <p class="mini-titulo">Nancy Gabriela Hernández V.</p>
+    <div class="grid">
 
-        <h1>
-          Generador de documentos
-        </h1>
-
-        <p class="subtitulo">
-          Confirmaciones de sesión y recibos de pago
-        </p>
+      <div class="campo full">
+        <label>Nombre del paciente</label>
+        <input
+          id="nombre"
+          type="text"
+          placeholder="Nombre del paciente"
+        >
       </div>
 
-    </header>
-
-
-    <!-- =====================================================
-         FORMULARIO
-    ====================================================== -->
-
-    <section class="panel-formulario">
-
-      <div class="titulo-seccion">
-        <span>♡</span>
-        <div>
-          <h2>Datos de la sesión</h2>
-          <p>Completa la información del paciente.</p>
-        </div>
+      <div class="campo">
+        <label>Fecha</label>
+        <input id="fecha" type="date">
       </div>
 
-
-      <div class="form-grid">
-
-        <!-- PACIENTE -->
-
-        <div class="campo campo-completo">
-          <label for="nombre">
-            Nombre del paciente
-          </label>
-
-          <input
-            type="text"
-            id="nombre"
-            placeholder="Nombre del paciente"
-            autocomplete="off"
-          >
-        </div>
-
-
-        <!-- FECHA -->
-
-        <div class="campo">
-          <label for="fecha">
-            Fecha de la sesión
-          </label>
-
-          <input
-            type="date"
-            id="fecha"
-          >
-        </div>
-
-
-        <!-- HORA -->
-
-        <div class="campo">
-          <label for="hora">
-            Hora
-          </label>
-
-          <input
-            type="time"
-            id="hora"
-          >
-        </div>
-
-
-        <!-- MODALIDAD -->
-
-        <div class="campo">
-          <label for="modalidad">
-            Modalidad
-          </label>
-
-          <select id="modalidad">
-
-            <option value="En línea">
-              En línea
-            </option>
-
-            <option value="Presencial">
-              Presencial
-            </option>
-
-          </select>
-        </div>
-
-
-        <!-- IMPORTE -->
-
-        <div class="campo">
-          <label for="importe">
-            Valor de la sesión
-          </label>
-
-          <div class="input-moneda">
-
-            <span>$</span>
-
-            <input
-              type="number"
-              id="importe"
-              placeholder="150"
-              min="0"
-              step="1"
-            >
-
-            <span>MXN</span>
-
-          </div>
-        </div>
-
-
-        <!-- MÉTODO DE PAGO -->
-
-        <div class="campo">
-          <label for="metodoPago">
-            Método de pago
-          </label>
-
-          <select id="metodoPago">
-
-            <option value="Transferencia bancaria">
-              Transferencia bancaria
-            </option>
-
-            <option value="Efectivo">
-              Efectivo
-            </option>
-
-            <option value="Depósito">
-              Depósito
-            </option>
-
-            <option value="Otro">
-              Otro
-            </option>
-
-          </select>
-        </div>
-
-
-        <!-- ESTADO DE PAGO -->
-
-        <div class="campo">
-          <label for="estadoPago">
-            Estado del pago
-          </label>
-
-          <select id="estadoPago">
-
-            <option value="Pago recibido">
-              Pago recibido
-            </option>
-
-            <option value="Pendiente">
-              Pendiente
-            </option>
-
-          </select>
-        </div>
-
+      <div class="campo">
+        <label>Hora</label>
+        <input id="hora" type="time">
       </div>
 
-
-      <!-- ===================================================
-           BOTONES DE TIPO DE DOCUMENTO
-      ==================================================== -->
-
-      <div class="selector-documento">
-
-        <p class="selector-titulo">
-          ¿Qué deseas generar?
-        </p>
-
-
-        <div class="botones-tipo">
-
-          <button
-            type="button"
-            id="btnConfirmacion"
-            class="btn-tipo activo"
-          >
-            <span>♡</span>
-            Confirmación
-          </button>
-
-
-          <button
-            type="button"
-            id="btnRecibo"
-            class="btn-tipo"
-          >
-            <span>✓</span>
-            Recibo de pago
-          </button>
-
-        </div>
-
+      <div class="campo">
+        <label>Modalidad</label>
+        <select id="modalidad">
+          <option value="En línea">En línea</option>
+          <option value="Presencial">Presencial</option>
+        </select>
       </div>
 
+      <div class="campo">
+        <label>Valor de la sesión</label>
+        <input
+          id="importe"
+          type="number"
+          placeholder="380"
+        >
+      </div>
 
-      <!-- ===================================================
-           GENERAR
-      ==================================================== -->
+      <div class="campo">
+        <label>Método de pago</label>
+        <select id="metodo">
+          <option value="Transferencia bancaria">
+            Transferencia bancaria
+          </option>
+          <option value="Efectivo">
+            Efectivo
+          </option>
+          <option value="Depósito">
+            Depósito
+          </option>
+        </select>
+      </div>
+
+      <div class="campo">
+        <label>Estado del pago</label>
+        <select id="estado">
+          <option value="Pago recibido">
+            Pago recibido
+          </option>
+          <option value="Pendiente">
+            Pendiente
+          </option>
+        </select>
+      </div>
+
+      <div class="campo">
+        <label>Titular transferencia</label>
+        <input
+          id="titular"
+          type="text"
+          placeholder="Nombre del titular"
+        >
+      </div>
+
+      <div class="campo">
+        <label>Banco</label>
+        <input
+          id="banco"
+          type="text"
+          placeholder="Banco"
+        >
+      </div>
+
+      <div class="campo full">
+        <label>CLABE</label>
+        <input
+          id="clabe"
+          type="text"
+          inputmode="numeric"
+          placeholder="CLABE"
+        >
+      </div>
+
+    </div>
+
+    <div class="botones">
 
       <button
+        id="btnConfirmacion"
+        class="btn-confirmacion"
         type="button"
-        id="btnGenerar"
-        class="btn-generar"
       >
-        Generar documento
+        Ver confirmación
       </button>
 
-    </section>
+      <button
+        id="btnRecibo"
+        class="btn-recibo"
+        type="button"
+      >
+        Ver recibo
+      </button>
+
+    </div>
+
+  </section>
 
 
-    <!-- =====================================================
-         VISTA PREVIA
-    ====================================================== -->
+  <section class="preview-wrap">
 
-    <section
-      class="contenedor-preview"
-      id="contenedorPreview"
-    >
+    <h2 class="preview-titulo" id="tituloPreview">
+      Confirmación
+    </h2>
 
-      <div class="preview-header">
 
-        <div>
-          <p class="mini-titulo">
-            Vista previa
-          </p>
+    <!-- ==========================
+         CONFIRMACIÓN
+    =========================== -->
 
-          <h2 id="tituloPreview">
-            Confirmación de sesión
-          </h2>
+    <article id="confirmacion" class="documento">
+
+      <div class="logo-doc">
+        <img src="logo.jpg" alt="Logo Gabriela Hernández">
+      </div>
+
+      <h2 class="titulo-doc">
+        CONFIRMACIÓN DE SESIÓN
+      </h2>
+
+      <div class="separador">♥</div>
+
+      <p class="saludo">
+        Me da mucho gusto saludarte.
+      </p>
+
+      <p class="intro">
+        Te escribo para confirmar los datos de tu sesión.
+      </p>
+
+      <div class="datos">
+
+        <div class="fila">
+          <div class="etiqueta">Paciente:</div>
+          <div class="valor" id="confNombre"></div>
+        </div>
+
+        <div class="fila">
+          <div class="etiqueta">Fecha:</div>
+          <div class="valor" id="confFecha"></div>
+        </div>
+
+        <div class="fila">
+          <div class="etiqueta">Hora:</div>
+          <div class="valor" id="confHora"></div>
+        </div>
+
+        <div class="fila">
+          <div class="etiqueta">Modalidad:</div>
+          <div class="valor" id="confModalidad"></div>
+        </div>
+
+        <div class="fila">
+          <div class="etiqueta">Valor de la sesión:</div>
+          <div>
+            <span class="precio" id="confImporte"></span>
+          </div>
         </div>
 
       </div>
 
 
+      <div class="transferencia">
 
-      <!-- ===================================================
-           CONFIRMACIÓN
-      ==================================================== -->
-
-      <article
-        id="confirmacion"
-        class="documento documento-confirmacion"
-      >
-
-        <!-- LOGO -->
-
-        <div class="doc-logo">
-
-          <img
-            src="logo.jpg"
-            alt="Logo Nancy Gabriela Hernández V."
-          >
-
+        <div class="transferencia-titulo">
+          DATOS PARA TRANSFERENCIA
         </div>
 
-
-        <!-- DECORACIÓN -->
-
-        <div class="ramitas-superiores">
-
-          <span class="rama rosa">
-            ❧
-          </span>
-
-          <span class="rama turquesa">
-            ❧
-          </span>
-
-        </div>
-
-
-        <!-- TÍTULO -->
-
-        <h2 class="doc-titulo">
-          CONFIRMACIÓN DE SESIÓN
-        </h2>
-
-        <div class="divisor-corazon">
-          <span></span>
-          <b>♥</b>
-          <span></span>
-        </div>
-
-
-        <p class="saludo-cursiva">
-          Me da mucho gusto saludarte.
-        </p>
-
-        <p class="texto-intro">
-          Te escribo para confirmar los datos de tu sesión.
-        </p>
-
-
-        <!-- DATOS DE SESIÓN -->
-
-        <div class="tarjeta-datos confirmacion-datos">
-
-
-          <div class="fila-dato">
-
-            <div class="icono-dato">
-              ♡
-            </div>
-
-            <div class="dato-etiqueta">
-              Paciente:
-            </div>
-
-            <div
-              class="dato-valor"
-              id="confNombre"
-            >
-              NOMBRE DEL PACIENTE
-            </div>
-
-          </div>
-
-
-          <div class="fila-dato">
-
-            <div class="icono-dato">
-              ▣
-            </div>
-
-            <div class="dato-etiqueta">
-              Fecha:
-            </div>
-
-            <div
-              class="dato-valor"
-              id="confFecha"
-            >
-              Fecha de la sesión
-            </div>
-
-          </div>
-
-
-          <div class="fila-dato">
-
-            <div class="icono-dato">
-              ◷
-            </div>
-
-            <div class="dato-etiqueta">
-              Hora:
-            </div>
-
-            <div
-              class="dato-valor"
-              id="confHora"
-            >
-              4:00 p. m.
-            </div>
-
-          </div>
-
-
-          <div class="fila-dato">
-
-            <div class="icono-dato">
-              ▱
-            </div>
-
-            <div class="dato-etiqueta">
-              Modalidad:
-            </div>
-
-            <div
-              class="dato-valor"
-              id="confModalidad"
-            >
-              Sesión en línea
-            </div>
-
-          </div>
-
-
-          <div class="fila-dato">
-
-            <div class="icono-dato">
-              $
-            </div>
-
-            <div class="dato-etiqueta">
-              Valor de la sesión:
-            </div>
-
-            <div
-              class="precio-sesion"
-              id="confImporte"
-            >
-              $150 MXN
-            </div>
-
-          </div>
-
-        </div>
-
-
-
-        <!-- DATOS BANCARIOS -->
-
-        <div class="tarjeta-transferencia">
-
-          <div class="barra-transferencia">
-            <span class="circulo-icono">
-              $
-            </span>
-
-            DATOS PARA TRANSFERENCIA
-          </div>
-
-
-          <div class="transferencia-contenido">
-
-            <div>
-
-              <p>
-                <strong>Titular:</strong>
-                Nancy Gabriela Hernández Villa
-              </p>
-
-              <p>
-                <strong>Institución:</strong>
-                Hey Banco
-              </p>
-
-              <p>
-                <strong>
-                  Clave interbancaria (CLABE):
-                </strong>
-
-                <span id="clabeConfirmacion">
-                  167180000014587725
-                </span>
-              </p>
-
-            </div>
-
-
-            <div class="icono-banco">
-              ✓
-            </div>
-
-          </div>
-
-        </div>
-
-
-
-        <!-- INDICACIONES -->
-
-        <div class="mensaje-aviso">
-
-          <div class="aviso-icono">
-            ◷
-          </div>
-
-          <p>
-            Te agradecería realizar el pago por transferencia
-            <strong>
-              al menos una hora antes de nuestra cita.
-            </strong>
-          </p>
-
-        </div>
-
-
-        <div class="mensaje-aviso whatsapp-aviso">
-
-          <div class="aviso-icono">
-            ☎
-          </div>
-
-          <p>
-            Cuando realices la transferencia, ¿podrías enviarme
-            <strong>el comprobante por este medio?</strong>
-            <br>
-            Así queda todo listo para nuestro encuentro.
-          </p>
-
-        </div>
-
-
-        <p class="mensaje-final-cursiva">
-          Si tienes cualquier duda, aquí estoy para apoyarte.
-        </p>
-
-        <p class="nos-vemos">
-          Nos vemos pronto, con mucho gusto. ♥
-        </p>
-
-
-        <div class="decoracion-final">
-          ❧ &nbsp; ♡ &nbsp; ❧
-        </div>
-
-      </article>
-
-
-
-      <!-- ===================================================
-           RECIBO
-      ==================================================== -->
-
-      <article
-        id="recibo"
-        class="documento documento-recibo oculto"
-      >
-
-        <!-- LOGO -->
-
-        <div class="doc-logo recibo-logo">
-
-          <img
-            src="logo.jpg"
-            alt="Logo Nancy Gabriela Hernández V."
-          >
-
-        </div>
-
-
-        <div class="recibo-titulo-wrap">
-
-          <div class="linea-titulo"></div>
-
-          <h2 class="recibo-titulo">
-            RECIBO
-          </h2>
-
-          <div class="linea-titulo"></div>
-
-        </div>
-
-
-        <p class="recibo-subtitulo">
-          CITA CONFIRMADA
-        </p>
-
-
-        <!-- PAGO RECIBIDO -->
-
-        <div class="pago-confirmado">
-
-          <span class="check-grande">
-            ✓
-          </span>
-
-          <span id="textoPagoPrincipal">
-            PAGO RECIBIDO
-          </span>
-
-        </div>
-
-
-        <p class="texto-recibo">
-          Confirmamos que tu sesión ha sido pagada correctamente.
-        </p>
-
-        <p class="gracias">
-          ¡Gracias por tu confianza!
-        </p>
-
-
-
-        <!-- DATOS SESIÓN -->
-
-        <section class="bloque-recibo">
-
-          <div class="titulo-bloque rosa-bg">
-
-            <span class="circulo-bloque">
-              ♡
-            </span>
-
-            DATOS DE LA SESIÓN
-
-          </div>
-
-
-          <div class="recibo-filas">
-
-            <div class="recibo-fila">
-
-              <span class="recibo-icono">
-                ♡
-              </span>
-
-              <span class="recibo-label">
-                Paciente:
-              </span>
-
-              <span
-                class="recibo-valor rosa-text"
-                id="recNombre"
-              >
-                NOMBRE DEL PACIENTE
-              </span>
-
-            </div>
-
-
-            <div class="recibo-fila">
-
-              <span class="recibo-icono">
-                ▣
-              </span>
-
-              <span class="recibo-label">
-                Fecha de la sesión:
-              </span>
-
-              <span
-                class="recibo-valor rosa-text"
-                id="recFecha"
-              >
-                Fecha
-              </span>
-
-            </div>
-
-
-            <div class="recibo-fila">
-
-              <span class="recibo-icono">
-                ◷
-              </span>
-
-              <span class="recibo-label">
-                Hora:
-              </span>
-
-              <span
-                class="recibo-valor rosa-text"
-                id="recHora"
-              >
-                4:00 p. m.
-              </span>
-
-            </div>
-
-
-            <div class="recibo-fila">
-
-              <span class="recibo-icono">
-                ▱
-              </span>
-
-              <span class="recibo-label">
-                Modalidad:
-              </span>
-
-              <span
-                class="recibo-valor rosa-text"
-                id="recModalidad"
-              >
-                En línea
-              </span>
-
-            </div>
-
-          </div>
-
-        </section>
-
-
-
-        <!-- DETALLE PAGO -->
-
-        <section class="bloque-recibo bloque-turquesa">
-
-          <div class="titulo-bloque turquesa-bg">
-
-            <span class="circulo-bloque">
-              $
-            </span>
-
-            DETALLE DE PAGO
-
-          </div>
-
-
-          <div class="detalle-pago">
-
-            <div class="detalle-fila">
-
-              <span>
-                Valor de la sesión:
-              </span>
-
-              <strong id="recImporte">
-                $150 MXN
-              </strong>
-
-            </div>
-
-
-            <div class="detalle-fila">
-
-              <span>
-                Método de pago:
-              </span>
-
-              <strong id="recMetodo">
-                Transferencia bancaria
-              </strong>
-
-            </div>
-
-
-            <div class="detalle-fila estado-recibo">
-
-              <span>
-                ✓ &nbsp; Estatus:
-              </span>
-
-              <strong id="recEstado">
-                PAGO RECIBIDO
-              </strong>
-
-            </div>
-
-          </div>
-
-        </section>
-
-
-
-        <!-- DATOS TRANSFERENCIA -->
-
-        <section class="bloque-recibo bloque-turquesa">
-
-          <div class="titulo-bloque turquesa-bg">
-
-            <span class="circulo-bloque">
-              $
-            </span>
-
-            DATOS DE TRANSFERENCIA
-
-          </div>
-
-
-          <div class="datos-transferencia-recibo">
-
-            <div>
-
-              <p>
-                <strong>Titular:</strong>
-                Nancy Gabriela Hernández Villa
-              </p>
-
-              <p>
-                <strong>Banco:</strong>
-                Hey Banco
-              </p>
-
-              <p>
-                <strong>CLABE:</strong>
-                167180000014587725
-              </p>
-
-            </div>
-
-
-            <div class="tarjeta-icono">
-              ✓
-            </div>
-
-          </div>
-
-        </section>
-
-
-
-        <!-- FINAL -->
-
-        <div class="sesion-confirmada">
-
-          <span class="corazon-final">
-            ♥
-          </span>
+        <div class="transferencia-body">
 
           <div>
+            <strong>Titular:</strong>
+            <span id="confTitular"></span>
+          </div>
 
-            <strong id="mensajeFinalRecibo">
-              Tu sesión está confirmada
-            </strong>
+          <div>
+            <strong>Banco:</strong>
+            <span id="confBanco"></span>
+          </div>
 
-            <p>
-              Te esperamos el día y hora indicados.
-            </p>
-
-            <em>
-              ¡Nos vemos pronto!
-            </em>
-
+          <div>
+            <strong>CLABE:</strong>
+            <span id="confClabe"></span>
           </div>
 
         </div>
 
+      </div>
 
-        <div class="decoracion-final">
-          ❧ &nbsp; ♡ &nbsp; ❧
+
+      <div class="aviso">
+        Te agradecería realizar el pago antes de nuestra sesión
+        y enviar el comprobante por este medio.
+      </div>
+
+      <div class="final">
+        <strong>
+          Si tienes cualquier duda, aquí estoy para apoyarte.
+        </strong>
+
+        <p>
+          Nos vemos pronto ♥
+        </p>
+      </div>
+
+    </article>
+
+
+    <!-- ==========================
+         RECIBO
+    =========================== -->
+
+    <article id="recibo" class="documento oculto">
+
+      <div class="logo-doc">
+        <img src="logo.jpg" alt="Logo Gabriela Hernández">
+      </div>
+
+      <h2 class="recibo-titulo">
+        RECIBO
+      </h2>
+
+      <div class="recibo-subtitulo">
+        CITA CONFIRMADA
+      </div>
+
+      <div class="pagado" id="recPagoPrincipal">
+        PAGO RECIBIDO
+      </div>
+
+      <p style="text-align:center">
+        Confirmamos los datos correspondientes a tu sesión.
+      </p>
+
+
+      <div class="bloque">
+
+        <div class="bloque-titulo">
+          DATOS DE LA SESIÓN
         </div>
 
-      </article>
+        <div class="bloque-body">
+
+          <div class="rec-fila">
+            <span>Paciente:</span>
+            <strong id="recNombre"></strong>
+          </div>
+
+          <div class="rec-fila">
+            <span>Fecha:</span>
+            <strong id="recFecha"></strong>
+          </div>
+
+          <div class="rec-fila">
+            <span>Hora:</span>
+            <strong id="recHora"></strong>
+          </div>
+
+          <div class="rec-fila">
+            <span>Modalidad:</span>
+            <strong id="recModalidad"></strong>
+          </div>
+
+        </div>
+
+      </div>
 
 
+      <div class="bloque turquesa">
 
-      <!-- ===================================================
-           BOTÓN DESCARGAR
-      ==================================================== -->
+        <div class="bloque-titulo">
+          DETALLE DE PAGO
+        </div>
 
-      <button
-        type="button"
-        id="btnDescargar"
-        class="btn-descargar"
-      >
-        ↓ Descargar imagen PNG
-      </button>
+        <div class="bloque-body">
 
-    </section>
+          <div class="rec-fila">
+            <span>Valor de la sesión:</span>
+            <strong id="recImporte"></strong>
+          </div>
 
-  </main>
+          <div class="rec-fila">
+            <span>Método de pago:</span>
+            <strong id="recMetodo"></strong>
+          </div>
+
+          <div class="rec-fila">
+            <span>Estatus:</span>
+            <strong id="recEstado"></strong>
+          </div>
+
+        </div>
+
+      </div>
 
 
+      <div class="bloque turquesa">
 
-  <!--
-       Librería para convertir el documento HTML
-       en imagen PNG.
-  -->
+        <div class="bloque-titulo">
+          DATOS DE TRANSFERENCIA
+        </div>
 
-  <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
-  ></script>
+        <div class="bloque-body">
 
-  <script src="script.js"></script>
+          <div class="rec-fila">
+            <span>Titular:</span>
+            <strong id="recTitular"></strong>
+          </div>
+
+          <div class="rec-fila">
+            <span>Banco:</span>
+            <strong id="recBanco"></strong>
+          </div>
+
+          <div class="rec-fila">
+            <span>CLABE:</span>
+            <strong id="recClabe"></strong>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="confirmada">
+
+        <strong id="mensajeRecibo">
+          Tu sesión está confirmada
+        </strong>
+
+        <span>
+          Nos vemos en el día y horario indicado.
+        </span>
+
+      </div>
+
+    </article>
+
+
+    <button
+      id="btnDescargar"
+      class="btn-descargar"
+      type="button"
+    >
+      Descargar PNG
+    </button>
+
+  </section>
+
+</div>
+
+
+<script>
+
+/* ==========================
+   ELEMENTOS
+========================== */
+
+const nombre = document.getElementById("nombre");
+const fecha = document.getElementById("fecha");
+const hora = document.getElementById("hora");
+const modalidad = document.getElementById("modalidad");
+const importe = document.getElementById("importe");
+const metodo = document.getElementById("metodo");
+const estado = document.getElementById("estado");
+const titular = document.getElementById("titular");
+const banco = document.getElementById("banco");
+const clabe = document.getElementById("clabe");
+
+const confirmacion = document.getElementById("confirmacion");
+const recibo = document.getElementById("recibo");
+
+const btnConfirmacion =
+  document.getElementById("btnConfirmacion");
+
+const btnRecibo =
+  document.getElementById("btnRecibo");
+
+const btnDescargar =
+  document.getElementById("btnDescargar");
+
+const tituloPreview =
+  document.getElementById("tituloPreview");
+
+let documentoActivo = "confirmacion";
+
+
+/* ==========================
+   FECHA
+========================== */
+
+function formatoFecha(valor){
+
+  if(!valor){
+    return "";
+  }
+
+  const partes = valor.split("-");
+
+  const fechaLocal = new Date(
+    Number(partes[0]),
+    Number(partes[1]) - 1,
+    Number(partes[2])
+  );
+
+  return fechaLocal.toLocaleDateString(
+    "es-MX",
+    {
+      weekday:"long",
+      day:"numeric",
+      month:"long",
+      year:"numeric"
+    }
+  );
+}
+
+
+/* ==========================
+   HORA
+========================== */
+
+function formatoHora(valor){
+
+  if(!valor){
+    return "";
+  }
+
+  const partes = valor.split(":");
+
+  let h = Number(partes[0]);
+  const minutos = partes[1];
+
+  const periodo =
+    h >= 12 ? "p. m." : "a. m.";
+
+  h = h % 12;
+
+  if(h === 0){
+    h = 12;
+  }
+
+  return `${h}:${minutos} ${periodo}`;
+}
+
+
+/* ==========================
+   PRECIO
+========================== */
+
+function formatoPrecio(valor){
+
+  if(!valor){
+    return "";
+  }
+
+  const numero = Number(valor);
+
+  return `$${numero.toLocaleString("es-MX")} MXN`;
+}
+
+
+/* ==========================
+   ACTUALIZAR TODO
+========================== */
+
+function actualizar(){
+
+  const paciente = nombre.value.trim();
+
+  const fechaTexto = formatoFecha(fecha.value);
+
+  const horaTexto = formatoHora(hora.value);
+
+  const precioTexto = formatoPrecio(importe.value);
+
+  const modalidadTexto = modalidad.value;
+
+  const metodoTexto = metodo.value;
+
+  const estadoTexto = estado.value;
+
+  const titularTexto = titular.value.trim();
+
+  const bancoTexto = banco.value.trim();
+
+  const clabeTexto = clabe.value.trim();
+
+
+  /* CONFIRMACIÓN */
+
+  document.getElementById("confNombre").textContent =
+    paciente;
+
+  document.getElementById("confFecha").textContent =
+    fechaTexto;
+
+  document.getElementById("confHora").textContent =
+    horaTexto;
+
+  document.getElementById("confModalidad").textContent =
+    modalidadTexto;
+
+  document.getElementById("confImporte").textContent =
+    precioTexto;
+
+  document.getElementById("confTitular").textContent =
+    titularTexto;
+
+  document.getElementById("confBanco").textContent =
+    bancoTexto;
+
+  document.getElementById("confClabe").textContent =
+    clabeTexto;
+
+
+  /* RECIBO */
+
+  document.getElementById("recNombre").textContent =
+    paciente;
+
+  document.getElementById("recFecha").textContent =
+    fechaTexto;
+
+  document.getElementById("recHora").textContent =
+    horaTexto;
+
+  document.getElementById("recModalidad").textContent =
+    modalidadTexto;
+
+  document.getElementById("recImporte").textContent =
+    precioTexto;
+
+  document.getElementById("recMetodo").textContent =
+    metodoTexto;
+
+  document.getElementById("recEstado").textContent =
+    estadoTexto;
+
+  document.getElementById("recTitular").textContent =
+    titularTexto;
+
+  document.getElementById("recBanco").textContent =
+    bancoTexto;
+
+  document.getElementById("recClabe").textContent =
+    clabeTexto;
+
+
+  if(estadoTexto === "Pago recibido"){
+
+    document.getElementById("recPagoPrincipal").textContent =
+      "✓ PAGO RECIBIDO";
+
+    document.getElementById("mensajeRecibo").textContent =
+      "Tu sesión está confirmada";
+
+  }else{
+
+    document.getElementById("recPagoPrincipal").textContent =
+      "PAGO PENDIENTE";
+
+    document.getElementById("mensajeRecibo").textContent =
+      "Tu sesión está registrada";
+
+  }
+}
+
+
+/* ==========================
+   CAMBIAR DOCUMENTO
+========================== */
+
+btnConfirmacion.addEventListener(
+  "click",
+  function(){
+
+    actualizar();
+
+    documentoActivo = "confirmacion";
+
+    confirmacion.classList.remove("oculto");
+    recibo.classList.add("oculto");
+
+    tituloPreview.textContent =
+      "Confirmación de sesión";
+
+  }
+);
+
+
+btnRecibo.addEventListener(
+  "click",
+  function(){
+
+    actualizar();
+
+    documentoActivo = "recibo";
+
+    recibo.classList.remove("oculto");
+    confirmacion.classList.add("oculto");
+
+    tituloPreview.textContent =
+      "Recibo de pago";
+
+  }
+);
+
+
+/* ==========================
+   ACTUALIZACIÓN EN VIVO
+========================== */
+
+[
+  nombre,
+  fecha,
+  hora,
+  modalidad,
+  importe,
+  metodo,
+  estado,
+  titular,
+  banco,
+  clabe
+].forEach(function(campo){
+
+  campo.addEventListener(
+    "input",
+    actualizar
+  );
+
+  campo.addEventListener(
+    "change",
+    actualizar
+  );
+
+});
+
+
+/* ==========================
+   ESPERAR IMÁGENES
+========================== */
+
+async function esperarImagenes(elemento){
+
+  const imagenes =
+    elemento.querySelectorAll("img");
+
+  const tareas =
+    Array.from(imagenes).map(function(img){
+
+      if(img.complete){
+        return Promise.resolve();
+      }
+
+      return new Promise(function(resolve){
+
+        img.onload = resolve;
+        img.onerror = resolve;
+
+      });
+
+    });
+
+  await Promise.all(tareas);
+}
+
+
+/* ==========================
+   DESCARGAR
+========================== */
+
+btnDescargar.addEventListener(
+  "click",
+  async function(){
+
+    actualizar();
+
+    const elemento =
+      documentoActivo === "confirmacion"
+        ? confirmacion
+        : recibo;
+
+
+    if(typeof html2canvas === "undefined"){
+
+      alert(
+        "No se cargó la herramienta de descarga. Revisa tu conexión."
+      );
+
+      return;
+    }
+
+
+    const textoBoton =
+      btnDescargar.textContent;
+
+    btnDescargar.disabled = true;
+
+    btnDescargar.textContent =
+      "Generando imagen...";
+
+
+    try{
+
+      await esperarImagenes(elemento);
+
+
+      if(
+        document.fonts &&
+        document.fonts.ready
+      ){
+        await document.fonts.ready;
+      }
+
+
+      const canvas =
+        await html2canvas(
+          elemento,
+          {
+            scale:2,
+            backgroundColor:"#fffaf6",
+            useCORS:true,
+            allowTaint:false,
+            logging:false,
+            scrollX:0,
+            scrollY:0
+          }
+        );
+
+
+      const paciente =
+        nombre.value
+          .trim()
+          .replace(/\s+/g,"_")
+          .replace(
+            /[^a-zA-Z0-9áéíóúÁÉÍÓÚñÑ_-]/g,
+            ""
+          ) || "paciente";
+
+
+      const archivo =
+        `${documentoActivo}_${paciente}.png`;
+
+
+      canvas.toBlob(
+        function(blob){
+
+          if(!blob){
+
+            alert(
+              "No se pudo crear la imagen."
+            );
+
+            return;
+          }
+
+
+          const url =
+            URL.createObjectURL(blob);
+
+
+          const enlace =
+            document.createElement("a");
+
+
+          enlace.href = url;
+
+          enlace.download = archivo;
+
+          enlace.style.display =
+            "none";
+
+
+          document.body.appendChild(
+            enlace
+          );
+
+
+          enlace.click();
+
+
+          enlace.remove();
+
+
+          setTimeout(
+            function(){
+
+              URL.revokeObjectURL(url);
+
+            },
+            3000
+          );
+
+        },
+        "image/png"
+      );
+
+
+    }catch(error){
+
+      console.error(error);
+
+      alert(
+        "No se pudo generar el PNG."
+      );
+
+    }finally{
+
+      btnDescargar.disabled =
+        false;
+
+      btnDescargar.textContent =
+        textoBoton;
+
+    }
+
+  }
+);
+
+
+/* ==========================
+   INICIO
+========================== */
+
+actualizar();
+
+</script>
 
 </body>
 </html>
