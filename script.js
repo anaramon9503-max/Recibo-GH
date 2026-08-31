@@ -1,4 +1,3 @@
-
 const nombre = document.getElementById("nombre");
 const fecha = document.getElementById("fecha");
 const hora = document.getElementById("hora");
