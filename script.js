@@ -173,7 +173,7 @@ function actualizarRecibo() {
     metodoPago.value;
 
 
-  // El recibo siempre será pago recibido
+  // SIEMPRE PAGO RECIBIDO
   reciboEstado.textContent =
     "PAGO RECIBIDO";
 
@@ -265,7 +265,7 @@ function mostrarRecibo() {
 
 
 // ===============================
-// BOTONES DOCUMENTO
+// BOTONES TIPO DOCUMENTO
 // ===============================
 
 btnConfirmacion.addEventListener(
@@ -393,17 +393,22 @@ async function esperarImagenes(elemento) {
   const imagenes =
     elemento.querySelectorAll("img");
 
+
   await Promise.all(
 
     Array.from(imagenes).map(img => {
 
       if (img.complete) {
+
         return Promise.resolve();
+
       }
+
 
       return new Promise(resolve => {
 
         img.onload = resolve;
+
         img.onerror = resolve;
 
       });
@@ -427,6 +432,7 @@ btnDescargar.addEventListener(
       return;
     }
 
+
     actualizarTodo();
 
 
@@ -438,35 +444,18 @@ btnDescargar.addEventListener(
 
     btnDescargar.disabled = true;
 
-    btnDescargar.textContent =
-      tipoDocumento === "confirmacion"
-        ? "Generando confirmación..."
-        : "Generando recibo...";
 
+    if (tipoDocumento === "confirmacion") {
 
-    /*
-      Guardamos TODOS los estilos
-      que vamos a tocar para devolverlos
-      exactamente como estaban.
-    */
+      btnDescargar.textContent =
+        "Generando confirmación...";
 
-    const transformAnterior =
-      documentoActual.style.transform;
+    } else {
 
-    const marginAnterior =
-      documentoActual.style.margin;
+      btnDescargar.textContent =
+        "Generando recibo...";
 
-    const positionAnterior =
-      documentoActual.style.position;
-
-    const backgroundAnterior =
-      documentoActual.style.background;
-
-    const backgroundImageAnterior =
-      documentoActual.style.backgroundImage;
-
-    const backgroundColorAnterior =
-      documentoActual.style.backgroundColor;
+    }
 
 
     try {
@@ -477,10 +466,18 @@ btnDescargar.addEventListener(
 
 
       /*
-        MISMO MÉTODO QUE SÍ FUNCIONÓ.
-
-        Solo quitamos la escala del celular.
+        MISMO MÉTODO QUE YA FUNCIONÓ
       */
+
+      const transformAnterior =
+        documentoActual.style.transform;
+
+      const marginAnterior =
+        documentoActual.style.margin;
+
+      const positionAnterior =
+        documentoActual.style.position;
+
 
       documentoActual.style.transform =
         "none";
@@ -492,38 +489,10 @@ btnDescargar.addEventListener(
         "relative";
 
 
-      /*
-        AQUÍ ESTÁ LA CORRECCIÓN
-        DE LAS FRANJAS.
-
-        Durante la captura solamente,
-        el fondo queda sólido.
-      */
-
-      documentoActual.style.background =
-        "#fffaf6";
-
-      documentoActual.style.backgroundImage =
-        "none";
-
-      documentoActual.style.backgroundColor =
-        "#fffaf6";
-
-
-      /*
-        Esperamos a que Android termine
-        de redibujar el documento.
-      */
-
       await new Promise(resolve =>
         setTimeout(resolve, 200)
       );
 
-
-      /*
-        MISMA CONFIGURACIÓN DE CAPTURA
-        QUE YA COMPROBAMOS QUE DESCARGA.
-      */
 
       const canvas =
         await html2canvas(
@@ -556,6 +525,16 @@ btnDescargar.addEventListener(
         );
 
 
+      documentoActual.style.transform =
+        transformAnterior;
+
+      documentoActual.style.margin =
+        marginAnterior;
+
+      documentoActual.style.position =
+        positionAnterior;
+
+
       const enlace =
         document.createElement("a");
 
@@ -574,15 +553,20 @@ btnDescargar.addEventListener(
           );
 
 
-      enlace.download =
+      if (
         tipoDocumento === "confirmacion"
-          ? `Confirmacion_${nombreArchivo}.png`
-          : `Recibo_${nombreArchivo}.png`;
+      ) {
 
+        enlace.download =
+          `Confirmacion_${nombreArchivo}.png`;
 
-      /*
-        MISMA DESCARGA QUE FUNCIONÓ.
-      */
+      } else {
+
+        enlace.download =
+          `Recibo_${nombreArchivo}.png`;
+
+      }
+
 
       enlace.href =
         canvas.toDataURL(
@@ -595,7 +579,9 @@ btnDescargar.addEventListener(
         enlace
       );
 
+
       enlace.click();
+
 
       document.body.removeChild(
         enlace
@@ -606,38 +592,15 @@ btnDescargar.addEventListener(
 
       console.error(error);
 
+
       alert(
         tipoDocumento === "confirmacion"
-          ? "No se pudo generar la confirmación."
-          : "No se pudo generar el recibo."
+          ? "No se pudo generar la confirmación. Intenta nuevamente."
+          : "No se pudo generar el recibo. Intenta nuevamente."
       );
 
 
     } finally {
-
-      /*
-        Regresamos TODO exactamente
-        como estaba en pantalla.
-      */
-
-      documentoActual.style.transform =
-        transformAnterior;
-
-      documentoActual.style.margin =
-        marginAnterior;
-
-      documentoActual.style.position =
-        positionAnterior;
-
-      documentoActual.style.background =
-        backgroundAnterior;
-
-      documentoActual.style.backgroundImage =
-        backgroundImageAnterior;
-
-      documentoActual.style.backgroundColor =
-        backgroundColorAnterior;
-
 
       btnDescargar.disabled =
         false;
