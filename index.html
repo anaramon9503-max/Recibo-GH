@@ -4,27 +4,23 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Generador de sesión | Nancy Gabriela Hernández V.</title>
+<title>Generador de documentos</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 <style>
 :root{
-  --rosa:#e998a8;
-  --rosa-oscuro:#cf7488;
-  --rosa-claro:#fbe8ec;
+  --rosa:#e991a4;
+  --rosa-claro:#fcebed;
+  --rosa-suave:#fff4f6;
 
-  --turquesa:#69aaa8;
-  --turquesa-oscuro:#4d9190;
-  --turquesa-claro:#e4f3f1;
+  --turquesa:#67aaa8;
+  --turquesa-claro:#e7f4f3;
 
-  --crema:#fffaf6;
-  --crema-2:#fff5f0;
-
-  --texto:#554d49;
-  --texto-suave:#8b7e78;
-
-  --borde:#eadbd5;
+  --crema:#fffaf5;
+  --texto:#544c48;
+  --gris:#877b76;
+  --borde:#eadbd4;
 }
 
 *{
@@ -34,855 +30,571 @@
 body{
   margin:0;
   font-family:Arial, Helvetica, sans-serif;
-  background:#f3ece8;
+  background:#f5eeea;
   color:var(--texto);
 }
 
 .app{
-  width:min(950px,94%);
-  margin:25px auto 60px;
+  width:min(1100px,96%);
+  margin:20px auto 50px;
+  display:grid;
+  grid-template-columns:260px 1fr;
+  gap:20px;
+  align-items:start;
 }
 
-/* =========================
-   CABECERA
-========================= */
-
-.header{
-  background:white;
-  border-radius:24px;
-  padding:20px;
-  display:flex;
-  align-items:center;
-  gap:16px;
-  margin-bottom:20px;
-  box-shadow:0 10px 30px rgba(91,74,67,.08);
-}
-
-.header img{
-  width:88px;
-  height:88px;
-  border-radius:50%;
-  object-fit:cover;
-  border:3px solid #fff2f4;
-}
-
-.header h1{
-  margin:0;
-  font-family:Georgia,serif;
-  font-weight:500;
-  font-size:27px;
-}
-
-.header p{
-  margin:6px 0 0;
-  color:#817773;
-}
-
-/* =========================
-   FORMULARIO
-========================= */
+/* ======================
+   PANEL
+====================== */
 
 .panel{
   background:white;
-  padding:22px;
-  border-radius:24px;
-  box-shadow:0 10px 30px rgba(91,74,67,.08);
-  margin-bottom:25px;
+  padding:18px;
+  border-radius:20px;
+  box-shadow:0 10px 28px rgba(80,60,55,.08);
 }
 
 .panel h2{
-  margin:0 0 18px;
+  margin:0 0 7px;
+  color:var(--turquesa);
   font-family:Georgia,serif;
   font-weight:500;
 }
 
-.grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:15px;
+.panel .sub{
+  font-size:12px;
+  color:#8a807b;
+  margin-bottom:18px;
 }
 
 .campo{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
+  margin-bottom:13px;
 }
 
-.campo.full{
-  grid-column:1/-1;
-}
-
-label{
-  font-size:13px;
-  font-weight:bold;
-  color:#6f625d;
-}
-
-input{
-  width:100%;
-  min-height:49px;
-  border:1px solid #dfd3ce;
-  border-radius:13px;
-  padding:0 14px;
-  font-size:15px;
-  background:#fffdfb;
-}
-
-input:focus{
-  outline:none;
-  border-color:var(--turquesa);
-  box-shadow:0 0 0 3px rgba(105,170,168,.1);
-}
-
-.datos-fijos{
-  grid-column:1/-1;
-  background:linear-gradient(
-    135deg,
-    #fff6f7,
-    #f4fbfa
-  );
-  border:1px solid #eadbd5;
-  border-radius:16px;
-  padding:14px 16px;
-}
-
-.datos-fijos strong{
+.campo label{
   display:block;
-  margin-bottom:8px;
-  color:#655a55;
+  margin-bottom:6px;
+  font-size:12px;
+  font-weight:bold;
 }
 
-.datos-fijos p{
-  margin:4px 0;
+.campo input{
+  width:100%;
+  min-height:43px;
+  padding:0 12px;
+  border:1px solid #e2d8d3;
+  border-radius:10px;
+  background:#fffdfc;
   font-size:14px;
 }
 
-.datos-fijos span{
-  color:var(--turquesa-oscuro);
-  font-weight:bold;
+.campo input:focus{
+  outline:none;
+  border-color:var(--turquesa);
 }
 
-.botones{
+.tipo{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:12px;
-  margin-top:22px;
+  gap:8px;
+  margin-bottom:18px;
 }
 
-button{
-  min-height:52px;
+.tipo button{
+  min-height:70px;
+  border-radius:12px;
+  border:1px solid #e5d8d2;
+  background:white;
+  color:#796d67;
+  cursor:pointer;
+}
+
+.tipo button.activo{
+  border-color:var(--rosa);
+  background:var(--rosa-suave);
+  color:var(--rosa);
+}
+
+.tipo button:last-child.activo{
+  border-color:var(--turquesa);
+  background:#eff8f7;
+  color:var(--turquesa);
+}
+
+.actualizar{
+  width:100%;
+  min-height:46px;
   border:none;
-  border-radius:14px;
-  font-size:15px;
+  border-radius:11px;
+  background:var(--turquesa);
+  color:white;
   font-weight:bold;
   cursor:pointer;
 }
 
-.btn-confirmacion{
-  background:var(--rosa);
-  color:white;
+/* ======================
+   PREVIEW
+====================== */
+
+.preview-area{
+  min-width:0;
 }
 
-.btn-recibo{
+.preview-label{
+  text-align:center;
+  font-size:10px;
+  letter-spacing:2px;
+  color:#998d87;
+  margin-bottom:8px;
+}
+
+.documento{
+  width:700px;
+  margin:auto;
+  position:relative;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 10% 14%, rgba(233,145,164,.08), transparent 150px),
+    radial-gradient(circle at 90% 12%, rgba(103,170,168,.08), transparent 150px),
+    var(--crema);
+  border:2px solid #d9cbc4;
+  border-radius:32px;
+  padding:24px 38px 34px;
+  box-shadow:0 12px 30px rgba(88,69,61,.07);
+}
+
+.decoracion{
+  position:absolute;
+  font-size:60px;
+  opacity:.55;
+  font-family:Georgia,serif;
+}
+
+.dec-izq{
+  top:80px;
+  left:5px;
+  color:#e8a3af;
+}
+
+.dec-der{
+  top:82px;
+  right:5px;
+  color:#77b8b6;
+}
+
+/* ======================
+   LOGO
+====================== */
+
+.logo{
+  text-align:center;
+}
+
+.logo img{
+  width:145px;
+  height:145px;
+  object-fit:cover;
+  border-radius:50%;
+}
+
+.bienvenida{
+  text-align:center;
+  font-family:Georgia,serif;
+  font-size:35px;
+  letter-spacing:2px;
+  margin:5px 0 12px;
+}
+
+.corazon-centro{
+  text-align:center;
+  color:var(--rosa);
+  font-size:16px;
+}
+
+.intro{
+  text-align:center;
+  line-height:1.5;
+  margin:5px 0 22px;
+  font-size:16px;
+}
+
+/* ======================
+   PACIENTE
+====================== */
+
+.paciente-card{
+  border:1.5px solid #e8a4b2;
+  border-radius:16px;
+  min-height:62px;
+  display:grid;
+  grid-template-columns:44px 185px 1fr;
+  align-items:center;
+  padding:0 14px;
+  margin-bottom:18px;
+  background:rgba(255,255,255,.48);
+}
+
+.icono-circulo{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#f4c9d0;
+  color:white;
+  font-size:18px;
+}
+
+.paciente-label{
+  color:#d87e91;
+  font-size:15px;
+  letter-spacing:.5px;
+}
+
+.paciente-valor{
+  color:var(--turquesa);
+  font-size:18px;
+  font-weight:bold;
+}
+
+/* ======================
+   SESIÓN
+====================== */
+
+.caja-sesion{
+  border:1.5px solid #ebb2bc;
+  border-radius:18px;
+  overflow:hidden;
+  margin-bottom:17px;
+}
+
+.caja-titulo{
+  width:max-content;
+  margin:-1px auto 0;
+  padding:8px 24px;
+  background:var(--turquesa);
+  color:white;
+  border-radius:0 0 12px 12px;
+  font-size:15px;
+  letter-spacing:.5px;
+}
+
+.sesion-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  padding-top:18px;
+}
+
+.sesion-item{
+  min-height:115px;
+  text-align:center;
+  padding:12px;
+  border-right:1px solid #eee2dd;
+}
+
+.sesion-item:last-child{
+  border-right:none;
+}
+
+.sesion-icono{
+  font-size:31px;
+  color:var(--rosa);
+  margin-bottom:7px;
+}
+
+.sesion-item small{
+  display:block;
+  font-size:13px;
+  margin-bottom:7px;
+}
+
+.sesion-item strong{
+  color:var(--turquesa);
+  font-size:16px;
+}
+
+.precio-linea{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-top:1px solid #eee2dd;
+  min-height:66px;
+  padding:0 18px;
+}
+
+.precio-label{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:15px;
+}
+
+.precio-icon{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  background:#f3c6ce;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#d96f85;
+}
+
+.precio{
+  background:linear-gradient(135deg,#e992a5,#df748a);
+  color:white;
+  border-radius:8px;
+  padding:10px 18px;
+  font-size:19px;
+  font-weight:bold;
+}
+
+.aviso-pago{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  background:#fbeaec;
+  padding:11px 16px;
+  font-size:14px;
+  line-height:1.4;
+}
+
+/* ======================
+   TRANSFERENCIA
+====================== */
+
+.transferencia{
+  border:1.5px solid #89c1bf;
+  border-radius:17px;
+  margin-bottom:14px;
+  overflow:hidden;
+  background:rgba(255,255,255,.45);
+}
+
+.transfer-titulo{
+  width:max-content;
+  margin:0 auto;
+  background:var(--turquesa);
+  color:white;
+  padding:8px 20px;
+  border-radius:0 0 11px 11px;
+  font-size:15px;
+}
+
+.transfer-body{
+  display:grid;
+  grid-template-columns:1fr 110px;
+  gap:12px;
+  padding:16px 18px;
+}
+
+.transfer-datos{
+  line-height:2;
+  font-size:15px;
+}
+
+.transfer-datos strong{
+  display:inline-block;
+  width:75px;
+}
+
+.transfer-datos span{
+  color:var(--turquesa);
+}
+
+.transfer-ilustra{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--turquesa);
+  font-size:44px;
+}
+
+/* ======================
+   MENSAJES
+====================== */
+
+.mensaje{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  border:1px solid #badbd9;
+  border-radius:13px;
+  padding:11px 14px;
+  margin-top:12px;
+  font-size:14px;
+  line-height:1.45;
+  background:#f8fdfc;
+}
+
+.mensaje.rosa{
+  border-color:#efcfd5;
+  background:#fff5f6;
+}
+
+.mensaje-icono{
+  width:32px;
+  height:32px;
+  flex:0 0 32px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   background:var(--turquesa);
   color:white;
 }
 
-/* =========================
-   ZONA PREVIEW
-========================= */
-
-.preview-wrap{
-  background:white;
-  padding:18px;
-  border-radius:24px;
-  box-shadow:0 10px 30px rgba(91,74,67,.08);
+.mensaje.rosa .mensaje-icono{
+  background:#f4d0d6;
+  color:#d67b8d;
 }
 
-.preview-titulo{
-  margin:0 0 15px;
+/* ======================
+   PIE
+====================== */
+
+.pie{
+  text-align:center;
+  padding-top:18px;
+}
+
+.pie-frase{
+  color:#d57c8d;
   font-family:Georgia,serif;
-  font-weight:500;
+  font-size:17px;
+  font-style:italic;
 }
 
-/* =========================
-   DOCUMENTO
-========================= */
-
-.documento{
-  width:700px;
-  max-width:100%;
-  margin:auto;
-  background:
-    radial-gradient(
-      circle at 10% 8%,
-      rgba(233,152,168,.08),
-      transparent 150px
-    ),
-    radial-gradient(
-      circle at 92% 17%,
-      rgba(105,170,168,.08),
-      transparent 160px
-    ),
-    var(--crema);
-
-  border:1px solid #dfd2cc;
-  border-radius:32px;
-
-  padding:34px 42px 36px;
-
-  position:relative;
-  overflow:hidden;
-
-  box-shadow:
-    0 10px 30px rgba(82,64,56,.08);
+.pie-adorno{
+  color:var(--turquesa);
+  margin-top:8px;
+  letter-spacing:5px;
 }
 
-.documento::before{
-  content:"";
-  position:absolute;
-  width:190px;
-  height:190px;
-  border-radius:50%;
-  border:22px solid rgba(233,152,168,.06);
-  top:-110px;
-  left:-85px;
-}
-
-.documento::after{
-  content:"";
-  position:absolute;
-  width:200px;
-  height:200px;
-  border-radius:50%;
-  border:22px solid rgba(105,170,168,.06);
-  bottom:-115px;
-  right:-95px;
-}
+/* ======================
+   RECIBO
+====================== */
 
 .oculto{
   display:none !important;
 }
 
-/* =========================
-   ENCABEZADO DOCUMENTO
-========================= */
-
-.encabezado-doc{
-  position:relative;
-  z-index:2;
-  text-align:center;
-}
-
-.logo-doc img{
-  width:135px;
-  height:135px;
-  border-radius:50%;
-  object-fit:cover;
-  box-shadow:0 6px 20px rgba(85,77,73,.08);
-}
-
-.marca{
-  margin-top:9px;
-  font-family:Georgia,serif;
-  font-size:15px;
-  font-style:italic;
-  color:var(--turquesa);
-}
-
-.titulo-doc{
-  margin:17px 0 5px;
-  font-family:Georgia,serif;
-  font-size:28px;
-  letter-spacing:3px;
-  font-weight:500;
-  text-align:center;
-}
-
-.sublinea{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:10px;
-  color:var(--rosa);
-  margin:10px 0 17px;
-}
-
-.sublinea::before,
-.sublinea::after{
-  content:"";
-  height:1px;
-  width:120px;
-  background:linear-gradient(
-    90deg,
-    transparent,
-    #ddc7bf
-  );
-}
-
-.sublinea::after{
-  background:linear-gradient(
-    90deg,
-    #ddc7bf,
-    transparent
-  );
-}
-
-.saludo{
-  text-align:center;
-  color:var(--turquesa);
-  font-family:Georgia,serif;
-  font-style:italic;
-  font-size:22px;
-  margin:5px 0 7px;
-}
-
-.intro{
-  text-align:center;
-  font-size:15px;
-  line-height:1.6;
-  color:#746963;
-  margin:0 auto 24px;
-  max-width:530px;
-}
-
-/* =========================
-   TARJETA DE DATOS
-========================= */
-
-.tarjeta-datos{
-  position:relative;
-  z-index:2;
-
-  background:rgba(255,255,255,.5);
-
-  border:1.5px solid #efc6cd;
-  border-radius:22px;
-
-  padding:8px 20px;
-
-  box-shadow:
-    0 8px 22px rgba(233,152,168,.07);
-}
-
-.fila{
-  display:grid;
-  grid-template-columns:190px 1fr;
-  gap:14px;
-
-  min-height:64px;
-
-  align-items:center;
-
-  border-bottom:1px solid #eee2dd;
-}
-
-.fila:last-child{
-  border-bottom:none;
-}
-
-.etiqueta{
-  font-size:17px;
-  font-weight:bold;
-  color:#5e5551;
-}
-
-.valor{
-  font-size:19px;
-  font-weight:bold;
-  color:var(--rosa-oscuro);
-  word-break:break-word;
-}
-
-.precio{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-
-  background:linear-gradient(
-    135deg,
-    #e998a8,
-    #d97f92
-  );
-
-  color:white;
-
-  border-radius:14px;
-
-  padding:10px 18px;
-
-  font-size:21px;
-  font-weight:bold;
-
-  box-shadow:0 5px 12px rgba(217,127,146,.18);
-}
-
-/* =========================
-   TRANSFERENCIA
-========================= */
-
-.transferencia{
-  position:relative;
-  z-index:2;
-
-  border:1.5px solid #a8cfcd;
-  border-radius:22px;
-
-  overflow:hidden;
-
-  margin-top:18px;
-
-  background:rgba(255,255,255,.45);
-
-  box-shadow:
-    0 8px 22px rgba(105,170,168,.07);
-}
-
-.transferencia-titulo{
-  background:linear-gradient(
-    135deg,
-    #69aaa8,
-    #579c9a
-  );
-
-  color:white;
-
-  font-size:16px;
-  font-weight:bold;
-
-  padding:13px 19px;
-
-  letter-spacing:.5px;
-}
-
-.transferencia-body{
-  padding:16px 20px 18px;
-  font-size:16px;
-  line-height:1.9;
-}
-
-.transferencia-linea{
-  display:grid;
-  grid-template-columns:165px 1fr;
-  gap:10px;
-}
-
-.transferencia-linea strong{
-  color:#5a514d;
-}
-
-.transferencia-linea span{
-  color:var(--turquesa-oscuro);
-  font-weight:bold;
-  word-break:break-word;
-}
-
-/* =========================
-   AVISOS
-========================= */
-
-.aviso{
-  position:relative;
-  z-index:2;
-
-  margin-top:14px;
-
-  border:1px solid #eadcd6;
-
-  background:rgba(255,255,255,.5);
-
-  border-radius:16px;
-
-  padding:14px 16px;
-
-  font-size:15px;
-  line-height:1.6;
-}
-
-.aviso strong{
-  color:#d0798b;
-}
-
-/* =========================
-   FINAL
-========================= */
-
-.final{
-  position:relative;
-  z-index:2;
-
-  text-align:center;
-  margin-top:22px;
-}
-
-.final strong{
-  font-family:Georgia,serif;
-  font-size:19px;
-  font-style:italic;
-  color:var(--turquesa);
-}
-
-.final p{
-  margin:8px 0 0;
-  font-size:15px;
-}
-
-/* =========================
-   RECIBO
-========================= */
-
 .recibo-titulo{
   text-align:center;
   font-family:Georgia,serif;
+  font-size:38px;
   letter-spacing:7px;
-  font-size:35px;
-  font-weight:500;
-  margin:16px 0 4px;
+  margin:8px 0 3px;
 }
 
-.recibo-subtitulo{
+.recibo-sub{
   text-align:center;
-  letter-spacing:4px;
-  color:#81746f;
+  letter-spacing:3px;
   font-size:13px;
+  color:#887b75;
 }
 
 .pagado{
-  position:relative;
-  z-index:2;
-
   width:70%;
-  margin:22px auto 15px;
-
+  margin:20px auto;
+  text-align:center;
+  border:2px solid #94c7c5;
+  border-radius:14px;
   padding:14px;
-
-  border:2px solid #9ecbc8;
-
-  background:rgba(228,243,241,.65);
-
-  border-radius:15px;
-
-  text-align:center;
-
-  color:var(--turquesa-oscuro);
-
-  font-size:21px;
-  font-weight:bold;
-  letter-spacing:1px;
-}
-
-.recibo-intro{
-  position:relative;
-  z-index:2;
-
-  text-align:center;
-  font-size:16px;
-  line-height:1.6;
-}
-
-.gracias{
-  position:relative;
-  z-index:2;
-
-  text-align:center;
-
   color:var(--turquesa);
-
-  font-family:Georgia,serif;
-  font-style:italic;
+  background:#eef8f7;
   font-size:21px;
-
-  margin-top:5px;
-}
-
-/* =========================
-   BLOQUES RECIBO
-========================= */
-
-.bloque{
-  position:relative;
-  z-index:2;
-
-  border:1.5px solid #efc1c9;
-
-  border-radius:20px;
-
-  overflow:hidden;
-
-  margin-top:21px;
-
-  background:rgba(255,255,255,.48);
-}
-
-.bloque.turquesa{
-  border-color:#9fcdca;
-}
-
-.bloque-titulo{
-  background:linear-gradient(
-    135deg,
-    #e998a8,
-    #d97f92
-  );
-
-  color:white;
-
-  padding:12px 18px;
-
-  font-size:16px;
   font-weight:bold;
-
-  letter-spacing:.4px;
 }
 
-.bloque.turquesa .bloque-titulo{
-  background:linear-gradient(
-    135deg,
-    #69aaa8,
-    #559b99
-  );
+.recibo-bloque{
+  border:1.5px solid #eab1bb;
+  border-radius:17px;
+  overflow:hidden;
+  margin-top:18px;
 }
 
-.bloque-body{
-  padding:8px 20px;
+.recibo-bloque.turquesa{
+  border-color:#98c9c7;
 }
 
-.rec-fila{
+.recibo-bloque h3{
+  margin:0;
+  padding:11px 17px;
+  background:var(--rosa);
+  color:white;
+  font-size:15px;
+}
+
+.recibo-bloque.turquesa h3{
+  background:var(--turquesa);
+}
+
+.recibo-fila{
   display:grid;
-
   grid-template-columns:190px 1fr;
-
-  gap:12px;
-
-  min-height:59px;
-
   align-items:center;
-
-  border-bottom:1px solid #ece0db;
+  min-height:54px;
+  padding:0 18px;
+  border-bottom:1px solid #eee2dd;
 }
 
-.rec-fila:last-child{
+.recibo-fila:last-child{
   border-bottom:none;
 }
 
-.rec-fila span{
-  font-size:17px;
-  color:#5f5551;
-}
-
-.rec-fila strong{
-  font-size:18px;
-  color:var(--rosa-oscuro);
-  word-break:break-word;
-}
-
-.bloque.turquesa .rec-fila strong{
-  color:var(--turquesa-oscuro);
-}
-
-/* =========================
-   CITA CONFIRMADA
-========================= */
-
-.confirmada{
-  position:relative;
-  z-index:2;
-
-  width:82%;
-
-  margin:24px auto 0;
-
-  padding:18px 20px;
-
-  text-align:center;
-
-  background:linear-gradient(
-    135deg,
-    #fff0f3,
-    #f8fbfa
-  );
-
-  border:1px solid #efd3d9;
-
-  border-radius:18px;
-}
-
-.confirmada strong{
-  display:block;
-
-  margin-bottom:7px;
-
-  color:var(--rosa-oscuro);
-
-  font-family:Georgia,serif;
-  font-size:20px;
-}
-
-.confirmada span{
-  font-size:15px;
-  line-height:1.6;
-}
-
-/* =========================
-   FIRMA
-========================= */
-
-.firma-documento{
-  position:relative;
-  z-index:2;
-
-  margin-top:28px;
-
-  padding-top:20px;
-
-  text-align:center;
-}
-
-.firma-linea{
-  width:190px;
-  height:1px;
-
-  margin:0 auto 14px;
-
-  background:linear-gradient(
-    90deg,
-    transparent,
-    var(--rosa),
-    var(--turquesa),
-    transparent
-  );
-}
-
-.firma-corazon{
-  position:relative;
-  z-index:2;
-
-  width:34px;
-  height:34px;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  margin:0 auto -17px;
-
-  background:var(--crema);
-
+.recibo-fila strong{
   color:var(--rosa);
-
-  font-size:22px;
 }
 
-.firma-nombre{
-  font-family:Georgia,serif;
-  font-style:italic;
-
-  font-size:18px;
-
+.recibo-bloque.turquesa .recibo-fila strong{
   color:var(--turquesa);
 }
 
-.firma-profesion{
-  margin-top:4px;
-
-  font-size:11px;
-
-  font-weight:bold;
-
-  letter-spacing:3px;
-
-  color:var(--rosa);
-}
-
-.firma-frase{
-  margin-top:8px;
-
-  color:#948781;
-
-  font-family:Georgia,serif;
-  font-style:italic;
-
-  font-size:13px;
-}
-
-/* =========================
-   BOTÓN DESCARGA
-========================= */
+/* ======================
+   DESCARGA
+====================== */
 
 .btn-descargar{
-  width:min(700px,100%);
+  width:700px;
+  max-width:100%;
   display:block;
-
-  margin:22px auto 0;
-
-  min-height:60px;
-
+  margin:13px auto 0;
+  min-height:45px;
   border:none;
-
-  border-radius:19px;
-
-  background:linear-gradient(
-    135deg,
-    #e998a8,
-    #69aaa8
-  );
-
+  border-radius:8px;
+  background:linear-gradient(90deg,#eb8fa2,#69aaa8);
   color:white;
-
-  font-size:17px;
   font-weight:bold;
-
-  letter-spacing:.5px;
-
-  box-shadow:
-    0 10px 24px rgba(105,170,168,.22);
-
   cursor:pointer;
-
-  transition:.2s ease;
 }
 
-.btn-descargar:hover{
-  transform:translateY(-2px);
-}
-
-.btn-descargar:active{
-  transform:scale(.98);
-}
-
-.btn-descargar:disabled{
-  opacity:.6;
-}
-
-/* =========================
+/* ======================
    MÓVIL
-========================= */
+====================== */
 
-@media(max-width:650px){
+@media(max-width:800px){
 
-  .header{
-    flex-direction:column;
-    text-align:center;
+  .app{
+    display:block;
+    width:96%;
   }
 
-  .grid,
-  .botones{
-    grid-template-columns:1fr;
+  .panel{
+    margin-bottom:20px;
   }
 
-  .campo.full{
-    grid-column:auto;
-  }
-
-  .datos-fijos{
-    grid-column:auto;
-  }
-
-  .preview-wrap{
+  .preview-area{
     overflow-x:auto;
   }
 
   .documento{
+    width:700px;
+    max-width:none;
+  }
+
+  .btn-descargar{
     width:700px;
     max-width:none;
   }
@@ -894,546 +606,987 @@ button{
 
 <div class="app">
 
-<header class="header">
+  <aside class="panel">
 
-  <img src="logo.jpg" alt="Logo">
+    <h2>Generador de documentos</h2>
 
-  <div>
-    <h1>Generador de sesiones</h1>
-    <p>Nancy Gabriela Hernández V. · Psicóloga</p>
-  </div>
+    <div class="sub">
+      Completa los datos de la sesión
+    </div>
 
-</header>
+    <div class="tipo">
+
+      <button
+        id="btnConfirmacion"
+        class="activo"
+        type="button"
+      >
+        ♡
+        <br>
+        Confirmación
+        <br>
+        de cita
+      </button>
+
+      <button
+        id="btnRecibo"
+        type="button"
+      >
+        ✓
+        <br>
+        Recibo de
+        <br>
+        pago
+      </button>
+
+    </div>
+
+    <div class="campo">
+      <label>Nombre del paciente</label>
+      <input
+        id="nombre"
+        type="text"
+        placeholder="Ej. María López"
+      >
+    </div>
+
+    <div class="campo">
+      <label>Fecha de la sesión</label>
+      <input
+        id="fecha"
+        type="date"
+      >
+    </div>
+
+    <div class="campo">
+      <label>Hora</label>
+      <input
+        id="hora"
+        type="time"
+      >
+    </div>
+
+    <div class="campo">
+      <label>Valor de la sesión</label>
+      <input
+        id="importe"
+        type="number"
+        placeholder="Ej. 150"
+      >
+    </div>
+
+    <button
+      id="actualizar"
+      class="actualizar"
+      type="button"
+    >
+      Actualizar vista previa
+    </button>
+
+  </aside>
 
 
-<section class="panel">
+  <main class="preview-area">
 
-<h2>Datos de la sesión</h2>
+    <div
+      class="preview-label"
+      id="previewLabel"
+    >
+      VISTA PREVIA · CONFIRMACIÓN DE CITA
+    </div>
 
-<div class="grid">
 
-  <div class="campo full">
+    <!-- ================================
+         CONFIRMACIÓN
+    ================================= -->
 
-    <label>Nombre del paciente</label>
-
-    <input
-      id="nombre"
-      type="text"
-      placeholder="Nombre del paciente"
+    <article
+      id="confirmacion"
+      class="documento"
     >
 
-  </div>
+      <div class="decoracion dec-izq">
+        ❧
+      </div>
+
+      <div class="decoracion dec-der">
+        ❧
+      </div>
 
 
-  <div class="campo">
+      <div class="logo">
+        <img src="logo.jpg" alt="Logo">
+      </div>
 
-    <label>Fecha</label>
 
-    <input
-      id="fecha"
-      type="date"
+      <div class="bienvenida">
+        ¡BIENVENID@!
+      </div>
+
+
+      <div class="corazon-centro">
+        ♥
+      </div>
+
+
+      <div class="intro">
+
+        Nos da mucho gusto saludarte.
+        <br>
+        Te contactamos para confirmar tu sesión con:
+
+      </div>
+
+
+      <div class="paciente-card">
+
+        <div class="icono-circulo">
+          👤
+        </div>
+
+        <div class="paciente-label">
+          NOMBRE DEL PACIENTE:
+        </div>
+
+        <div
+          class="paciente-valor"
+          id="confNombre"
+        >
+          Nombre del paciente
+        </div>
+
+      </div>
+
+
+      <div class="caja-sesion">
+
+        <div class="caja-titulo">
+          ▣ &nbsp; DETALLES DE TU SESIÓN
+        </div>
+
+
+        <div class="sesion-grid">
+
+          <div class="sesion-item">
+
+            <div class="sesion-icono">
+              ▣
+            </div>
+
+            <small>
+              FECHA
+            </small>
+
+            <strong id="confFecha">
+              --
+            </strong>
+
+          </div>
+
+
+          <div class="sesion-item">
+
+            <div class="sesion-icono">
+              ◷
+            </div>
+
+            <small>
+              HORA
+            </small>
+
+            <strong id="confHora">
+              --
+            </strong>
+
+          </div>
+
+
+          <div class="sesion-item">
+
+            <div class="sesion-icono">
+              □
+            </div>
+
+            <small>
+              MODALIDAD
+            </small>
+
+            <strong>
+              En línea
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <div class="precio-linea">
+
+          <div class="precio-label">
+
+            <div class="precio-icon">
+              $
+            </div>
+
+            VALOR DE LA SESIÓN:
+
+          </div>
+
+          <div
+            class="precio"
+            id="confImporte"
+          >
+            $150 MXN
+          </div>
+
+        </div>
+
+
+        <div class="aviso-pago">
+
+          <div class="precio-icon">
+            ◷
+          </div>
+
+          <div>
+            Para confirmar tu cita, te pedimos realizar
+            tu transferencia
+            <strong>
+              al menos 1 hora antes de la sesión.
+            </strong>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="transferencia">
+
+        <div class="transfer-titulo">
+          ♠ &nbsp; DATOS PARA TRANSFERENCIA
+        </div>
+
+
+        <div class="transfer-body">
+
+          <div class="transfer-datos">
+
+            <div>
+              <strong>Titular:</strong>
+              <span>
+                Nancy Gabriela Hernández Villa
+              </span>
+            </div>
+
+            <div>
+              <strong>Banco:</strong>
+              <span>
+                Hey Banco
+              </span>
+            </div>
+
+            <div>
+              <strong>CLABE:</strong>
+              <span>
+                167180000014587725
+              </span>
+            </div>
+
+          </div>
+
+
+          <div class="transfer-ilustra">
+            ✓
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="mensaje">
+
+        <div class="mensaje-icono">
+          ☎
+        </div>
+
+        <div>
+          Una vez realizado el pago, por favor envíanos tu
+          comprobante por este medio para dejar confirmada
+          tu sesión. ✨
+        </div>
+
+      </div>
+
+
+      <div class="mensaje rosa">
+
+        <div class="mensaje-icono">
+          ♡
+        </div>
+
+        <div>
+          Si tienes alguna duda administrativa sobre tu cita,
+          con gusto podemos ayudarte.
+        </div>
+
+      </div>
+
+
+      <div class="pie">
+
+        <div class="pie-frase">
+          ¡Gracias por confiar en este espacio para ti! ♡
+        </div>
+
+        <div class="pie-adorno">
+          ❧ ♥ ❧
+        </div>
+
+      </div>
+
+    </article>
+
+
+    <!-- ================================
+         RECIBO
+    ================================= -->
+
+    <article
+      id="recibo"
+      class="documento oculto"
     >
 
-  </div>
+      <div class="logo">
+        <img src="logo.jpg" alt="Logo">
+      </div>
 
 
-  <div class="campo">
+      <div class="recibo-titulo">
+        RECIBO
+      </div>
 
-    <label>Hora</label>
+      <div class="recibo-sub">
+        CITA CONFIRMADA
+      </div>
 
-    <input
-      id="hora"
-      type="time"
+
+      <div class="pagado">
+        ✓ PAGO RECIBIDO
+      </div>
+
+
+      <div class="intro">
+        Confirmamos que tu sesión ha sido pagada correctamente.
+        <br>
+        <strong style="color:#67aaa8;">
+          ¡Gracias por tu confianza!
+        </strong>
+      </div>
+
+
+      <div class="recibo-bloque">
+
+        <h3>
+          ♡ DATOS DE LA SESIÓN
+        </h3>
+
+        <div class="recibo-fila">
+          <span>Paciente</span>
+          <strong id="recNombre"></strong>
+        </div>
+
+        <div class="recibo-fila">
+          <span>Fecha</span>
+          <strong id="recFecha"></strong>
+        </div>
+
+        <div class="recibo-fila">
+          <span>Hora</span>
+          <strong id="recHora"></strong>
+        </div>
+
+        <div class="recibo-fila">
+          <span>Modalidad</span>
+          <strong>En línea</strong>
+        </div>
+
+      </div>
+
+
+      <div class="recibo-bloque turquesa">
+
+        <h3>
+          $ DETALLE DEL PAGO
+        </h3>
+
+        <div class="recibo-fila">
+          <span>Valor de la sesión</span>
+          <strong id="recImporte"></strong>
+        </div>
+
+        <div class="recibo-fila">
+          <span>Método de pago</span>
+          <strong>Transferencia bancaria</strong>
+        </div>
+
+        <div class="recibo-fila">
+          <span>Estado</span>
+          <strong>PAGO RECIBIDO</strong>
+        </div>
+
+      </div>
+
+
+      <div class="recibo-bloque turquesa">
+
+        <h3>
+          DATOS DE TRANSFERENCIA
+        </h3>
+
+        <div class="recibo-fila">
+          <span>Titular</span>
+          <strong>
+            Nancy Gabriela Hernández Villa
+          </strong>
+        </div>
+
+        <div class="recibo-fila">
+          <span>Banco</span>
+          <strong>
+            Hey Banco
+          </strong>
+        </div>
+
+        <div class="recibo-fila">
+          <span>CLABE</span>
+          <strong>
+            167180000014587725
+          </strong>
+        </div>
+
+      </div>
+
+
+      <div class="mensaje rosa">
+
+        <div class="mensaje-icono">
+          ♡
+        </div>
+
+        <div>
+          Tu sesión está confirmada.
+          <br>
+          Te esperamos en la fecha y hora indicadas.
+        </div>
+
+      </div>
+
+
+      <div class="pie">
+
+        <div class="pie-frase">
+          Gracias por permitirnos acompañarte ♡
+        </div>
+
+        <div class="pie-adorno">
+          ❧ ♥ ❧
+        </div>
+
+      </div>
+
+    </article>
+
+
+    <button
+      id="btnDescargar"
+      class="btn-descargar"
+      type="button"
     >
+      Descargar documento
+    </button>
 
-  </div>
-
-
-  <div class="campo full">
-
-    <label>Valor de la sesión</label>
-
-    <input
-      id="importe"
-      type="number"
-      placeholder="250"
-    >
-
-  </div>
-
-
-  <div class="datos-fijos">
-
-    <strong>Datos configurados</strong>
-
-    <p>
-      Modalidad:
-      <span>En línea</span>
-    </p>
-
-    <p>
-      Método de pago:
-      <span>Transferencia bancaria</span>
-    </p>
-
-    <p>
-      Estado:
-      <span>Pago recibido</span>
-    </p>
-
-  </div>
-
-</div>
-
-
-<div class="botones">
-
-  <button
-    id="btnConfirmacion"
-    class="btn-confirmacion"
-    type="button"
-  >
-    ♡ Ver confirmación
-  </button>
-
-
-  <button
-    id="btnRecibo"
-    class="btn-recibo"
-    type="button"
-  >
-    ✓ Ver recibo
-  </button>
-
-</div>
-
-</section>
-
-
-<section class="preview-wrap">
-
-<h2
-  class="preview-titulo"
-  id="tituloPreview"
->
-  Confirmación de sesión
-</h2>
-
-
-<!-- ==================================================
-     CONFIRMACIÓN
-================================================== -->
-
-<article
-  id="confirmacion"
-  class="documento"
->
-
-  <div class="encabezado-doc">
-
-    <div class="logo-doc">
-      <img src="logo.jpg" alt="Logo">
-    </div>
-
-    <div class="marca">
-      Psicología · Acompañamiento profesional
-    </div>
-
-  </div>
-
-
-  <h2 class="titulo-doc">
-    CONFIRMACIÓN DE SESIÓN
-  </h2>
-
-
-  <div class="sublinea">
-    ♡
-  </div>
-
-
-  <div class="saludo">
-    Me da mucho gusto saludarte.
-  </div>
-
-
-  <p class="intro">
-
-    Te comparto la información de tu próxima sesión.
-    Espero que este sea un espacio seguro y muy tuyo.
-
-  </p>
-
-
-  <div class="tarjeta-datos">
-
-    <div class="fila">
-
-      <div class="etiqueta">
-        Paciente
-      </div>
-
-      <div
-        class="valor"
-        id="confNombre"
-      ></div>
-
-    </div>
-
-
-    <div class="fila">
-
-      <div class="etiqueta">
-        Fecha
-      </div>
-
-      <div
-        class="valor"
-        id="confFecha"
-      ></div>
-
-    </div>
-
-
-    <div class="fila">
-
-      <div class="etiqueta">
-        Hora
-      </div>
-
-      <div
-        class="valor"
-        id="confHora"
-      ></div>
-
-    </div>
-
-
-    <div class="fila">
-
-      <div class="etiqueta">
-        Modalidad
-      </div>
-
-      <div
-        class="valor"
-        id="confModalidad"
-      ></div>
-
-    </div>
-
-
-    <div class="fila">
-
-      <div class="etiqueta">
-        Valor de la sesión
-      </div>
-
-      <div>
-        <span
-          class="precio"
-          id="confImporte"
-        ></span>
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <div class="transferencia">
-
-    <div class="transferencia-titulo">
-      DATOS PARA TRANSFERENCIA
-    </div>
-
-
-    <div class="transferencia-body">
-
-      <div class="transferencia-linea">
-        <strong>Titular</strong>
-        <span id="confTitular"></span>
-      </div>
-
-      <div class="transferencia-linea">
-        <strong>Institución</strong>
-        <span id="confBanco"></span>
-      </div>
-
-      <div class="transferencia-linea">
-        <strong>CLABE</strong>
-        <span id="confClabe"></span>
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <div class="aviso">
-
-    Te agradecería realizar el pago por transferencia
-    <strong>al menos una hora antes de nuestra cita.</strong>
-
-  </div>
-
-
-  <div class="aviso">
-
-    Una vez realizada la transferencia,
-    <strong>envíame tu comprobante por este medio</strong>
-    para dejar todo listo para nuestra sesión.
-
-  </div>
-
-
-  <div class="final">
-
-    <strong>
-      Si tienes alguna duda, estoy para apoyarte.
-    </strong>
-
-    <p>
-      Nos vemos pronto ♡
-    </p>
-
-  </div>
-
-
-  <div class="firma-documento">
-
-    <div class="firma-corazon">
-      ♡
-    </div>
-
-    <div class="firma-linea"></div>
-
-    <div class="firma-nombre">
-      Nancy Gabriela Hernández V.
-    </div>
-
-    <div class="firma-profesion">
-      PSICÓLOGA
-    </div>
-
-    <div class="firma-frase">
-      Un espacio para escucharte, acompañarte y crecer.
-    </div>
-
-  </div>
-
-</article>
-
-
-<!-- ==================================================
-     RECIBO
-================================================== -->
-
-<article
-  id="recibo"
-  class="documento oculto"
->
-
-  <div class="encabezado-doc">
-
-    <div class="logo-doc">
-      <img src="logo.jpg" alt="Logo">
-    </div>
-
-    <div class="marca">
-      Psicología · Acompañamiento profesional
-    </div>
-
-  </div>
-
-
-  <h2 class="recibo-titulo">
-    RECIBO
-  </h2>
-
-
-  <div class="recibo-subtitulo">
-    CITA CONFIRMADA
-  </div>
-
-
-  <div
-    class="pagado"
-    id="recPagoPrincipal"
-  >
-    ✓ PAGO RECIBIDO
-  </div>
-
-
-  <p class="recibo-intro">
-
-    Confirmamos que el pago correspondiente a tu sesión
-    ha sido recibido correctamente.
-
-  </p>
-
-
-  <div class="gracias">
-    ¡Gracias por tu confianza!
-  </div>
-
-
-  <div class="bloque">
-
-    <div class="bloque-titulo">
-      ♡ DATOS DE LA SESIÓN
-    </div>
-
-
-    <div class="bloque-body">
-
-      <div class="rec-fila">
-        <span>Paciente</span>
-        <strong id="recNombre"></strong>
-      </div>
-
-
-      <div class="rec-fila">
-        <span>Fecha de la sesión</span>
-        <strong id="recFecha"></strong>
-      </div>
-
-
-      <div class="rec-fila">
-        <span>Hora</span>
-        <strong id="recHora"></strong>
-      </div>
-
-
-      <div class="rec-fila">
-        <span>Modalidad</span>
-        <strong id="recModalidad"></strong>
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <div class="bloque turquesa">
-
-    <div class="bloque-titulo">
-      DETALLE DEL PAGO
-    </div>
-
-
-    <div class="bloque-body">
-
-      <div class="rec-fila">
-        <span>Valor de la sesión</span>
-        <strong id="recImporte"></strong>
-      </div>
-
-
-      <div class="rec-fila">
-        <span>Método de pago</span>
-        <strong id="recMetodo"></strong>
-      </div>
-
-
-      <div class="rec-fila">
-        <span>Estado</span>
-        <strong id="recEstado"></strong>
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <div class="bloque turquesa">
-
-    <div class="bloque-titulo">
-      DATOS DE TRANSFERENCIA
-    </div>
-
-
-    <div class="bloque-body">
-
-      <div class="rec-fila">
-        <span>Titular</span>
-        <strong id="recTitular"></strong>
-      </div>
-
-
-      <div class="rec-fila">
-        <span>Banco</span>
-        <strong id="recBanco"></strong>
-      </div>
-
-
-      <div class="rec-fila">
-        <span>CLABE</span>
-        <strong id="recClabe"></strong>
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <div class="confirmada">
-
-    <strong>
-      Tu sesión está confirmada ♡
-    </strong>
-
-    <span>
-      Te esperamos en la fecha y hora indicadas.
-      <br>
-      Gracias por permitirnos acompañarte.
-    </span>
-
-  </div>
-
-
-  <div class="firma-documento">
-
-    <div class="firma-corazon">
-      ♡
-    </div>
-
-    <div class="firma-linea"></div>
-
-    <div class="firma-nombre">
-      Nancy Gabriela Hernández V.
-    </div>
-
-    <div class="firma-profesion">
-      PSICÓLOGA
-    </div>
-
-    <div class="firma-frase">
-      Un espacio para escucharte, acompañarte y crecer.
-    </div>
-
-  </div>
-
-</article>
-
-
-<button
-  id="btnDescargar"
-  class="btn-descargar"
-  type="button"
->
-  ♡ Descargar documento
-</button>
-
-</section>
+  </main>
 
 </div>
 
 
 <script>
 
-/* =========================
+/* ======================
    DATOS EDITABLES
-========================= */
+====================== */
 
-const 
+const nombre =
+  document.getElementById("nombre");
+
+const fecha =
+  document.getElementById("fecha");
+
+const hora =
+  document.getElementById("hora");
+
+const importe =
+  document.getElementById("importe");
+
+
+/* ======================
+   DOCUMENTOS
+====================== */
+
+const confirmacion =
+  document.getElementById("confirmacion");
+
+const recibo =
+  document.getElementById("recibo");
+
+const btnConfirmacion =
+  document.getElementById("btnConfirmacion");
+
+const btnRecibo =
+  document.getElementById("btnRecibo");
+
+const actualizarBtn =
+  document.getElementById("actualizar");
+
+const btnDescargar =
+  document.getElementById("btnDescargar");
+
+const previewLabel =
+  document.getElementById("previewLabel");
+
+
+let documentoActivo =
+  "confirmacion";
+
+
+/* ======================
+   FECHA
+====================== */
+
+function formatoFecha(valor){
+
+  if(!valor){
+    return "--";
+  }
+
+  const partes =
+    valor.split("-");
+
+  const f =
+    new Date(
+      Number(partes[0]),
+      Number(partes[1]) - 1,
+      Number(partes[2])
+    );
+
+  return f.toLocaleDateString(
+    "es-MX",
+    {
+      day:"numeric",
+      month:"short",
+      year:"numeric"
+    }
+  );
+}
+
+
+/* ======================
+   HORA
+====================== */
+
+function formatoHora(valor){
+
+  if(!valor){
+    return "--";
+  }
+
+  const partes =
+    valor.split(":");
+
+  let h =
+    Number(partes[0]);
+
+  const minutos =
+    partes[1];
+
+  const periodo =
+    h >= 12
+      ? "p. m."
+      : "a. m.";
+
+  h =
+    h % 12;
+
+  if(h === 0){
+    h = 12;
+  }
+
+  return `${h}:${minutos} ${periodo}`;
+}
+
+
+/* ======================
+   PRECIO
+====================== */
+
+function formatoPrecio(valor){
+
+  if(!valor){
+    return "$150 MXN";
+  }
+
+  const numero =
+    Number(valor);
+
+  return `$${numero.toLocaleString("es-MX")} MXN`;
+}
+
+
+/* ======================
+   ACTUALIZAR
+====================== */
+
+function actualizar(){
+
+  const paciente =
+    nombre.value.trim()
+    || "Nombre del paciente";
+
+  const fechaTexto =
+    formatoFecha(fecha.value);
+
+  const horaTexto =
+    formatoHora(hora.value);
+
+  const precioTexto =
+    formatoPrecio(importe.value);
+
+
+  document.getElementById("confNombre").textContent =
+    paciente;
+
+  document.getElementById("confFecha").textContent =
+    fechaTexto;
+
+  document.getElementById("confHora").textContent =
+    horaTexto;
+
+  document.getElementById("confImporte").textContent =
+    precioTexto;
+
+
+  document.getElementById("recNombre").textContent =
+    paciente;
+
+  document.getElementById("recFecha").textContent =
+    fechaTexto;
+
+  document.getElementById("recHora").textContent =
+    horaTexto;
+
+  document.getElementById("recImporte").textContent =
+    precioTexto;
+}
+
+
+/* ======================
+   CAMBIAR DOCUMENTO
+====================== */
+
+btnConfirmacion.addEventListener(
+  "click",
+  function(){
+
+    documentoActivo =
+      "confirmacion";
+
+    confirmacion.classList.remove(
+      "oculto"
+    );
+
+    recibo.classList.add(
+      "oculto"
+    );
+
+    btnConfirmacion.classList.add(
+      "activo"
+    );
+
+    btnRecibo.classList.remove(
+      "activo"
+    );
+
+    previewLabel.textContent =
+      "VISTA PREVIA · CONFIRMACIÓN DE CITA";
+
+    actualizar();
+  }
+);
+
+
+btnRecibo.addEventListener(
+  "click",
+  function(){
+
+    documentoActivo =
+      "recibo";
+
+    recibo.classList.remove(
+      "oculto"
+    );
+
+    confirmacion.classList.add(
+      "oculto"
+    );
+
+    btnRecibo.classList.add(
+      "activo"
+    );
+
+    btnConfirmacion.classList.remove(
+      "activo"
+    );
+
+    previewLabel.textContent =
+      "VISTA PREVIA · RECIBO DE PAGO";
+
+    actualizar();
+  }
+);
+
+
+/* ======================
+   ACTUALIZAR BOTÓN
+====================== */
+
+actualizarBtn.addEventListener(
+  "click",
+  actualizar
+);
+
+
+/* actualización automática */
+
+[
+  nombre,
+  fecha,
+  hora,
+  importe
+].forEach(
+  function(campo){
+
+    campo.addEventListener(
+      "input",
+      actualizar
+    );
+
+    campo.addEventListener(
+      "change",
+      actualizar
+    );
+
+  }
+);
+
+
+/* ======================
+   ESPERAR IMÁGENES
+====================== */
+
+async function esperarImagenes(elemento){
+
+  const imagenes =
+    elemento.querySelectorAll("img");
+
+  const tareas =
+    Array.from(imagenes).map(
+      function(img){
+
+        if(img.complete){
+          return Promise.resolve();
+        }
+
+        return new Promise(
+          function(resolve){
+
+            img.onload =
+              resolve;
+
+            img.onerror =
+              resolve;
+
+          }
+        );
+
+      }
+    );
+
+  await Promise.all(tareas);
+}
+
+
+/* ======================
+   DESCARGAR
+====================== */
+
+btnDescargar.addEventListener(
+  "click",
+  async function(){
+
+    actualizar();
+
+    const elemento =
+      documentoActivo === "confirmacion"
+        ? confirmacion
+        : recibo;
+
+
+    if(typeof html2canvas === "undefined"){
+
+      alert(
+        "No se pudo cargar la herramienta de descarga."
+      );
+
+      return;
+    }
+
+
+    const textoOriginal =
+      btnDescargar.textContent;
+
+    btnDescargar.disabled =
+      true;
+
+    btnDescargar.textContent =
+      "Generando imagen...";
+
+
+    try{
+
+      await esperarImagenes(
+        elemento
+      );
+
+      if(
+        document.fonts &&
+        document.fonts.ready
+      ){
+        await document.fonts.ready;
+      }
+
+
+      const canvas =
+        await html2canvas(
+          elemento,
+          {
+            scale:2,
+            backgroundColor:"#fffaf5",
+            useCORS:true,
+            allowTaint:false,
+            logging:false,
+            scrollX:0,
+            scrollY:0
+          }
+        );
+
+
+      const paciente =
+        nombre.value
+        .trim()
+        .replace(/\s+/g,"_")
+        .replace(
+          /[^a-zA-Z0-9áéíóúÁÉÍÓÚñÑ_-]/g,
+          ""
+        )
+        || "paciente";
+
+
+      const archivo =
+        `${documentoActivo}_${paciente}.png`;
+
+
+      canvas.toBlob(
+        function(blob){
+
+          if(!blob){
+
+            alert(
+              "No se pudo crear la imagen."
+            );
+
+            return;
+          }
+
+
+          const url =
+            URL.createObjectURL(
+              blob
+            );
+
+          const enlace =
+            document.createElement(
+              "a"
+            );
+
+          enlace.href =
+            url;
+
+          enlace.download =
+            archivo;
+
+          document.body.appendChild(
+            enlace
+          );
+
+          enlace.click();
+
+          enlace.remove();
+
+
+          setTimeout(
+            function(){
+              URL.revokeObjectURL(
+                url
+              );
+            },
+            3000
+          );
+
+        },
+        "image/png"
+      );
+
+
+    }catch(error){
+
+      console.error(error);
+
+      alert(
+        "No se pudo generar el documento."
+      );
+
+    }finally{
+
+      btnDescargar.disabled =
+        false;
+
+      btnDescargar.textContent =
+        textoOriginal;
+    }
+
+  }
+);
+
+
+/* ======================
+   INICIO
+====================== */
+
+actualizar();
+
+</script>
+
+</body>
+</html>
