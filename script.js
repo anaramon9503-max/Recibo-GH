@@ -172,6 +172,7 @@ function actualizarRecibo() {
 
 
   // SIEMPRE PAGO RECIBIDO
+
   reciboEstado.textContent =
     "PAGO RECIBIDO";
 
