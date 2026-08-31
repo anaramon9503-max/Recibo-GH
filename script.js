@@ -4,7 +4,6 @@ const hora = document.getElementById("hora");
 const modalidad = document.getElementById("modalidad");
 const importe = document.getElementById("importe");
 const metodoPago = document.getElementById("metodoPago");
-const estadoPago = document.getElementById("estadoPago");
 
 const btnConfirmacion = document.getElementById("btnConfirmacion");
 const btnRecibo = document.getElementById("btnRecibo");
@@ -15,7 +14,6 @@ const confirmacion = document.getElementById("confirmacion");
 const recibo = document.getElementById("recibo");
 
 const tituloVista = document.getElementById("tituloVista");
-const grupoEstadoPago = document.getElementById("grupoEstadoPago");
 
 const confNombre = document.getElementById("confNombre");
 const confFecha = document.getElementById("confFecha");
@@ -223,10 +221,6 @@ function mostrarConfirmacion() {
   tituloVista.textContent =
     "Vista previa - Confirmación de cita";
 
-  if (grupoEstadoPago) {
-    grupoEstadoPago.style.display = "none";
-  }
-
   btnDescargar.textContent =
     "Descargar confirmación";
 
@@ -251,10 +245,6 @@ function mostrarRecibo() {
 
   tituloVista.textContent =
     "Vista previa - Recibo de pago";
-
-  if (grupoEstadoPago) {
-    grupoEstadoPago.style.display = "none";
-  }
 
   btnDescargar.textContent =
     "Descargar recibo";
@@ -466,7 +456,9 @@ btnDescargar.addEventListener(
 
 
       /*
-        MISMO MÉTODO QUE YA FUNCIONÓ
+        EXACTAMENTE COMO EL PRIMER JS
+        QUE SÍ DESCARGABA:
+        guardamos los estilos actuales.
       */
 
       const transformAnterior =
@@ -479,6 +471,15 @@ btnDescargar.addEventListener(
         documentoActual.style.position;
 
 
+      /*
+        Quitamos solamente la escala
+        del celular.
+
+        NO usamos exportando.
+        NO hacemos clones.
+        NO usamos foreignObjectRendering.
+      */
+
       documentoActual.style.transform =
         "none";
 
@@ -489,10 +490,21 @@ btnDescargar.addEventListener(
         "relative";
 
 
+      /*
+        Igual que en tu primer código:
+        esperamos 200 ms para que Android
+        redibuje el documento.
+      */
+
       await new Promise(resolve =>
         setTimeout(resolve, 200)
       );
 
+
+      /*
+        MISMA CONFIGURACIÓN DEL
+        PRIMER SCRIPT QUE SÍ DESCARGABA.
+      */
 
       const canvas =
         await html2canvas(
@@ -524,6 +536,10 @@ btnDescargar.addEventListener(
           }
         );
 
+
+      /*
+        Restauramos la vista del celular.
+      */
 
       documentoActual.style.transform =
         transformAnterior;
@@ -567,6 +583,11 @@ btnDescargar.addEventListener(
 
       }
 
+
+      /*
+        También conservamos toDataURL,
+        igual que el primer script.
+      */
 
       enlace.href =
         canvas.toDataURL(
