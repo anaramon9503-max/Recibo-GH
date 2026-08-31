@@ -532,7 +532,7 @@ btnDescargar.addEventListener(
 
             scrollY: 0,
 
-            windowWidth: 1400
+            windowWidth: 1080
 
           }
         );
