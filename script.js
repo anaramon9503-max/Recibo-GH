@@ -305,7 +305,6 @@ function validarDatos() {
   if (!nombre.value.trim()) {
 
     alert("Escribe el nombre del paciente.");
-
     nombre.focus();
 
     return false;
@@ -315,7 +314,6 @@ function validarDatos() {
   if (!fecha.value) {
 
     alert("Selecciona la fecha de la sesión.");
-
     fecha.focus();
 
     return false;
@@ -325,7 +323,6 @@ function validarDatos() {
   if (!hora.value) {
 
     alert("Selecciona la hora.");
-
     hora.focus();
 
     return false;
@@ -338,7 +335,6 @@ function validarDatos() {
   ) {
 
     alert("Escribe un importe válido.");
-
     importe.focus();
 
     return false;
@@ -399,7 +395,6 @@ async function esperarImagenes(elemento) {
       return new Promise(resolve => {
 
         img.onload = resolve;
-
         img.onerror = resolve;
 
       });
@@ -436,17 +431,15 @@ btnDescargar.addEventListener(
     btnDescargar.disabled = true;
 
 
-    if (tipoDocumento === "confirmacion") {
+    btnDescargar.textContent =
+      tipoDocumento === "confirmacion"
+        ? "Generando confirmación..."
+        : "Generando recibo...";
 
-      btnDescargar.textContent =
-        "Generando confirmación...";
 
-    } else {
-
-      btnDescargar.textContent =
-        "Generando recibo...";
-
-    }
+    let padreOriginal = null;
+    let siguienteElemento = null;
+    let estiloAnterior = null;
 
 
     try {
@@ -456,33 +449,49 @@ btnDescargar.addEventListener(
       );
 
 
-      /*
-        EXACTAMENTE COMO EL PRIMER JS
-        QUE SÍ DESCARGABA:
-        guardamos los estilos actuales.
-      */
+      // ===============================
+      // GUARDAR POSICIÓN ORIGINAL
+      // ===============================
 
-      const transformAnterior =
-        documentoActual.style.transform;
+      padreOriginal =
+        documentoActual.parentNode;
 
-      const marginAnterior =
-        documentoActual.style.margin;
+      siguienteElemento =
+        documentoActual.nextSibling;
 
-      const positionAnterior =
-        documentoActual.style.position;
+      estiloAnterior =
+        documentoActual.getAttribute("style");
 
 
-      /*
-        Quitamos solamente la escala
-        del celular.
+      // ===============================
+      // SACARLO TEMPORALMENTE
+      // DEL CONTENEDOR MÓVIL
+      // ===============================
 
-        NO usamos exportando.
-        NO hacemos clones.
-        NO usamos foreignObjectRendering.
-      */
+      document.body.appendChild(
+        documentoActual
+      );
+
+
+      // ===============================
+      // PREPARAR DOCUMENTO
+      // ===============================
+
+      documentoActual.classList.add(
+        "exportando"
+      );
+
+      documentoActual.style.width =
+        "1080px";
+
+      documentoActual.style.maxWidth =
+        "none";
 
       documentoActual.style.transform =
         "none";
+
+      documentoActual.style.transformOrigin =
+        "top left";
 
       documentoActual.style.margin =
         "0";
@@ -490,22 +499,29 @@ btnDescargar.addEventListener(
       documentoActual.style.position =
         "relative";
 
+      documentoActual.style.left =
+        "0";
 
-      /*
-        Igual que en tu primer código:
-        esperamos 200 ms para que Android
-        redibuje el documento.
-      */
+      documentoActual.style.top =
+        "0";
+
+      documentoActual.style.background =
+        "#fffaf6";
+
+      documentoActual.style.backgroundImage =
+        "none";
+
+
+      // Android termina de redibujar
 
       await new Promise(resolve =>
-        setTimeout(resolve, 200)
+        setTimeout(resolve, 250)
       );
 
 
-      /*
-        MISMA CONFIGURACIÓN DEL
-        PRIMER SCRIPT QUE SÍ DESCARGABA.
-      */
+      // ===============================
+      // CAPTURA
+      // ===============================
 
       const canvas =
         await html2canvas(
@@ -532,25 +548,15 @@ btnDescargar.addEventListener(
 
             scrollY: 0,
 
-            windowWidth: 1080
+            windowWidth: 1400
 
           }
         );
 
 
-      /*
-        Restauramos la vista del celular.
-      */
-
-      documentoActual.style.transform =
-        transformAnterior;
-
-      documentoActual.style.margin =
-        marginAnterior;
-
-      documentoActual.style.position =
-        positionAnterior;
-
+      // ===============================
+      // CREAR ARCHIVO
+      // ===============================
 
       const enlace =
         document.createElement("a");
@@ -570,25 +576,11 @@ btnDescargar.addEventListener(
           );
 
 
-      if (
+      enlace.download =
         tipoDocumento === "confirmacion"
-      ) {
+          ? `Confirmacion_${nombreArchivo}.png`
+          : `Recibo_${nombreArchivo}.png`;
 
-        enlace.download =
-          `Confirmacion_${nombreArchivo}.png`;
-
-      } else {
-
-        enlace.download =
-          `Recibo_${nombreArchivo}.png`;
-
-      }
-
-
-      /*
-        También conservamos toDataURL,
-        igual que el primer script.
-      */
 
       enlace.href =
         canvas.toDataURL(
@@ -601,9 +593,7 @@ btnDescargar.addEventListener(
         enlace
       );
 
-
       enlace.click();
-
 
       document.body.removeChild(
         enlace
@@ -623,6 +613,56 @@ btnDescargar.addEventListener(
 
 
     } finally {
+
+
+      // ===============================
+      // REGRESAR DOCUMENTO
+      // EXACTAMENTE A SU LUGAR
+      // ===============================
+
+      documentoActual.classList.remove(
+        "exportando"
+      );
+
+
+      if (estiloAnterior === null) {
+
+        documentoActual.removeAttribute(
+          "style"
+        );
+
+      } else {
+
+        documentoActual.setAttribute(
+          "style",
+          estiloAnterior
+        );
+
+      }
+
+
+      if (padreOriginal) {
+
+        if (
+          siguienteElemento &&
+          siguienteElemento.parentNode === padreOriginal
+        ) {
+
+          padreOriginal.insertBefore(
+            documentoActual,
+            siguienteElemento
+          );
+
+        } else {
+
+          padreOriginal.appendChild(
+            documentoActual
+          );
+
+        }
+
+      }
+
 
       btnDescargar.disabled =
         false;
