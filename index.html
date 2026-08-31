@@ -1,293 +1,707 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Generador de documentos</title>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Generador de Sesiones | Nancy Gabriela Hernández V.</title>
 
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div class="app">
+  <main class="app">
 
-  <!-- =====================================
-       FORMULARIO
-  ====================================== -->
+    <!-- =====================================================
+         ENCABEZADO
+    ====================================================== -->
 
-  <section class="formulario">
+    <header class="encabezado">
 
-    <h1>Generador de documentos</h1>
+      <img
+        src="logo.jpg"
+        alt="Nancy Gabriela Hernández V. Psicóloga"
+        class="logo-principal"
+      >
 
-    <p class="form-subtitulo">
-      Completa los datos de la sesión
-    </p>
+      <div>
+        <p class="mini-titulo">Nancy Gabriela Hernández V.</p>
+
+        <h1>
+          Generador de documentos
+        </h1>
+
+        <p class="subtitulo">
+          Confirmaciones de sesión y recibos de pago
+        </p>
+      </div>
+
+    </header>
 
 
-    <!-- TIPO DE DOCUMENTO -->
+    <!-- =====================================================
+         FORMULARIO
+    ====================================================== -->
 
-    <label class="titulo-selector">
-      ¿Qué deseas generar?
-    </label>
+    <section class="panel-formulario">
+
+      <div class="titulo-seccion">
+        <span>♡</span>
+        <div>
+          <h2>Datos de la sesión</h2>
+          <p>Completa la información del paciente.</p>
+        </div>
+      </div>
 
 
-    <div class="selector-documento">
+      <div class="form-grid">
+
+        <!-- PACIENTE -->
+
+        <div class="campo campo-completo">
+          <label for="nombre">
+            Nombre del paciente
+          </label>
+
+          <input
+            type="text"
+            id="nombre"
+            placeholder="Ej. Ana Patricia"
+            autocomplete="off"
+          >
+        </div>
+
+
+        <!-- FECHA -->
+
+        <div class="campo">
+          <label for="fecha">
+            Fecha de la sesión
+          </label>
+
+          <input
+            type="date"
+            id="fecha"
+          >
+        </div>
+
+
+        <!-- HORA -->
+
+        <div class="campo">
+          <label for="hora">
+            Hora
+          </label>
+
+          <input
+            type="time"
+            id="hora"
+          >
+        </div>
+
+
+        <!-- MODALIDAD -->
+
+        <div class="campo">
+          <label for="modalidad">
+            Modalidad
+          </label>
+
+          <select id="modalidad">
+
+            <option value="En línea">
+              En línea
+            </option>
+
+            <option value="Presencial">
+              Presencial
+            </option>
+
+          </select>
+        </div>
+
+
+        <!-- IMPORTE -->
+
+        <div class="campo">
+          <label for="importe">
+            Valor de la sesión
+          </label>
+
+          <div class="input-moneda">
+
+            <span>$</span>
+
+            <input
+              type="number"
+              id="importe"
+              placeholder="150"
+              min="0"
+              step="1"
+            >
+
+            <span>MXN</span>
+
+          </div>
+        </div>
+
+
+        <!-- MÉTODO DE PAGO -->
+
+        <div class="campo">
+          <label for="metodoPago">
+            Método de pago
+          </label>
+
+          <select id="metodoPago">
+
+            <option value="Transferencia bancaria">
+              Transferencia bancaria
+            </option>
+
+            <option value="Efectivo">
+              Efectivo
+            </option>
+
+            <option value="Depósito">
+              Depósito
+            </option>
+
+            <option value="Otro">
+              Otro
+            </option>
+
+          </select>
+        </div>
+
+
+        <!-- ESTADO DE PAGO -->
+
+        <div class="campo">
+          <label for="estadoPago">
+            Estado del pago
+          </label>
+
+          <select id="estadoPago">
+
+            <option value="Pago recibido">
+              Pago recibido
+            </option>
+
+            <option value="Pendiente">
+              Pendiente
+            </option>
+
+          </select>
+        </div>
+
+      </div>
+
+
+      <!-- ===================================================
+           BOTONES DE TIPO DE DOCUMENTO
+      ==================================================== -->
+
+      <div class="selector-documento">
+
+        <p class="selector-titulo">
+          ¿Qué deseas generar?
+        </p>
+
+
+        <div class="botones-tipo">
+
+          <button
+            type="button"
+            id="btnConfirmacion"
+            class="btn-tipo activo"
+          >
+            <span>♡</span>
+            Confirmación
+          </button>
+
+
+          <button
+            type="button"
+            id="btnRecibo"
+            class="btn-tipo"
+          >
+            <span>✓</span>
+            Recibo de pago
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- ===================================================
+           GENERAR
+      ==================================================== -->
 
       <button
         type="button"
-        class="opcion-documento activa"
-        id="btnConfirmacion"
+        id="btnGenerar"
+        class="btn-generar"
       >
-        <span class="selector-icono">
-          ▣
-        </span>
-
-        <span>
-          Confirmación<br>
-          de cita
-        </span>
+        Generar documento
       </button>
 
-
-      <button
-        type="button"
-        class="opcion-documento"
-        id="btnRecibo"
-      >
-        <span class="selector-icono check-selector">
-          ✓
-        </span>
-
-        <span>
-          Recibo de<br>
-          pago
-        </span>
-      </button>
-
-    </div>
+    </section>
 
 
-    <p class="ayuda-selector">
-      Se mostrará el diseño seleccionado
-    </p>
+    <!-- =====================================================
+         VISTA PREVIA
+    ====================================================== -->
 
-
-    <!-- DATOS -->
-
-    <label>Nombre del paciente</label>
-
-    <input
-      type="text"
-      id="nombre"
-      placeholder="Ej. María López"
+    <section
+      class="contenedor-preview"
+      id="contenedorPreview"
     >
 
+      <div class="preview-header">
 
-    <label>Fecha de la sesión</label>
+        <div>
+          <p class="mini-titulo">
+            Vista previa
+          </p>
 
-    <input
-      type="date"
-      id="fecha"
-    >
+          <h2 id="tituloPreview">
+            Confirmación de sesión
+          </h2>
+        </div>
 
-
-    <label>Hora</label>
-
-    <input
-      type="time"
-      id="hora"
-    >
+      </div>
 
 
-    <label>Modalidad</label>
 
-    <select id="modalidad">
+      <!-- ===================================================
+           CONFIRMACIÓN
+      ==================================================== -->
 
-      <option value="En línea">
-        En línea
-      </option>
-
-      <option value="Presencial">
-        Presencial
-      </option>
-
-    </select>
-
-
-    <label>Valor de la sesión</label>
-
-    <input
-      type="number"
-      id="importe"
-      placeholder="Ej. 500"
-    >
-
-
-    <label>Método de pago</label>
-
-    <select id="metodoPago">
-
-      <option value="Transferencia bancaria">
-        Transferencia bancaria
-      </option>
-
-      <option value="Efectivo">
-        Efectivo
-      </option>
-
-      <option value="Tarjeta">
-        Tarjeta
-      </option>
-
-    </select>
-
-
-    <button
-      type="button"
-      id="btnGenerar"
-    >
-      Actualizar vista previa
-    </button>
-
-  </section>
-
-
-  <!-- =====================================
-       VISTA PREVIA
-  ====================================== -->
-
-  <section class="vista">
-
-    <h3 id="tituloVista">
-      Vista previa - Confirmación de cita
-    </h3>
-
-
-    <div class="escala-recibo">
-
-
-      <!-- =====================================
-           CONFIRMACIÓN DE CITA
-      ====================================== -->
-
-      <div
+      <article
         id="confirmacion"
-        class="documento"
+        class="documento documento-confirmacion"
       >
-
-        <!-- DECORACIONES -->
-
-        <div class="rama-conf rama-conf-rosa">
-          ❧
-        </div>
-
-        <div class="rama-conf rama-conf-verde">
-          ❧
-        </div>
-
 
         <!-- LOGO -->
 
-        <div class="logo logo-confirmacion">
+        <div class="doc-logo">
 
           <img
-            src="logo.png"
-            alt="Logo profesional"
+            src="logo.jpg"
+            alt="Logo Nancy Gabriela Hernández V."
           >
 
         </div>
 
 
-        <!-- BIENVENIDA -->
+        <!-- DECORACIÓN -->
 
-        <h1 class="bienvenida">
-          ¡BIENVENID@!
-        </h1>
+        <div class="ramitas-superiores">
 
-        <div class="linea-bienvenida"></div>
+          <span class="rama rosa">
+            ❧
+          </span>
 
-        <div class="corazon-conf">
-          ♥
-        </div>
-
-
-        <p class="saludo-confirmacion">
-
-          Nos da mucho gusto saludarte.<br>
-
-          Te contactamos para confirmar tu sesión con:
-
-        </p>
-
-
-        <!-- NOMBRE -->
-
-        <div class="nombre-confirmacion">
-
-          <div class="icono-persona-conf"></div>
-
-          <strong>
-            NOMBRE DEL PACIENTE:
-          </strong>
-
-          <span id="confNombre">
-            Nombre del paciente
+          <span class="rama turquesa">
+            ❧
           </span>
 
         </div>
 
 
-        <!-- DATOS SESIÓN -->
+        <!-- TÍTULO -->
 
-        <section class="caja-confirmacion sesion-confirmacion">
+        <h2 class="doc-titulo">
+          CONFIRMACIÓN DE SESIÓN
+        </h2>
 
-          <div class="titulo-confirmacion">
+        <div class="divisor-corazon">
+          <span></span>
+          <b>♥</b>
+          <span></span>
+        </div>
 
-            <div class="icono-titulo-conf calendario-conf"></div>
 
-            DETALLES DE TU SESIÓN
+        <p class="saludo-cursiva">
+          Me da mucho gusto saludarte.
+        </p>
+
+        <p class="texto-intro">
+          Te escribo para confirmar los datos de tu sesión.
+        </p>
+
+
+        <!-- DATOS DE SESIÓN -->
+
+        <div class="tarjeta-datos confirmacion-datos">
+
+
+          <div class="fila-dato">
+
+            <div class="icono-dato">
+              ♡
+            </div>
+
+            <div class="dato-etiqueta">
+              Paciente:
+            </div>
+
+            <div
+              class="dato-valor"
+              id="confNombre"
+            >
+              NOMBRE DEL PACIENTE
+            </div>
 
           </div>
 
 
-          <div class="datos-confirmacion">
+          <div class="fila-dato">
 
-            <div class="dato-confirmacion">
+            <div class="icono-dato">
+              ▣
+            </div>
 
-              <div class="icono-conf icono-calendario-conf"></div>
+            <div class="dato-etiqueta">
+              Fecha:
+            </div>
 
-              <strong>FECHA</strong>
+            <div
+              class="dato-valor"
+              id="confFecha"
+            >
+              Fecha de la sesión
+            </div>
 
-              <span id="confFecha">
-                --
+          </div>
+
+
+          <div class="fila-dato">
+
+            <div class="icono-dato">
+              ◷
+            </div>
+
+            <div class="dato-etiqueta">
+              Hora:
+            </div>
+
+            <div
+              class="dato-valor"
+              id="confHora"
+            >
+              4:00 p. m.
+            </div>
+
+          </div>
+
+
+          <div class="fila-dato">
+
+            <div class="icono-dato">
+              ▱
+            </div>
+
+            <div class="dato-etiqueta">
+              Modalidad:
+            </div>
+
+            <div
+              class="dato-valor"
+              id="confModalidad"
+            >
+              Sesión en línea
+            </div>
+
+          </div>
+
+
+          <div class="fila-dato">
+
+            <div class="icono-dato">
+              $
+            </div>
+
+            <div class="dato-etiqueta">
+              Valor de la sesión:
+            </div>
+
+            <div
+              class="precio-sesion"
+              id="confImporte"
+            >
+              $150 MXN
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- DATOS BANCARIOS -->
+
+        <div class="tarjeta-transferencia">
+
+          <div class="barra-transferencia">
+            <span class="circulo-icono">
+              $
+            </span>
+
+            DATOS PARA TRANSFERENCIA
+          </div>
+
+
+          <div class="transferencia-contenido">
+
+            <div>
+
+              <p>
+                <strong>Titular:</strong>
+                Nancy Gabriela Hernández Villa
+              </p>
+
+              <p>
+                <strong>Institución:</strong>
+                Hey Banco
+              </p>
+
+              <p>
+                <strong>
+                  Clave interbancaria (CLABE):
+                </strong>
+
+                <span id="clabeConfirmacion">
+                  167180000014587725
+                </span>
+              </p>
+
+            </div>
+
+
+            <div class="icono-banco">
+              ✓
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- INDICACIONES -->
+
+        <div class="mensaje-aviso">
+
+          <div class="aviso-icono">
+            ◷
+          </div>
+
+          <p>
+            Te agradecería realizar el pago por transferencia
+            <strong>
+              al menos una hora antes de nuestra cita.
+            </strong>
+          </p>
+
+        </div>
+
+
+        <div class="mensaje-aviso whatsapp-aviso">
+
+          <div class="aviso-icono">
+            ☎
+          </div>
+
+          <p>
+            Cuando realices la transferencia, ¿podrías enviarme
+            <strong>el comprobante por este medio?</strong>
+            <br>
+            Así queda todo listo para nuestro encuentro.
+          </p>
+
+        </div>
+
+
+        <p class="mensaje-final-cursiva">
+          Si tienes cualquier duda, aquí estoy para apoyarte.
+        </p>
+
+        <p class="nos-vemos">
+          Nos vemos pronto, con mucho gusto. ♥
+        </p>
+
+
+        <div class="decoracion-final">
+          ❧ &nbsp; ♡ &nbsp; ❧
+        </div>
+
+      </article>
+
+
+
+      <!-- ===================================================
+           RECIBO
+      ==================================================== -->
+
+      <article
+        id="recibo"
+        class="documento documento-recibo oculto"
+      >
+
+        <!-- LOGO -->
+
+        <div class="doc-logo recibo-logo">
+
+          <img
+            src="logo.jpg"
+            alt="Logo Nancy Gabriela Hernández V."
+          >
+
+        </div>
+
+
+        <div class="recibo-titulo-wrap">
+
+          <div class="linea-titulo"></div>
+
+          <h2 class="recibo-titulo">
+            RECIBO
+          </h2>
+
+          <div class="linea-titulo"></div>
+
+        </div>
+
+
+        <p class="recibo-subtitulo">
+          CITA CONFIRMADA
+        </p>
+
+
+        <!-- PAGO RECIBIDO -->
+
+        <div class="pago-confirmado">
+
+          <span class="check-grande">
+            ✓
+          </span>
+
+          <span id="textoPagoPrincipal">
+            PAGO RECIBIDO
+          </span>
+
+        </div>
+
+
+        <p class="texto-recibo">
+          Confirmamos que tu sesión ha sido pagada correctamente.
+        </p>
+
+        <p class="gracias">
+          ¡Gracias por tu confianza!
+        </p>
+
+
+
+        <!-- DATOS SESIÓN -->
+
+        <section class="bloque-recibo">
+
+          <div class="titulo-bloque rosa-bg">
+
+            <span class="circulo-bloque">
+              ♡
+            </span>
+
+            DATOS DE LA SESIÓN
+
+          </div>
+
+
+          <div class="recibo-filas">
+
+            <div class="recibo-fila">
+
+              <span class="recibo-icono">
+                ♡
+              </span>
+
+              <span class="recibo-label">
+                Paciente:
+              </span>
+
+              <span
+                class="recibo-valor rosa-text"
+                id="recNombre"
+              >
+                NOMBRE DEL PACIENTE
               </span>
 
             </div>
 
 
-            <div class="dato-confirmacion">
+            <div class="recibo-fila">
 
-              <div class="icono-conf reloj-conf"></div>
+              <span class="recibo-icono">
+                ▣
+              </span>
 
-              <strong>HORA</strong>
+              <span class="recibo-label">
+                Fecha de la sesión:
+              </span>
 
-              <span id="confHora">
-                --
+              <span
+                class="recibo-valor rosa-text"
+                id="recFecha"
+              >
+                Fecha
               </span>
 
             </div>
 
 
-            <div class="dato-confirmacion">
+            <div class="recibo-fila">
 
-              <div class="icono-conf monitor-conf"></div>
+              <span class="recibo-icono">
+                ◷
+              </span>
 
-              <strong>MODALIDAD</strong>
+              <span class="recibo-label">
+                Hora:
+              </span>
 
-              <span id="confModalidad">
+              <span
+                class="recibo-valor rosa-text"
+                id="recHora"
+              >
+                4:00 p. m.
+              </span>
+
+            </div>
+
+
+            <div class="recibo-fila">
+
+              <span class="recibo-icono">
+                ▱
+              </span>
+
+              <span class="recibo-label">
+                Modalidad:
+              </span>
+
+              <span
+                class="recibo-valor rosa-text"
+                id="recModalidad"
+              >
                 En línea
               </span>
 
@@ -295,474 +709,110 @@
 
           </div>
 
+        </section>
 
-          <!-- IMPORTE -->
 
-          <div class="valor-confirmacion">
 
-            <div class="circulo-dinero">
+        <!-- DETALLE PAGO -->
+
+        <section class="bloque-recibo bloque-turquesa">
+
+          <div class="titulo-bloque turquesa-bg">
+
+            <span class="circulo-bloque">
               $
-            </div>
-
-            <strong>
-              VALOR DE LA SESIÓN:
-            </strong>
-
-            <span class="importe-confirmacion">
-              $<span id="confImporte">500</span> MXN
             </span>
-
-          </div>
-
-
-          <!-- AVISO -->
-
-          <div class="aviso-confirmacion">
-
-            <div class="reloj-aviso"></div>
-
-            <p>
-              Para confirmar tu cita, te pedimos realizar tu transferencia
-
-              <strong>
-                al menos 1 hora antes de la sesión.
-              </strong>
-            </p>
-
-          </div>
-
-        </section>
-
-
-        <!-- TRANSFERENCIA -->
-
-        <section
-          class="caja-confirmacion banco-confirmacion"
-          id="confTransferencia"
-        >
-
-          <div class="titulo-confirmacion titulo-verde">
-
-            <div class="icono-titulo-conf banco-conf"></div>
-
-            DATOS PARA TRANSFERENCIA
-
-          </div>
-
-
-          <div class="contenido-banco-confirmacion">
-
-            <div class="datos-banco-confirmacion">
-
-              <p>
-                <span>Titular:</span>
-
-                <strong>
-                  Nancy Gabriela Hernández Villa
-                </strong>
-              </p>
-
-              <p>
-                <span>Banco:</span>
-
-                <strong>
-                  Hey Banco
-                </strong>
-              </p>
-
-              <p>
-                <span>CLABE:</span>
-
-                <strong>
-                  167180000014587725
-                </strong>
-              </p>
-
-            </div>
-
-
-            <div class="tarjeta-confirmacion">
-
-              <div class="telefono-confirmacion">
-
-                <div>
-                  ✓
-                </div>
-
-              </div>
-
-              <div class="tarjeta-conf"></div>
-
-            </div>
-
-          </div>
-
-        </section>
-
-
-        <!-- COMPROBANTE -->
-
-        <div class="mensaje-confirmacion mensaje-whatsapp">
-
-          <div class="circulo-whatsapp">
-            ☎
-          </div>
-
-          <p>
-            Una vez realizado el pago, por favor envíanos tu
-
-            <strong>
-              comprobante por este medio
-            </strong>
-
-            para dejar confirmada tu sesión. ✨
-          </p>
-
-        </div>
-
-
-        <!-- DUDA -->
-
-        <div class="mensaje-confirmacion mensaje-ayuda">
-
-          <div class="circulo-ayuda">
-            ♡
-          </div>
-
-          <p>
-            Si tienes alguna duda administrativa sobre tu cita,
-            con gusto podemos ayudarte.
-          </p>
-
-        </div>
-
-
-        <div class="frase-final-confirmacion">
-          ¡Gracias por confiar en este espacio para ti! ♡
-        </div>
-
-        <div class="flores-confirmacion">
-          ❧ ❦ ❧
-        </div>
-
-      </div>
-
-
-      <!-- =====================================
-           RECIBO DE PAGO
-      ====================================== -->
-
-      <div
-        id="recibo"
-        class="documento oculto"
-      >
-
-        <!-- RAMAS -->
-
-        <div class="rama rosa">
-          <span>❧</span>
-        </div>
-
-        <div class="rama verde">
-          <span>❧</span>
-        </div>
-
-
-        <!-- LOGO -->
-
-        <div class="logo">
-
-          <img
-            src="logo.png"
-            alt="Logo"
-          >
-
-        </div>
-
-
-        <!-- TÍTULO -->
-
-        <div class="titulo">
-
-          <div class="linea"></div>
-
-          <div class="punto"></div>
-
-          <h1>
-            RECIBO
-          </h1>
-
-          <div class="punto"></div>
-
-          <div class="linea"></div>
-
-        </div>
-
-
-        <div class="subtitulo">
-          CITA CONFIRMADA
-        </div>
-
-
-        <!-- PAGO -->
-
-        <div class="corazon-arriba">
-          ♥
-        </div>
-
-
-        <div class="banner">
-
-          <div class="check">
-            ✓
-          </div>
-
-          <span id="estadoBanner">
-            PAGO RECIBIDO
-          </span>
-
-        </div>
-
-
-        <div class="confirmacion">
-          Confirmamos que tu sesión ha sido pagada correctamente.
-        </div>
-
-
-        <div class="gracias">
-          ¡Gracias por tu confianza!
-        </div>
-
-
-        <div class="corazon-centro">
-          ♥
-        </div>
-
-
-        <!-- DATOS DE SESIÓN -->
-
-        <section class="caja sesion">
-
-          <div class="cabecera rosa-bg">
-
-            <div class="cabecera-icono calendario-icono"></div>
-
-            DATOS DE LA SESIÓN
-
-          </div>
-
-
-          <div class="dato">
-
-            <div class="icono persona-icono"></div>
-
-            <div class="etiqueta">
-              Paciente:
-            </div>
-
-            <div
-              class="valor"
-              id="reciboNombre"
-            >
-              Nombre del paciente
-            </div>
-
-          </div>
-
-
-          <div class="dato">
-
-            <div class="icono calendario-pequeno"></div>
-
-            <div class="etiqueta">
-              Fecha de la sesión:
-            </div>
-
-            <div
-              class="valor"
-              id="reciboFecha"
-            >
-              --
-            </div>
-
-          </div>
-
-
-          <div class="dato">
-
-            <div class="icono reloj-icono"></div>
-
-            <div class="etiqueta">
-              Hora:
-            </div>
-
-            <div
-              class="valor"
-              id="reciboHora"
-            >
-              --
-            </div>
-
-          </div>
-
-
-          <div class="dato sin-linea">
-
-            <div class="icono monitor-icono"></div>
-
-            <div class="etiqueta">
-              Modalidad:
-            </div>
-
-            <div
-              class="valor"
-              id="reciboModalidad"
-            >
-              En línea
-            </div>
-
-          </div>
-
-        </section>
-
-
-        <!-- DETALLE DEL PAGO -->
-
-        <section class="caja pago">
-
-          <div class="cabecera verde-bg">
-
-            <div class="cabecera-icono dinero-icono">
-              $
-            </div>
 
             DETALLE DE PAGO
 
           </div>
 
 
-          <div class="pago-fila">
+          <div class="detalle-pago">
 
-            <div class="pago-icono dinero-pago-icono">
-              $
+            <div class="detalle-fila">
+
+              <span>
+                Valor de la sesión:
+              </span>
+
+              <strong id="recImporte">
+                $150 MXN
+              </strong>
+
             </div>
 
-            <span>
-              Valor de la sesión:
-            </span>
 
-            <strong>
-              $<span id="reciboImporte">500</span> MXN
-            </strong>
+            <div class="detalle-fila">
 
-          </div>
+              <span>
+                Método de pago:
+              </span>
 
+              <strong id="recMetodo">
+                Transferencia bancaria
+              </strong>
 
-          <div class="pago-fila">
-
-            <div class="pago-icono tarjeta-pago-icono">
-              ▰
             </div>
 
-            <span>
-              Método de pago:
-            </span>
 
-            <strong id="reciboMetodo">
-              Transferencia bancaria
-            </strong>
+            <div class="detalle-fila estado-recibo">
 
-          </div>
+              <span>
+                ✓ &nbsp; Estatus:
+              </span>
 
+              <strong id="recEstado">
+                PAGO RECIBIDO
+              </strong>
 
-          <div class="estatus">
-
-            <div class="estatus-check">
-              ✓
             </div>
-
-            <span>
-              Estatus:
-            </span>
-
-            <strong id="reciboEstado">
-              PAGO RECIBIDO
-            </strong>
 
           </div>
 
         </section>
 
 
-        <!-- BANCO -->
 
-        <section
-          class="caja banco"
-          id="transferencia"
-        >
+        <!-- DATOS TRANSFERENCIA -->
 
-          <div class="cabecera verde-bg">
+        <section class="bloque-recibo bloque-turquesa">
 
-            <div class="cabecera-icono banco-icono"></div>
+          <div class="titulo-bloque turquesa-bg">
+
+            <span class="circulo-bloque">
+              $
+            </span>
 
             DATOS DE TRANSFERENCIA
 
           </div>
 
 
-          <div class="banco-contenido">
+          <div class="datos-transferencia-recibo">
 
-            <div class="banco-datos">
+            <div>
 
-              <div>
+              <p>
+                <strong>Titular:</strong>
+                Nancy Gabriela Hernández Villa
+              </p>
 
-                <span>Titular:</span>
+              <p>
+                <strong>Banco:</strong>
+                Hey Banco
+              </p>
 
-                <strong>
-                  Nancy Gabriela Hernández Villa
-                </strong>
-
-              </div>
-
-
-              <div>
-
-                <span>Banco:</span>
-
-                <strong>
-                  Hey Banco
-                </strong>
-
-              </div>
-
-
-              <div>
-
-                <span>CLABE:</span>
-
-                <strong>
-                  167180000014587725
-                </strong>
-
-              </div>
+              <p>
+                <strong>CLABE:</strong>
+                167180000014587725
+              </p>
 
             </div>
 
 
-            <div class="tarjeta-dibujo">
-
-              <div class="telefono">
-
-                <div class="telefono-check">
-                  ✓
-                </div>
-
-              </div>
-
-              <div class="tarjeta">
-                <div></div>
-              </div>
-
+            <div class="tarjeta-icono">
+              ✓
             </div>
 
           </div>
@@ -770,18 +820,19 @@
         </section>
 
 
-        <!-- MENSAJE FINAL -->
 
-        <section class="mensaje">
+        <!-- FINAL -->
 
-          <div class="circulo-corazon">
+        <div class="sesion-confirmada">
+
+          <span class="corazon-final">
             ♥
-          </div>
+          </span>
 
-          <div class="mensaje-texto">
+          <div>
 
-            <strong>
-              Tu sesión está confirmada.
+            <strong id="mensajeFinalRecibo">
+              Tu sesión está confirmada
             </strong>
 
             <p>
@@ -794,42 +845,45 @@
 
           </div>
 
-        </section>
+        </div>
 
 
         <div class="decoracion-final">
-          ❧ ❦ ❧
+          ❧ &nbsp; ♡ &nbsp; ❧
         </div>
 
-      </div>
-
-    </div>
+      </article>
 
 
-    <!-- DESCARGAR -->
 
-    <button
-      type="button"
-      id="btnDescargar"
-    >
-      Descargar documento
-    </button>
+      <!-- ===================================================
+           BOTÓN DESCARGAR
+      ==================================================== -->
 
-  </section>
+      <button
+        type="button"
+        id="btnDescargar"
+        class="btn-descargar"
+      >
+        ↓ Descargar imagen PNG
+      </button>
 
-</div>
+    </section>
+
+  </main>
 
 
-<!-- IMPORTANTE:
-     VOLVEMOS A HTML2CANVAS
--->
 
-<script
-  src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js">
-</script>
+  <!--
+       Librería para convertir el documento HTML
+       en imagen PNG.
+  -->
 
-<script src="script.js"></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
+  ></script>
+
+  <script src="script.js"></script>
 
 </body>
-
 </html>
