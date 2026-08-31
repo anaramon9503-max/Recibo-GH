@@ -4,6 +4,7 @@ const hora = document.getElementById("hora");
 const modalidad = document.getElementById("modalidad");
 const importe = document.getElementById("importe");
 const metodoPago = document.getElementById("metodoPago");
+const estadoPago = document.getElementById("estadoPago");
 
 const btnConfirmacion = document.getElementById("btnConfirmacion");
 const btnRecibo = document.getElementById("btnRecibo");
@@ -12,554 +13,496 @@ const btnDescargar = document.getElementById("btnDescargar");
 
 const confirmacion = document.getElementById("confirmacion");
 const recibo = document.getElementById("recibo");
+const tituloPreview = document.getElementById("tituloPreview");
 
-const tituloVista = document.getElementById("tituloVista");
-
-const confNombre = document.getElementById("confNombre");
-const confFecha = document.getElementById("confFecha");
-const confHora = document.getElementById("confHora");
-const confModalidad = document.getElementById("confModalidad");
-const confImporte = document.getElementById("confImporte");
-const confTransferencia = document.getElementById("confTransferencia");
-
-const reciboNombre = document.getElementById("reciboNombre");
-const reciboFecha = document.getElementById("reciboFecha");
-const reciboHora = document.getElementById("reciboHora");
-const reciboModalidad = document.getElementById("reciboModalidad");
-const reciboImporte = document.getElementById("reciboImporte");
-const reciboMetodo = document.getElementById("reciboMetodo");
-const reciboEstado = document.getElementById("reciboEstado");
-
-const estadoBanner = document.getElementById("estadoBanner");
-const transferencia = document.getElementById("transferencia");
+/* =========================================================
+   VARIABLES DE CONTROL
+========================================================= */
 
 let tipoDocumento = "confirmacion";
 
 
-// ===============================
-// FORMATEAR FECHA
-// ===============================
+/* =========================================================
+   CAMBIAR ENTRE CONFIRMACIÓN Y RECIBO
+========================================================= */
 
-function formatearFecha(valor) {
+btnConfirmacion.addEventListener("click", () => {
+  tipoDocumento = "confirmacion";
 
-  if (!valor) return "--";
+  btnConfirmacion.classList.add("activo");
+  btnRecibo.classList.remove("activo");
 
-  const partes = valor.split("-");
+  confirmacion.classList.remove("oculto");
+  recibo.classList.add("oculto");
 
-  const fechaLocal = new Date(
-    Number(partes[0]),
-    Number(partes[1]) - 1,
-    Number(partes[2])
-  );
+  tituloPreview.textContent = "Confirmación de sesión";
+});
 
-  let texto = fechaLocal.toLocaleDateString("es-MX", {
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-    year: "numeric"
-  });
 
-  return texto.charAt(0).toUpperCase() + texto.slice(1);
+btnRecibo.addEventListener("click", () => {
+  tipoDocumento = "recibo";
+
+  btnRecibo.classList.add("activo");
+  btnConfirmacion.classList.remove("activo");
+
+  recibo.classList.remove("oculto");
+  confirmacion.classList.add("oculto");
+
+  tituloPreview.textContent = "Recibo de pago";
+});
+
+
+/* =========================================================
+   FORMATO DE FECHA
+========================================================= */
+
+function formatearFecha(valorFecha) {
+
+  if (!valorFecha) {
+    return "Fecha de la sesión";
+  }
+
+  const partes = valorFecha.split("-");
+
+  const anio = Number(partes[0]);
+  const mes = Number(partes[1]) - 1;
+  const dia = Number(partes[2]);
+
+  const fechaObjeto = new Date(anio, mes, dia);
+
+  const dias = [
+    "domingo",
+    "lunes",
+    "martes",
+    "miércoles",
+    "jueves",
+    "viernes",
+    "sábado"
+  ];
+
+  const meses = [
+    "enero",
+    "febrero",
+    "marzo",
+    "abril",
+    "mayo",
+    "junio",
+    "julio",
+    "agosto",
+    "septiembre",
+    "octubre",
+    "noviembre",
+    "diciembre"
+  ];
+
+  return `${dias[fechaObjeto.getDay()]}, ${dia} de ${meses[mes]} de ${anio}`;
 }
 
 
-// ===============================
-// FORMATEAR HORA
-// ===============================
+/* =========================================================
+   FORMATO DE HORA
+========================================================= */
 
-function formatearHora(valor) {
+function formatearHora(valorHora) {
 
-  if (!valor) return "--";
+  if (!valorHora) {
+    return "Hora de la sesión";
+  }
 
-  const [horaTexto, minutos] = valor.split(":");
+  const partes = valorHora.split(":");
 
-  let horas = Number(horaTexto);
+  let horas = Number(partes[0]);
+  const minutos = partes[1];
 
-  const periodo =
-    horas >= 12
-      ? "p. m."
-      : "a. m.";
+  let periodo = "a. m.";
 
-  horas = horas % 12;
+  if (horas >= 12) {
+    periodo = "p. m.";
+  }
 
-  if (horas === 0) horas = 12;
+  if (horas === 0) {
+    horas = 12;
+  } else if (horas > 12) {
+    horas = horas - 12;
+  }
 
   return `${horas}:${minutos} ${periodo}`;
 }
 
 
-// ===============================
-// FORMATEAR IMPORTE
-// ===============================
+/* =========================================================
+   FORMATO DE MODALIDAD
+========================================================= */
+
+function formatearModalidadConfirmacion(valor) {
+
+  if (valor === "En línea") {
+    return "Sesión en línea";
+  }
+
+  if (valor === "Presencial") {
+    return "Sesión presencial";
+  }
+
+  return valor;
+}
+
+
+/* =========================================================
+   FORMATO DEL IMPORTE
+========================================================= */
 
 function formatearImporte(valor) {
 
-  if (!valor) return "0";
-
-  return Number(valor).toLocaleString("es-MX", {
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 2
-  });
-}
-
-
-// ===============================
-// ACTUALIZAR CONFIRMACIÓN
-// ===============================
-
-function actualizarConfirmacion() {
-
-  confNombre.textContent =
-    nombre.value.trim() || "Nombre del paciente";
-
-  confFecha.textContent =
-    formatearFecha(fecha.value);
-
-  confHora.textContent =
-    formatearHora(hora.value);
-
-  confModalidad.textContent =
-    modalidad.value;
-
-  confImporte.textContent =
-    formatearImporte(importe.value);
-
-  if (metodoPago.value === "Transferencia bancaria") {
-
-    confTransferencia.style.display = "block";
-
-  } else {
-
-    confTransferencia.style.display = "none";
-
+  if (!valor) {
+    return "$0 MXN";
   }
 
+  const numero = Number(valor);
+
+  return `$${numero.toLocaleString("es-MX")} MXN`;
 }
 
 
-// ===============================
-// ACTUALIZAR RECIBO
-// ===============================
+/* =========================================================
+   GENERAR DOCUMENTO
+========================================================= */
 
-function actualizarRecibo() {
+btnGenerar.addEventListener("click", () => {
 
-  reciboNombre.textContent =
-    nombre.value.trim() || "Nombre del paciente";
+  const nombreValor =
+    nombre.value.trim() || "NOMBRE DEL PACIENTE";
 
-  reciboFecha.textContent =
+  const fechaValor =
     formatearFecha(fecha.value);
 
-  reciboHora.textContent =
+  const horaValor =
     formatearHora(hora.value);
 
-  reciboModalidad.textContent =
+  const modalidadValor =
     modalidad.value;
 
-  reciboImporte.textContent =
+  const importeValor =
     formatearImporte(importe.value);
 
-  reciboMetodo.textContent =
+  const metodoValor =
     metodoPago.value;
 
-  reciboEstado.textContent =
-    "PAGO RECIBIDO";
+  const estadoValor =
+    estadoPago.value;
 
-  estadoBanner.textContent =
-    "PAGO RECIBIDO";
 
-  if (metodoPago.value === "Transferencia bancaria") {
+  /* =======================================================
+     DATOS DE LA CONFIRMACIÓN
+  ======================================================= */
 
-    transferencia.style.display = "block";
+  document.getElementById("confNombre").textContent =
+    nombreValor;
+
+  document.getElementById("confFecha").textContent =
+    fechaValor;
+
+  document.getElementById("confHora").textContent =
+    horaValor;
+
+  document.getElementById("confModalidad").textContent =
+    formatearModalidadConfirmacion(modalidadValor);
+
+  document.getElementById("confImporte").textContent =
+    importeValor;
+
+
+  /* =======================================================
+     DATOS DEL RECIBO
+  ======================================================= */
+
+  document.getElementById("recNombre").textContent =
+    nombreValor;
+
+  document.getElementById("recFecha").textContent =
+    fechaValor;
+
+  document.getElementById("recHora").textContent =
+    horaValor;
+
+  document.getElementById("recModalidad").textContent =
+    modalidadValor;
+
+  document.getElementById("recImporte").textContent =
+    importeValor;
+
+  document.getElementById("recMetodo").textContent =
+    metodoValor;
+
+  document.getElementById("recEstado").textContent =
+    estadoValor.toUpperCase();
+
+
+  /* =======================================================
+     TEXTO PRINCIPAL DEL RECIBO
+  ======================================================= */
+
+  const textoPagoPrincipal =
+    document.getElementById("textoPagoPrincipal");
+
+  const mensajeFinalRecibo =
+    document.getElementById("mensajeFinalRecibo");
+
+
+  if (estadoValor === "Pago recibido") {
+
+    textoPagoPrincipal.textContent =
+      "PAGO RECIBIDO";
+
+    mensajeFinalRecibo.textContent =
+      "Tu sesión está confirmada";
 
   } else {
 
-    transferencia.style.display = "none";
+    textoPagoPrincipal.textContent =
+      "PAGO PENDIENTE";
+
+    mensajeFinalRecibo.textContent =
+      "Tu sesión está registrada";
 
   }
 
-}
+
+  /* =======================================================
+     MOSTRAR EL DOCUMENTO SELECCIONADO
+  ======================================================= */
+
+  if (tipoDocumento === "confirmacion") {
+
+    confirmacion.classList.remove("oculto");
+    recibo.classList.add("oculto");
+
+  } else {
+
+    recibo.classList.remove("oculto");
+    confirmacion.classList.add("oculto");
+
+  }
 
 
-// ===============================
-// ACTUALIZAR TODO
-// ===============================
+  /* =======================================================
+     BAJAR A LA VISTA PREVIA
+  ======================================================= */
 
-function actualizarTodo() {
+  document
+    .getElementById("contenedorPreview")
+    .scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
 
-  actualizarConfirmacion();
-  actualizarRecibo();
-
-}
+});
 
 
-// ===============================
-// MOSTRAR CONFIRMACIÓN
-// ===============================
+/* =========================================================
+   DESCARGAR PNG
+========================================================= */
 
-function mostrarConfirmacion() {
+btnDescargar.addEventListener("click", async () => {
 
-  tipoDocumento = "confirmacion";
+  const documentoActivo =
+    tipoDocumento === "confirmacion"
+      ? confirmacion
+      : recibo;
 
-  confirmacion.classList.remove("oculto");
-  recibo.classList.add("oculto");
 
-  btnConfirmacion.classList.add("activa");
-  btnRecibo.classList.remove("activa");
+  /* =======================================================
+     VERIFICAR QUE HTML2CANVAS CARGÓ
+  ======================================================= */
 
-  tituloVista.textContent =
-    "Vista previa - Confirmación de cita";
+  if (typeof html2canvas === "undefined") {
+
+    alert(
+      "No se pudo cargar la función de descarga. Revisa tu conexión a internet."
+    );
+
+    return;
+  }
+
+
+  /* =======================================================
+     PREPARAR DOCUMENTO
+  ======================================================= */
+
+  documentoActivo.classList.add("generando");
+
+
+  const textoOriginal =
+    btnDescargar.textContent;
 
   btnDescargar.textContent =
-    "Descargar confirmación";
+    "Generando imagen...";
 
-  actualizarTodo();
-
-}
-
-
-// ===============================
-// MOSTRAR RECIBO
-// ===============================
-
-function mostrarRecibo() {
-
-  tipoDocumento = "recibo";
-
-  recibo.classList.remove("oculto");
-  confirmacion.classList.add("oculto");
-
-  btnRecibo.classList.add("activa");
-  btnConfirmacion.classList.remove("activa");
-
-  tituloVista.textContent =
-    "Vista previa - Recibo de pago";
-
-  btnDescargar.textContent =
-    "Descargar recibo";
-
-  actualizarTodo();
-
-}
+  btnDescargar.disabled =
+    true;
 
 
-// ===============================
-// BOTONES
-// ===============================
+  try {
 
-btnConfirmacion.addEventListener(
-  "click",
-  mostrarConfirmacion
-);
+    /* =====================================================
+       ESPERAR FUENTES E IMÁGENES
+    ===================================================== */
 
-btnRecibo.addEventListener(
-  "click",
-  mostrarRecibo
-);
+    if (document.fonts && document.fonts.ready) {
+      await document.fonts.ready;
+    }
 
 
-// ===============================
-// ACTUALIZACIÓN EN TIEMPO REAL
-// ===============================
+    const imagenes =
+      documentoActivo.querySelectorAll("img");
 
-[
+    await Promise.all(
+
+      Array.from(imagenes).map((img) => {
+
+        if (img.complete) {
+          return Promise.resolve();
+        }
+
+        return new Promise((resolve) => {
+
+          img.onload = resolve;
+          img.onerror = resolve;
+
+        });
+
+      })
+
+    );
+
+
+    /* =====================================================
+       CREAR CANVAS
+    ===================================================== */
+
+    const canvas =
+      await html2canvas(documentoActivo, {
+
+        scale: 2,
+
+        useCORS: true,
+
+        allowTaint: false,
+
+        backgroundColor: "#fffaf6",
+
+        logging: false,
+
+        scrollX: 0,
+
+        scrollY: 0,
+
+        windowWidth: 1200
+
+      });
+
+
+    /* =====================================================
+       CREAR NOMBRE DEL ARCHIVO
+    ===================================================== */
+
+    const nombrePaciente =
+      nombre.value.trim()
+        .replace(/\s+/g, "_")
+        .replace(/[^\wáéíóúÁÉÍÓÚñÑ_-]/g, "");
+
+
+    const tipoNombre =
+      tipoDocumento === "confirmacion"
+        ? "confirmacion"
+        : "recibo";
+
+
+    const nombreArchivo =
+      nombrePaciente
+        ? `${tipoNombre}_${nombrePaciente}.png`
+        : `${tipoNombre}_sesion.png`;
+
+
+    /* =====================================================
+       DESCARGAR
+    ===================================================== */
+
+    const enlace =
+      document.createElement("a");
+
+    enlace.download =
+      nombreArchivo;
+
+    enlace.href =
+      canvas.toDataURL("image/png", 1.0);
+
+    document.body.appendChild(enlace);
+
+    enlace.click();
+
+    enlace.remove();
+
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert(
+      "Hubo un problema al generar la imagen. Intenta nuevamente."
+    );
+
+  } finally {
+
+    documentoActivo.classList.remove("generando");
+
+    btnDescargar.textContent =
+      textoOriginal;
+
+    btnDescargar.disabled =
+      false;
+
+  }
+
+});
+
+
+/* =========================================================
+   ACTUALIZACIÓN AUTOMÁTICA DEL PREVIEW
+========================================================= */
+
+const camposFormulario = [
   nombre,
   fecha,
   hora,
   modalidad,
   importe,
-  metodoPago
-].forEach(campo => {
+  metodoPago,
+  estadoPago
+];
 
-  campo.addEventListener(
-    "input",
-    actualizarTodo
-  );
 
-  campo.addEventListener(
-    "change",
-    actualizarTodo
-  );
+camposFormulario.forEach((campo) => {
+
+  campo.addEventListener("change", () => {
+    btnGenerar.click();
+  });
 
 });
 
 
-// ===============================
-// VALIDAR DATOS
-// ===============================
+/* =========================================================
+   VALOR INICIAL
+========================================================= */
 
-function validarDatos() {
+document.addEventListener("DOMContentLoaded", () => {
 
-  if (!nombre.value.trim()) {
+  confirmacion.classList.remove("oculto");
 
-    alert("Escribe el nombre del paciente.");
+  recibo.classList.add("oculto");
 
-    nombre.focus();
+  btnConfirmacion.classList.add("activo");
 
-    return false;
+  btnRecibo.classList.remove("activo");
 
-  }
-
-  if (!fecha.value) {
-
-    alert("Selecciona la fecha de la sesión.");
-
-    fecha.focus();
-
-    return false;
-
-  }
-
-  if (!hora.value) {
-
-    alert("Selecciona la hora.");
-
-    hora.focus();
-
-    return false;
-
-  }
-
-  if (
-    !importe.value ||
-    Number(importe.value) <= 0
-  ) {
-
-    alert("Escribe un importe válido.");
-
-    importe.focus();
-
-    return false;
-
-  }
-
-  return true;
-
-}
-
-
-// ===============================
-// GENERAR VISTA
-// ===============================
-
-btnGenerar.addEventListener(
-  "click",
-  () => {
-
-    if (!validarDatos()) return;
-
-    actualizarTodo();
-
-    document
-      .querySelector(".vista")
-      .scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-
-  }
-);
-
-
-// ===============================
-// ESPERAR IMÁGENES
-// ===============================
-
-async function esperarImagenes(elemento) {
-
-  const imagenes =
-    elemento.querySelectorAll("img");
-
-  await Promise.all(
-
-    Array.from(imagenes).map(img => {
-
-      if (img.complete) {
-
-        return Promise.resolve();
-
-      }
-
-      return new Promise(resolve => {
-
-        img.onload = resolve;
-        img.onerror = resolve;
-
-      });
-
-    })
-
-  );
-
-}
-
-
-// ===============================
-// DESCARGAR PNG
-// MÉTODO ORIGINAL
-// ===============================
-
-btnDescargar.addEventListener(
-  "click",
-  async () => {
-
-    if (!validarDatos()) return;
-
-    actualizarTodo();
-
-    const documentoActual =
-      tipoDocumento === "confirmacion"
-        ? confirmacion
-        : recibo;
-
-    btnDescargar.disabled = true;
-
-    btnDescargar.textContent =
-      tipoDocumento === "confirmacion"
-        ? "Generando confirmación..."
-        : "Generando recibo...";
-
-    try {
-
-      await esperarImagenes(documentoActual);
-
-      const transformAnterior =
-        documentoActual.style.transform;
-
-      const marginAnterior =
-        documentoActual.style.margin;
-
-      const positionAnterior =
-        documentoActual.style.position;
-
-
-      documentoActual.style.transform =
-        "none";
-
-      documentoActual.style.margin =
-        "0";
-
-      documentoActual.style.position =
-        "relative";
-
-
-      await new Promise(resolve =>
-        setTimeout(resolve, 200)
-      );
-
-
-      const canvas =
-        await html2canvas(
-          documentoActual,
-          {
-
-            scale: 1,
-
-            width: 1080,
-
-            height:
-              documentoActual.scrollHeight,
-
-            backgroundColor:
-              "#fffaf6",
-
-            useCORS: true,
-
-            allowTaint: true,
-
-            logging: false,
-
-            scrollX: 0,
-
-            scrollY: 0,
-
-            windowWidth: 1400
-
-          }
-        );
-
-
-      documentoActual.style.transform =
-        transformAnterior;
-
-      documentoActual.style.margin =
-        marginAnterior;
-
-      documentoActual.style.position =
-        positionAnterior;
-
-
-      const nombreArchivo =
-        nombre.value
-          .trim()
-          .normalize("NFD")
-          .replace(
-            /[\u0300-\u036f]/g,
-            ""
-          )
-          .replace(
-            /[^a-zA-Z0-9]/g,
-            "_"
-          );
-
-
-      const enlace =
-        document.createElement("a");
-
-
-      enlace.download =
-        tipoDocumento === "confirmacion"
-          ? `Confirmacion_${nombreArchivo}.png`
-          : `Recibo_${nombreArchivo}.png`;
-
-
-      enlace.href =
-        canvas.toDataURL(
-          "image/png",
-          1
-        );
-
-
-      document.body.appendChild(
-        enlace
-      );
-
-      enlace.click();
-
-      document.body.removeChild(
-        enlace
-      );
-
-
-    } catch (error) {
-
-      console.error(error);
-
-      alert(
-        tipoDocumento === "confirmacion"
-          ? "No se pudo generar la confirmación. Intenta nuevamente."
-          : "No se pudo generar el recibo. Intenta nuevamente."
-      );
-
-    } finally {
-
-      btnDescargar.disabled =
-        false;
-
-      btnDescargar.textContent =
-        tipoDocumento === "confirmacion"
-          ? "Descargar confirmación"
-          : "Descargar recibo";
-
-    }
-
-  }
-);
-
-
-// ===============================
-// INICIAR
-// ===============================
-
-actualizarTodo();
-
-mostrarConfirmacion();
+});
