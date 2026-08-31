@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Generador de sesión | Gabriela Hernández</title>
+<title>Generador de sesión | Nancy Gabriela Hernández V.</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
@@ -240,6 +240,7 @@ button{
 .intro{
   text-align:center;
   margin-bottom:22px;
+  font-size:16px;
 }
 
 .datos{
@@ -250,9 +251,9 @@ button{
 
 .fila{
   display:grid;
-  grid-template-columns:170px 1fr;
-  gap:12px;
-  min-height:52px;
+  grid-template-columns:190px 1fr;
+  gap:14px;
+  min-height:62px;
   align-items:center;
   border-bottom:1px solid #eaded9;
 }
@@ -263,11 +264,13 @@ button{
 
 .etiqueta{
   font-weight:bold;
+  font-size:17px;
 }
 
 .valor{
   color:#d56f83;
   font-weight:bold;
+  font-size:18px;
   word-break:break-word;
 }
 
@@ -275,9 +278,10 @@ button{
   display:inline-block;
   background:var(--rosa);
   color:white;
-  border-radius:10px;
-  padding:10px 16px;
-  font-size:18px;
+  border-radius:12px;
+  padding:11px 18px;
+  font-size:21px;
+  font-weight:bold;
 }
 
 .transferencia{
@@ -292,11 +296,13 @@ button{
   color:white;
   font-weight:bold;
   padding:11px 18px;
+  font-size:16px;
 }
 
 .transferencia-body{
   padding:17px 20px;
-  line-height:1.7;
+  line-height:1.8;
+  font-size:16px;
 }
 
 .transferencia-body strong{
@@ -312,7 +318,7 @@ button{
   border:1px solid var(--borde);
   border-radius:13px;
   padding:13px 15px;
-  font-size:14px;
+  font-size:15px;
   line-height:1.5;
 }
 
@@ -325,6 +331,10 @@ button{
   color:var(--turquesa);
   font-family:Georgia,serif;
   font-size:19px;
+}
+
+.final p{
+  font-size:16px;
 }
 
 /* =========================
@@ -371,8 +381,9 @@ button{
 .bloque-titulo{
   background:var(--rosa);
   color:white;
-  padding:11px 17px;
+  padding:12px 17px;
   font-weight:bold;
+  font-size:16px;
 }
 
 .bloque.turquesa .bloque-titulo{
@@ -385,19 +396,26 @@ button{
 
 .rec-fila{
   display:grid;
-  grid-template-columns:180px 1fr;
-  gap:10px;
-  min-height:48px;
+  grid-template-columns:190px 1fr;
+  gap:12px;
+  min-height:56px;
   align-items:center;
   border-bottom:1px solid #eaded9;
+  font-size:17px;
 }
 
 .rec-fila:last-child{
   border-bottom:none;
 }
 
+.rec-fila span{
+  font-size:17px;
+}
+
 .rec-fila strong{
   color:#d56f83;
+  font-size:18px;
+  word-break:break-word;
 }
 
 .bloque.turquesa .rec-fila strong{
@@ -410,7 +428,7 @@ button{
   background:#fff4f5;
   border:1px solid #efd4d8;
   border-radius:15px;
-  padding:16px;
+  padding:18px;
   text-align:center;
 }
 
@@ -418,24 +436,64 @@ button{
   display:block;
   color:#d46f82;
   font-family:Georgia,serif;
-  font-size:19px;
-  margin-bottom:5px;
+  font-size:20px;
+  margin-bottom:6px;
+}
+
+.confirmada span{
+  font-size:16px;
 }
 
 /* =========================
-   DESCARGAR
+   BOTÓN DESCARGAR
 ========================= */
 
 .btn-descargar{
   width:min(700px,100%);
   display:block;
-  margin:16px auto 0;
-  background:#4f9996;
+  margin:22px auto 0;
+  min-height:58px;
+
+  border:none;
+  border-radius:18px;
+
+  background:linear-gradient(
+    90deg,
+    #e996a5,
+    #68aaa8
+  );
+
   color:white;
+
+  font-size:17px;
+  font-weight:700;
+  letter-spacing:.5px;
+
+  box-shadow:
+    0 10px 24px rgba(104,170,168,.22);
+
+  cursor:pointer;
+
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease,
+    opacity .2s ease;
+}
+
+.btn-descargar:hover{
+  transform:translateY(-2px);
+
+  box-shadow:
+    0 14px 28px rgba(104,170,168,.28);
+}
+
+.btn-descargar:active{
+  transform:scale(.98);
 }
 
 .btn-descargar:disabled{
   opacity:.6;
+  cursor:not-allowed;
 }
 
 /* =========================
@@ -475,111 +533,205 @@ button{
 <div class="app">
 
   <header class="header">
+
     <img src="logo.jpg" alt="Logo">
+
     <div>
-      <h1>Generador de sesiones</h1>
-      <p>Gabriela Hernández · Psicología</p>
+
+      <h1>
+        Generador de sesiones
+      </h1>
+
+      <p>
+        Nancy Gabriela Hernández V. · Psicóloga
+      </p>
+
     </div>
+
   </header>
+
 
   <section class="panel">
 
-    <h2>Datos</h2>
+    <h2>
+      Datos de la sesión
+    </h2>
+
 
     <div class="grid">
 
       <div class="campo full">
-        <label>Nombre del paciente</label>
+
+        <label>
+          Nombre del paciente
+        </label>
+
         <input
           id="nombre"
           type="text"
           placeholder="Nombre del paciente"
         >
+
       </div>
 
-      <div class="campo">
-        <label>Fecha</label>
-        <input id="fecha" type="date">
-      </div>
 
       <div class="campo">
-        <label>Hora</label>
-        <input id="hora" type="time">
+
+        <label>
+          Fecha
+        </label>
+
+        <input
+          id="fecha"
+          type="date"
+        >
+
       </div>
 
+
       <div class="campo">
-        <label>Modalidad</label>
+
+        <label>
+          Hora
+        </label>
+
+        <input
+          id="hora"
+          type="time"
+        >
+
+      </div>
+
+
+      <div class="campo">
+
+        <label>
+          Modalidad
+        </label>
+
         <select id="modalidad">
-          <option value="En línea">En línea</option>
-          <option value="Presencial">Presencial</option>
+
+          <option value="En línea">
+            En línea
+          </option>
+
+          <option value="Presencial">
+            Presencial
+          </option>
+
         </select>
+
       </div>
 
+
       <div class="campo">
-        <label>Valor de la sesión</label>
+
+        <label>
+          Valor de la sesión
+        </label>
+
         <input
           id="importe"
           type="number"
-          placeholder="380"
+          placeholder="250"
         >
+
       </div>
 
+
       <div class="campo">
-        <label>Método de pago</label>
+
+        <label>
+          Método de pago
+        </label>
+
         <select id="metodo">
+
           <option value="Transferencia bancaria">
             Transferencia bancaria
           </option>
+
           <option value="Efectivo">
             Efectivo
           </option>
+
           <option value="Depósito">
             Depósito
           </option>
+
         </select>
+
       </div>
 
+
       <div class="campo">
-        <label>Estado del pago</label>
+
+        <label>
+          Estado del pago
+        </label>
+
         <select id="estado">
+
           <option value="Pago recibido">
             Pago recibido
           </option>
+
           <option value="Pendiente">
             Pendiente
           </option>
+
         </select>
+
       </div>
 
+
       <div class="campo">
-        <label>Titular transferencia</label>
+
+        <label>
+          Titular transferencia
+        </label>
+
         <input
           id="titular"
           type="text"
-          placeholder="Nombre del titular"
+          value="Nancy Gabriela Hernández Villa"
         >
+
       </div>
 
+
       <div class="campo">
-        <label>Banco</label>
+
+        <label>
+          Banco
+        </label>
+
         <input
           id="banco"
           type="text"
-          placeholder="Banco"
+          value="Hey Banco"
         >
+
       </div>
 
+
       <div class="campo full">
-        <label>CLABE</label>
+
+        <label>
+          CLABE
+        </label>
+
         <input
           id="clabe"
           type="text"
           inputmode="numeric"
-          placeholder="CLABE"
+          value="167180000014587725"
         >
+
       </div>
 
     </div>
+
 
     <div class="botones">
 
@@ -588,15 +740,16 @@ button{
         class="btn-confirmacion"
         type="button"
       >
-        Ver confirmación
+        ♡ Ver confirmación
       </button>
+
 
       <button
         id="btnRecibo"
         class="btn-recibo"
         type="button"
       >
-        Ver recibo
+        ✓ Ver recibo
       </button>
 
     </div>
@@ -606,7 +759,10 @@ button{
 
   <section class="preview-wrap">
 
-    <h2 class="preview-titulo" id="tituloPreview">
+    <h2
+      class="preview-titulo"
+      id="tituloPreview"
+    >
       Confirmación
     </h2>
 
@@ -615,53 +771,114 @@ button{
          CONFIRMACIÓN
     =========================== -->
 
-    <article id="confirmacion" class="documento">
+    <article
+      id="confirmacion"
+      class="documento"
+    >
 
       <div class="logo-doc">
-        <img src="logo.jpg" alt="Logo Gabriela Hernández">
+
+        <img
+          src="logo.jpg"
+          alt="Logo Nancy Gabriela Hernández"
+        >
+
       </div>
+
 
       <h2 class="titulo-doc">
         CONFIRMACIÓN DE SESIÓN
       </h2>
 
-      <div class="separador">♥</div>
+
+      <div class="separador">
+        ♥
+      </div>
+
 
       <p class="saludo">
         Me da mucho gusto saludarte.
       </p>
 
+
       <p class="intro">
         Te escribo para confirmar los datos de tu sesión.
       </p>
 
+
       <div class="datos">
 
         <div class="fila">
-          <div class="etiqueta">Paciente:</div>
-          <div class="valor" id="confNombre"></div>
-        </div>
 
-        <div class="fila">
-          <div class="etiqueta">Fecha:</div>
-          <div class="valor" id="confFecha"></div>
-        </div>
-
-        <div class="fila">
-          <div class="etiqueta">Hora:</div>
-          <div class="valor" id="confHora"></div>
-        </div>
-
-        <div class="fila">
-          <div class="etiqueta">Modalidad:</div>
-          <div class="valor" id="confModalidad"></div>
-        </div>
-
-        <div class="fila">
-          <div class="etiqueta">Valor de la sesión:</div>
-          <div>
-            <span class="precio" id="confImporte"></span>
+          <div class="etiqueta">
+            Paciente:
           </div>
+
+          <div
+            class="valor"
+            id="confNombre"
+          ></div>
+
+        </div>
+
+
+        <div class="fila">
+
+          <div class="etiqueta">
+            Fecha:
+          </div>
+
+          <div
+            class="valor"
+            id="confFecha"
+          ></div>
+
+        </div>
+
+
+        <div class="fila">
+
+          <div class="etiqueta">
+            Hora:
+          </div>
+
+          <div
+            class="valor"
+            id="confHora"
+          ></div>
+
+        </div>
+
+
+        <div class="fila">
+
+          <div class="etiqueta">
+            Modalidad:
+          </div>
+
+          <div
+            class="valor"
+            id="confModalidad"
+          ></div>
+
+        </div>
+
+
+        <div class="fila">
+
+          <div class="etiqueta">
+            Valor de la sesión:
+          </div>
+
+          <div>
+
+            <span
+              class="precio"
+              id="confImporte"
+            ></span>
+
+          </div>
+
         </div>
 
       </div>
@@ -670,24 +887,42 @@ button{
       <div class="transferencia">
 
         <div class="transferencia-titulo">
-          DATOS PARA TRANSFERENCIA
+          $ DATOS PARA TRANSFERENCIA
         </div>
+
 
         <div class="transferencia-body">
 
           <div>
-            <strong>Titular:</strong>
+
+            <strong>
+              Titular:
+            </strong>
+
             <span id="confTitular"></span>
+
           </div>
 
+
           <div>
-            <strong>Banco:</strong>
+
+            <strong>
+              Institución:
+            </strong>
+
             <span id="confBanco"></span>
+
           </div>
 
+
           <div>
-            <strong>CLABE:</strong>
+
+            <strong>
+              Clave interbancaria (CLABE):
+            </strong>
+
             <span id="confClabe"></span>
+
           </div>
 
         </div>
@@ -696,18 +931,37 @@ button{
 
 
       <div class="aviso">
-        Te agradecería realizar el pago antes de nuestra sesión
-        y enviar el comprobante por este medio.
+
+        Te agradecería realizar el pago por transferencia
+        <strong>
+          al menos una hora antes de nuestra cita.
+        </strong>
+
       </div>
 
+
+      <div class="aviso">
+
+        Cuando realices la transferencia, ¿podrías enviarme
+        <strong>
+          el comprobante por este medio?
+        </strong>
+
+        Así queda todo listo para nuestro encuentro.
+
+      </div>
+
+
       <div class="final">
+
         <strong>
           Si tienes cualquier duda, aquí estoy para apoyarte.
         </strong>
 
         <p>
-          Nos vemos pronto ♥
+          Nos vemos pronto, con mucho gusto. ♥
         </p>
+
       </div>
 
     </article>
@@ -717,55 +971,109 @@ button{
          RECIBO
     =========================== -->
 
-    <article id="recibo" class="documento oculto">
+    <article
+      id="recibo"
+      class="documento oculto"
+    >
 
       <div class="logo-doc">
-        <img src="logo.jpg" alt="Logo Gabriela Hernández">
+
+        <img
+          src="logo.jpg"
+          alt="Logo Nancy Gabriela Hernández"
+        >
+
       </div>
+
 
       <h2 class="recibo-titulo">
         RECIBO
       </h2>
 
+
       <div class="recibo-subtitulo">
         CITA CONFIRMADA
       </div>
 
-      <div class="pagado" id="recPagoPrincipal">
-        PAGO RECIBIDO
+
+      <div
+        class="pagado"
+        id="recPagoPrincipal"
+      >
+        ✓ PAGO RECIBIDO
       </div>
 
-      <p style="text-align:center">
-        Confirmamos los datos correspondientes a tu sesión.
+
+      <p style="text-align:center;font-size:16px;">
+
+        Confirmamos que tu sesión ha sido pagada correctamente.
+
+      </p>
+
+
+      <p
+        style="
+          text-align:center;
+          color:#69aaa8;
+          font-family:Georgia,serif;
+          font-style:italic;
+          font-size:21px;
+        "
+      >
+        ¡Gracias por tu confianza!
       </p>
 
 
       <div class="bloque">
 
         <div class="bloque-titulo">
-          DATOS DE LA SESIÓN
+          ♡ DATOS DE LA SESIÓN
         </div>
+
 
         <div class="bloque-body">
 
           <div class="rec-fila">
-            <span>Paciente:</span>
+
+            <span>
+              Paciente:
+            </span>
+
             <strong id="recNombre"></strong>
+
           </div>
 
+
           <div class="rec-fila">
-            <span>Fecha:</span>
+
+            <span>
+              Fecha de la sesión:
+            </span>
+
             <strong id="recFecha"></strong>
+
           </div>
 
+
           <div class="rec-fila">
-            <span>Hora:</span>
+
+            <span>
+              Hora:
+            </span>
+
             <strong id="recHora"></strong>
+
           </div>
 
+
           <div class="rec-fila">
-            <span>Modalidad:</span>
+
+            <span>
+              Modalidad:
+            </span>
+
             <strong id="recModalidad"></strong>
+
           </div>
 
         </div>
@@ -776,24 +1084,42 @@ button{
       <div class="bloque turquesa">
 
         <div class="bloque-titulo">
-          DETALLE DE PAGO
+          $ DETALLE DE PAGO
         </div>
+
 
         <div class="bloque-body">
 
           <div class="rec-fila">
-            <span>Valor de la sesión:</span>
+
+            <span>
+              Valor de la sesión:
+            </span>
+
             <strong id="recImporte"></strong>
+
           </div>
 
+
           <div class="rec-fila">
-            <span>Método de pago:</span>
+
+            <span>
+              Método de pago:
+            </span>
+
             <strong id="recMetodo"></strong>
+
           </div>
 
+
           <div class="rec-fila">
-            <span>Estatus:</span>
+
+            <span>
+              Estatus:
+            </span>
+
             <strong id="recEstado"></strong>
+
           </div>
 
         </div>
@@ -804,24 +1130,42 @@ button{
       <div class="bloque turquesa">
 
         <div class="bloque-titulo">
-          DATOS DE TRANSFERENCIA
+          $ DATOS DE TRANSFERENCIA
         </div>
+
 
         <div class="bloque-body">
 
           <div class="rec-fila">
-            <span>Titular:</span>
+
+            <span>
+              Titular:
+            </span>
+
             <strong id="recTitular"></strong>
+
           </div>
 
+
           <div class="rec-fila">
-            <span>Banco:</span>
+
+            <span>
+              Banco:
+            </span>
+
             <strong id="recBanco"></strong>
+
           </div>
 
+
           <div class="rec-fila">
-            <span>CLABE:</span>
+
+            <span>
+              CLABE:
+            </span>
+
             <strong id="recClabe"></strong>
+
           </div>
 
         </div>
@@ -836,7 +1180,9 @@ button{
         </strong>
 
         <span>
-          Nos vemos en el día y horario indicado.
+          Te esperamos el día y hora indicados.
+          <br>
+          ¡Nos vemos pronto!
         </span>
 
       </div>
@@ -849,7 +1195,7 @@ button{
       class="btn-descargar"
       type="button"
     >
-      Descargar PNG
+      ♡ Descargar imagen
     </button>
 
   </section>
@@ -863,19 +1209,43 @@ button{
    ELEMENTOS
 ========================== */
 
-const nombre = document.getElementById("nombre");
-const fecha = document.getElementById("fecha");
-const hora = document.getElementById("hora");
-const modalidad = document.getElementById("modalidad");
-const importe = document.getElementById("importe");
-const metodo = document.getElementById("metodo");
-const estado = document.getElementById("estado");
-const titular = document.getElementById("titular");
-const banco = document.getElementById("banco");
-const clabe = document.getElementById("clabe");
+const nombre =
+  document.getElementById("nombre");
 
-const confirmacion = document.getElementById("confirmacion");
-const recibo = document.getElementById("recibo");
+const fecha =
+  document.getElementById("fecha");
+
+const hora =
+  document.getElementById("hora");
+
+const modalidad =
+  document.getElementById("modalidad");
+
+const importe =
+  document.getElementById("importe");
+
+const metodo =
+  document.getElementById("metodo");
+
+const estado =
+  document.getElementById("estado");
+
+const titular =
+  document.getElementById("titular");
+
+const banco =
+  document.getElementById("banco");
+
+const clabe =
+  document.getElementById("clabe");
+
+
+const confirmacion =
+  document.getElementById("confirmacion");
+
+const recibo =
+  document.getElementById("recibo");
+
 
 const btnConfirmacion =
   document.getElementById("btnConfirmacion");
@@ -889,7 +1259,9 @@ const btnDescargar =
 const tituloPreview =
   document.getElementById("tituloPreview");
 
-let documentoActivo = "confirmacion";
+
+let documentoActivo =
+  "confirmacion";
 
 
 /* ==========================
@@ -902,13 +1274,16 @@ function formatoFecha(valor){
     return "";
   }
 
-  const partes = valor.split("-");
+  const partes =
+    valor.split("-");
 
-  const fechaLocal = new Date(
-    Number(partes[0]),
-    Number(partes[1]) - 1,
-    Number(partes[2])
-  );
+  const fechaLocal =
+    new Date(
+      Number(partes[0]),
+      Number(partes[1]) - 1,
+      Number(partes[2])
+    );
+
 
   return fechaLocal.toLocaleDateString(
     "es-MX",
@@ -919,6 +1294,7 @@ function formatoFecha(valor){
       year:"numeric"
     }
   );
+
 }
 
 
@@ -932,21 +1308,34 @@ function formatoHora(valor){
     return "";
   }
 
-  const partes = valor.split(":");
+  const partes =
+    valor.split(":");
 
-  let h = Number(partes[0]);
-  const minutos = partes[1];
+
+  let h =
+    Number(partes[0]);
+
+  const minutos =
+    partes[1];
+
 
   const periodo =
-    h >= 12 ? "p. m." : "a. m.";
+    h >= 12
+      ? "p. m."
+      : "a. m.";
 
-  h = h % 12;
+
+  h =
+    h % 12;
+
 
   if(h === 0){
     h = 12;
   }
 
+
   return `${h}:${minutos} ${periodo}`;
+
 }
 
 
@@ -960,9 +1349,13 @@ function formatoPrecio(valor){
     return "";
   }
 
-  const numero = Number(valor);
+
+  const numero =
+    Number(valor);
+
 
   return `$${numero.toLocaleString("es-MX")} MXN`;
+
 }
 
 
@@ -972,25 +1365,44 @@ function formatoPrecio(valor){
 
 function actualizar(){
 
-  const paciente = nombre.value.trim();
+  const paciente =
+    nombre.value.trim();
 
-  const fechaTexto = formatoFecha(fecha.value);
 
-  const horaTexto = formatoHora(hora.value);
+  const fechaTexto =
+    formatoFecha(fecha.value);
 
-  const precioTexto = formatoPrecio(importe.value);
 
-  const modalidadTexto = modalidad.value;
+  const horaTexto =
+    formatoHora(hora.value);
 
-  const metodoTexto = metodo.value;
 
-  const estadoTexto = estado.value;
+  const precioTexto =
+    formatoPrecio(importe.value);
 
-  const titularTexto = titular.value.trim();
 
-  const bancoTexto = banco.value.trim();
+  const modalidadTexto =
+    modalidad.value;
 
-  const clabeTexto = clabe.value.trim();
+
+  const metodoTexto =
+    metodo.value;
+
+
+  const estadoTexto =
+    estado.value;
+
+
+  const titularTexto =
+    titular.value.trim();
+
+
+  const bancoTexto =
+    banco.value.trim();
+
+
+  const clabeTexto =
+    clabe.value.trim();
 
 
   /* CONFIRMACIÓN */
@@ -998,23 +1410,32 @@ function actualizar(){
   document.getElementById("confNombre").textContent =
     paciente;
 
+
   document.getElementById("confFecha").textContent =
     fechaTexto;
+
 
   document.getElementById("confHora").textContent =
     horaTexto;
 
+
   document.getElementById("confModalidad").textContent =
-    modalidadTexto;
+    modalidadTexto === "En línea"
+      ? "Sesión en línea"
+      : "Sesión presencial";
+
 
   document.getElementById("confImporte").textContent =
     precioTexto;
 
+
   document.getElementById("confTitular").textContent =
     titularTexto;
 
+
   document.getElementById("confBanco").textContent =
     bancoTexto;
+
 
   document.getElementById("confClabe").textContent =
     clabeTexto;
@@ -1025,29 +1446,38 @@ function actualizar(){
   document.getElementById("recNombre").textContent =
     paciente;
 
+
   document.getElementById("recFecha").textContent =
     fechaTexto;
+
 
   document.getElementById("recHora").textContent =
     horaTexto;
 
+
   document.getElementById("recModalidad").textContent =
     modalidadTexto;
+
 
   document.getElementById("recImporte").textContent =
     precioTexto;
 
+
   document.getElementById("recMetodo").textContent =
     metodoTexto;
 
+
   document.getElementById("recEstado").textContent =
-    estadoTexto;
+    estadoTexto.toUpperCase();
+
 
   document.getElementById("recTitular").textContent =
     titularTexto;
 
+
   document.getElementById("recBanco").textContent =
     bancoTexto;
+
 
   document.getElementById("recClabe").textContent =
     clabeTexto;
@@ -1058,6 +1488,7 @@ function actualizar(){
     document.getElementById("recPagoPrincipal").textContent =
       "✓ PAGO RECIBIDO";
 
+
     document.getElementById("mensajeRecibo").textContent =
       "Tu sesión está confirmada";
 
@@ -1066,10 +1497,12 @@ function actualizar(){
     document.getElementById("recPagoPrincipal").textContent =
       "PAGO PENDIENTE";
 
+
     document.getElementById("mensajeRecibo").textContent =
       "Tu sesión está registrada";
 
   }
+
 }
 
 
@@ -1083,10 +1516,20 @@ btnConfirmacion.addEventListener(
 
     actualizar();
 
-    documentoActivo = "confirmacion";
 
-    confirmacion.classList.remove("oculto");
-    recibo.classList.add("oculto");
+    documentoActivo =
+      "confirmacion";
+
+
+    confirmacion.classList.remove(
+      "oculto"
+    );
+
+
+    recibo.classList.add(
+      "oculto"
+    );
+
 
     tituloPreview.textContent =
       "Confirmación de sesión";
@@ -1101,10 +1544,20 @@ btnRecibo.addEventListener(
 
     actualizar();
 
-    documentoActivo = "recibo";
 
-    recibo.classList.remove("oculto");
-    confirmacion.classList.add("oculto");
+    documentoActivo =
+      "recibo";
+
+
+    recibo.classList.remove(
+      "oculto"
+    );
+
+
+    confirmacion.classList.add(
+      "oculto"
+    );
+
 
     tituloPreview.textContent =
       "Recibo de pago";
@@ -1135,6 +1588,7 @@ btnRecibo.addEventListener(
     actualizar
   );
 
+
   campo.addEventListener(
     "change",
     actualizar
@@ -1152,23 +1606,35 @@ async function esperarImagenes(elemento){
   const imagenes =
     elemento.querySelectorAll("img");
 
+
   const tareas =
-    Array.from(imagenes).map(function(img){
+    Array.from(imagenes).map(
+      function(img){
 
-      if(img.complete){
-        return Promise.resolve();
+        if(img.complete){
+          return Promise.resolve();
+        }
+
+
+        return new Promise(
+          function(resolve){
+
+            img.onload =
+              resolve;
+
+
+            img.onerror =
+              resolve;
+
+          }
+        );
+
       }
+    );
 
-      return new Promise(function(resolve){
-
-        img.onload = resolve;
-        img.onerror = resolve;
-
-      });
-
-    });
 
   await Promise.all(tareas);
+
 }
 
 
@@ -1181,6 +1647,7 @@ btnDescargar.addEventListener(
   async function(){
 
     actualizar();
+
 
     const elemento =
       documentoActivo === "confirmacion"
@@ -1195,28 +1662,36 @@ btnDescargar.addEventListener(
       );
 
       return;
+
     }
 
 
     const textoBoton =
       btnDescargar.textContent;
 
-    btnDescargar.disabled = true;
+
+    btnDescargar.disabled =
+      true;
+
 
     btnDescargar.textContent =
-      "Generando imagen...";
+      "♡ Generando imagen...";
 
 
     try{
 
-      await esperarImagenes(elemento);
+      await esperarImagenes(
+        elemento
+      );
 
 
       if(
         document.fonts &&
         document.fonts.ready
       ){
+
         await document.fonts.ready;
+
       }
 
 
@@ -1224,13 +1699,22 @@ btnDescargar.addEventListener(
         await html2canvas(
           elemento,
           {
+
             scale:2,
-            backgroundColor:"#fffaf6",
+
+            backgroundColor:
+              "#fffaf6",
+
             useCORS:true,
+
             allowTaint:false,
+
             logging:false,
+
             scrollX:0,
+
             scrollY:0
+
           }
         );
 
@@ -1242,7 +1726,8 @@ btnDescargar.addEventListener(
           .replace(
             /[^a-zA-Z0-9áéíóúÁÉÍÓÚñÑ_-]/g,
             ""
-          ) || "paciente";
+          )
+          || "paciente";
 
 
       const archivo =
@@ -1259,20 +1744,29 @@ btnDescargar.addEventListener(
             );
 
             return;
+
           }
 
 
           const url =
-            URL.createObjectURL(blob);
+            URL.createObjectURL(
+              blob
+            );
 
 
           const enlace =
-            document.createElement("a");
+            document.createElement(
+              "a"
+            );
 
 
-          enlace.href = url;
+          enlace.href =
+            url;
 
-          enlace.download = archivo;
+
+          enlace.download =
+            archivo;
+
 
           enlace.style.display =
             "none";
@@ -1292,29 +1786,37 @@ btnDescargar.addEventListener(
           setTimeout(
             function(){
 
-              URL.revokeObjectURL(url);
+              URL.revokeObjectURL(
+                url
+              );
 
             },
             3000
           );
 
         },
+
         "image/png"
       );
 
 
     }catch(error){
 
-      console.error(error);
+      console.error(
+        error
+      );
+
 
       alert(
         "No se pudo generar el PNG."
       );
 
+
     }finally{
 
       btnDescargar.disabled =
         false;
+
 
       btnDescargar.textContent =
         textoBoton;
