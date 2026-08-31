@@ -173,8 +173,12 @@ function actualizarRecibo() {
     metodoPago.value;
 
 
-  reciboEstado.textContent = "PAGO RECIBIDO";
-  estadoBanner.textContent = "PAGO RECIBIDO";
+  // El recibo siempre será pago recibido
+  reciboEstado.textContent =
+    "PAGO RECIBIDO";
+
+  estadoBanner.textContent =
+    "PAGO RECIBIDO";
 
 
   if (metodoPago.value === "Transferencia bancaria") {
@@ -219,8 +223,9 @@ function mostrarConfirmacion() {
   tituloVista.textContent =
     "Vista previa - Confirmación de cita";
 
-  grupoEstadoPago.style.display =
-    "none";
+  if (grupoEstadoPago) {
+    grupoEstadoPago.style.display = "none";
+  }
 
   btnDescargar.textContent =
     "Descargar confirmación";
@@ -247,8 +252,9 @@ function mostrarRecibo() {
   tituloVista.textContent =
     "Vista previa - Recibo de pago";
 
-  grupoEstadoPago.style.display =
-    "block";
+  if (grupoEstadoPago) {
+    grupoEstadoPago.style.display = "none";
+  }
 
   btnDescargar.textContent =
     "Descargar recibo";
@@ -259,7 +265,7 @@ function mostrarRecibo() {
 
 
 // ===============================
-// BOTONES TIPO DOCUMENTO
+// BOTONES DOCUMENTO
 // ===============================
 
 btnConfirmacion.addEventListener(
@@ -283,8 +289,7 @@ btnRecibo.addEventListener(
   hora,
   modalidad,
   importe,
-  metodoPago,
-  estadoPago
+  metodoPago
 ].forEach(campo => {
 
   campo.addEventListener(
@@ -388,22 +393,17 @@ async function esperarImagenes(elemento) {
   const imagenes =
     elemento.querySelectorAll("img");
 
-
   await Promise.all(
 
     Array.from(imagenes).map(img => {
 
       if (img.complete) {
-
         return Promise.resolve();
-
       }
-
 
       return new Promise(resolve => {
 
         img.onload = resolve;
-
         img.onerror = resolve;
 
       });
@@ -427,7 +427,6 @@ btnDescargar.addEventListener(
       return;
     }
 
-
     actualizarTodo();
 
 
@@ -439,18 +438,35 @@ btnDescargar.addEventListener(
 
     btnDescargar.disabled = true;
 
+    btnDescargar.textContent =
+      tipoDocumento === "confirmacion"
+        ? "Generando confirmación..."
+        : "Generando recibo...";
 
-    if (tipoDocumento === "confirmacion") {
 
-      btnDescargar.textContent =
-        "Generando confirmación...";
+    /*
+      Guardamos TODOS los estilos
+      que vamos a tocar para devolverlos
+      exactamente como estaban.
+    */
 
-    } else {
+    const transformAnterior =
+      documentoActual.style.transform;
 
-      btnDescargar.textContent =
-        "Generando recibo...";
+    const marginAnterior =
+      documentoActual.style.margin;
 
-    }
+    const positionAnterior =
+      documentoActual.style.position;
+
+    const backgroundAnterior =
+      documentoActual.style.background;
+
+    const backgroundImageAnterior =
+      documentoActual.style.backgroundImage;
+
+    const backgroundColorAnterior =
+      documentoActual.style.backgroundColor;
 
 
     try {
@@ -461,28 +477,9 @@ btnDescargar.addEventListener(
 
 
       /*
-        EXACTAMENTE COMO EL PRIMER JS
-        QUE SÍ DESCARGABA:
-        guardamos los estilos actuales.
-      */
+        MISMO MÉTODO QUE SÍ FUNCIONÓ.
 
-      const transformAnterior =
-        documentoActual.style.transform;
-
-      const marginAnterior =
-        documentoActual.style.margin;
-
-      const positionAnterior =
-        documentoActual.style.position;
-
-
-      /*
-        Quitamos solamente la escala
-        del celular.
-
-        NO usamos exportando.
-        NO hacemos clones.
-        NO usamos foreignObjectRendering.
+        Solo quitamos la escala del celular.
       */
 
       documentoActual.style.transform =
@@ -496,9 +493,26 @@ btnDescargar.addEventListener(
 
 
       /*
-        Igual que en tu primer código:
-        esperamos 200 ms para que Android
-        redibuje el documento.
+        AQUÍ ESTÁ LA CORRECCIÓN
+        DE LAS FRANJAS.
+
+        Durante la captura solamente,
+        el fondo queda sólido.
+      */
+
+      documentoActual.style.background =
+        "#fffaf6";
+
+      documentoActual.style.backgroundImage =
+        "none";
+
+      documentoActual.style.backgroundColor =
+        "#fffaf6";
+
+
+      /*
+        Esperamos a que Android termine
+        de redibujar el documento.
       */
 
       await new Promise(resolve =>
@@ -507,8 +521,8 @@ btnDescargar.addEventListener(
 
 
       /*
-        MISMA CONFIGURACIÓN DEL
-        PRIMER SCRIPT QUE SÍ DESCARGABA.
+        MISMA CONFIGURACIÓN DE CAPTURA
+        QUE YA COMPROBAMOS QUE DESCARGA.
       */
 
       const canvas =
@@ -542,20 +556,6 @@ btnDescargar.addEventListener(
         );
 
 
-      /*
-        Restauramos la vista del celular.
-      */
-
-      documentoActual.style.transform =
-        transformAnterior;
-
-      documentoActual.style.margin =
-        marginAnterior;
-
-      documentoActual.style.position =
-        positionAnterior;
-
-
       const enlace =
         document.createElement("a");
 
@@ -574,24 +574,14 @@ btnDescargar.addEventListener(
           );
 
 
-      if (
+      enlace.download =
         tipoDocumento === "confirmacion"
-      ) {
-
-        enlace.download =
-          `Confirmacion_${nombreArchivo}.png`;
-
-      } else {
-
-        enlace.download =
-          `Recibo_${nombreArchivo}.png`;
-
-      }
+          ? `Confirmacion_${nombreArchivo}.png`
+          : `Recibo_${nombreArchivo}.png`;
 
 
       /*
-        También conservamos toDataURL,
-        igual que el primer script.
+        MISMA DESCARGA QUE FUNCIONÓ.
       */
 
       enlace.href =
@@ -605,9 +595,7 @@ btnDescargar.addEventListener(
         enlace
       );
 
-
       enlace.click();
-
 
       document.body.removeChild(
         enlace
@@ -618,15 +606,38 @@ btnDescargar.addEventListener(
 
       console.error(error);
 
-
       alert(
         tipoDocumento === "confirmacion"
-          ? "No se pudo generar la confirmación. Intenta nuevamente."
-          : "No se pudo generar el recibo. Intenta nuevamente."
+          ? "No se pudo generar la confirmación."
+          : "No se pudo generar el recibo."
       );
 
 
     } finally {
+
+      /*
+        Regresamos TODO exactamente
+        como estaba en pantalla.
+      */
+
+      documentoActual.style.transform =
+        transformAnterior;
+
+      documentoActual.style.margin =
+        marginAnterior;
+
+      documentoActual.style.position =
+        positionAnterior;
+
+      documentoActual.style.background =
+        backgroundAnterior;
+
+      documentoActual.style.backgroundImage =
+        backgroundImageAnterior;
+
+      documentoActual.style.backgroundColor =
+        backgroundColorAnterior;
+
 
       btnDescargar.disabled =
         false;
