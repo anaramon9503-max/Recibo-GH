@@ -12,9 +12,7 @@
 
 <body>
 
-
 <div class="app">
-
 
   <!-- =====================================
        FORMULARIO
@@ -38,13 +36,11 @@
 
     <div class="selector-documento">
 
-
       <button
         type="button"
         class="opcion-documento activa"
         id="btnConfirmacion"
       >
-
         <span class="selector-icono">
           ▣
         </span>
@@ -53,7 +49,6 @@
           Confirmación<br>
           de cita
         </span>
-
       </button>
 
 
@@ -62,7 +57,6 @@
         class="opcion-documento"
         id="btnRecibo"
       >
-
         <span class="selector-icono check-selector">
           ✓
         </span>
@@ -71,9 +65,7 @@
           Recibo de<br>
           pago
         </span>
-
       </button>
-
 
     </div>
 
@@ -81,7 +73,6 @@
     <p class="ayuda-selector">
       Se mostrará el diseño seleccionado
     </p>
-
 
 
     <!-- DATOS -->
@@ -95,7 +86,6 @@
     >
 
 
-
     <label>Fecha de la sesión</label>
 
     <input
@@ -104,14 +94,12 @@
     >
 
 
-
     <label>Hora</label>
 
     <input
       type="time"
       id="hora"
     >
-
 
 
     <label>Modalidad</label>
@@ -129,15 +117,13 @@
     </select>
 
 
-
     <label>Valor de la sesión</label>
 
     <input
       type="number"
       id="importe"
-      placeholder="Ej. 150"
+      placeholder="Ej. 500"
     >
-
 
 
     <label>Método de pago</label>
@@ -159,27 +145,6 @@
     </select>
 
 
-
-    <div id="grupoEstadoPago">
-
-      <label>Estado</label>
-
-      <select id="estadoPago">
-
-        <option value="Pago recibido">
-          Pago recibido
-        </option>
-
-        <option value="Pendiente de pago">
-          Pendiente de pago
-        </option>
-
-      </select>
-
-    </div>
-
-
-
     <button
       type="button"
       id="btnGenerar"
@@ -187,9 +152,7 @@
       Actualizar vista previa
     </button>
 
-
   </section>
-
 
 
   <!-- =====================================
@@ -206,7 +169,6 @@
     <div class="escala-recibo">
 
 
-
       <!-- =====================================
            CONFIRMACIÓN DE CITA
       ====================================== -->
@@ -215,7 +177,6 @@
         id="confirmacion"
         class="documento"
       >
-
 
         <!-- DECORACIONES -->
 
@@ -226,7 +187,6 @@
         <div class="rama-conf rama-conf-verde">
           ❧
         </div>
-
 
 
         <!-- LOGO -->
@@ -241,13 +201,11 @@
         </div>
 
 
-
         <!-- BIENVENIDA -->
 
         <h1 class="bienvenida">
           ¡BIENVENID@!
         </h1>
-
 
         <div class="linea-bienvenida"></div>
 
@@ -263,7 +221,6 @@
           Te contactamos para confirmar tu sesión con:
 
         </p>
-
 
 
         <!-- NOMBRE -->
@@ -283,11 +240,9 @@
         </div>
 
 
-
         <!-- DATOS SESIÓN -->
 
         <section class="caja-confirmacion sesion-confirmacion">
-
 
           <div class="titulo-confirmacion">
 
@@ -298,9 +253,7 @@
           </div>
 
 
-
           <div class="datos-confirmacion">
-
 
             <div class="dato-confirmacion">
 
@@ -313,7 +266,6 @@
               </span>
 
             </div>
-
 
 
             <div class="dato-confirmacion">
@@ -329,7 +281,6 @@
             </div>
 
 
-
             <div class="dato-confirmacion">
 
               <div class="icono-conf monitor-conf"></div>
@@ -342,61 +293,45 @@
 
             </div>
 
-
           </div>
-
 
 
           <!-- IMPORTE -->
 
           <div class="valor-confirmacion">
 
-
             <div class="circulo-dinero">
               $
             </div>
-
 
             <strong>
               VALOR DE LA SESIÓN:
             </strong>
 
-
             <span class="importe-confirmacion">
-
-              $<span id="confImporte">150</span> MXN
-
+              $<span id="confImporte">500</span> MXN
             </span>
 
-
           </div>
-
 
 
           <!-- AVISO -->
 
           <div class="aviso-confirmacion">
 
-
             <div class="reloj-aviso"></div>
 
-
             <p>
-
               Para confirmar tu cita, te pedimos realizar tu transferencia
 
               <strong>
                 al menos 1 hora antes de la sesión.
               </strong>
-
             </p>
-
 
           </div>
 
-
         </section>
-
 
 
         <!-- TRANSFERENCIA -->
@@ -405,7 +340,6 @@
           class="caja-confirmacion banco-confirmacion"
           id="confTransferencia"
         >
-
 
           <div class="titulo-confirmacion titulo-verde">
 
@@ -416,14 +350,13 @@
           </div>
 
 
-
           <div class="contenido-banco-confirmacion">
-
 
             <div class="datos-banco-confirmacion">
 
               <p>
                 <span>Titular:</span>
+
                 <strong>
                   Nancy Gabriela Hernández Villa
                 </strong>
@@ -431,6 +364,7 @@
 
               <p>
                 <span>Banco:</span>
+
                 <strong>
                   Hey Banco
                 </strong>
@@ -438,6 +372,7 @@
 
               <p>
                 <span>CLABE:</span>
+
                 <strong>
                   167180000014587725
                 </strong>
@@ -456,32 +391,24 @@
 
               </div>
 
-
               <div class="tarjeta-conf"></div>
-
 
             </div>
 
-
           </div>
 
-
         </section>
-
 
 
         <!-- COMPROBANTE -->
 
         <div class="mensaje-confirmacion mensaje-whatsapp">
 
-
           <div class="circulo-whatsapp">
             ☎
           </div>
 
-
           <p>
-
             Una vez realizado el pago, por favor envíanos tu
 
             <strong>
@@ -489,51 +416,36 @@
             </strong>
 
             para dejar confirmada tu sesión. ✨
-
           </p>
 
-
         </div>
-
 
 
         <!-- DUDA -->
 
         <div class="mensaje-confirmacion mensaje-ayuda">
 
-
           <div class="circulo-ayuda">
             ♡
           </div>
 
-
           <p>
-
             Si tienes alguna duda administrativa sobre tu cita,
-
             con gusto podemos ayudarte.
-
           </p>
 
-
         </div>
-
 
 
         <div class="frase-final-confirmacion">
-
           ¡Gracias por confiar en este espacio para ti! ♡
-
         </div>
-
 
         <div class="flores-confirmacion">
           ❧ ❦ ❧
         </div>
 
-
       </div>
-
 
 
       <!-- =====================================
@@ -544,7 +456,6 @@
         id="recibo"
         class="documento oculto"
       >
-
 
         <!-- RAMAS -->
 
@@ -557,7 +468,6 @@
         </div>
 
 
-
         <!-- LOGO -->
 
         <div class="logo">
@@ -568,7 +478,6 @@
           >
 
         </div>
-
 
 
         <!-- TÍTULO -->
@@ -595,7 +504,6 @@
         </div>
 
 
-
         <!-- PAGO -->
 
         <div class="corazon-arriba">
@@ -617,16 +525,12 @@
 
 
         <div class="confirmacion">
-
           Confirmamos que tu sesión ha sido pagada correctamente.
-
         </div>
 
 
         <div class="gracias">
-
           ¡Gracias por tu confianza!
-
         </div>
 
 
@@ -635,11 +539,9 @@
         </div>
 
 
-
         <!-- DATOS DE SESIÓN -->
 
         <section class="caja sesion">
-
 
           <div class="cabecera rosa-bg">
 
@@ -648,7 +550,6 @@
             DATOS DE LA SESIÓN
 
           </div>
-
 
 
           <div class="dato">
@@ -663,11 +564,10 @@
               class="valor"
               id="reciboNombre"
             >
-              María López
+              Nombre del paciente
             </div>
 
           </div>
-
 
 
           <div class="dato">
@@ -688,7 +588,6 @@
           </div>
 
 
-
           <div class="dato">
 
             <div class="icono reloj-icono"></div>
@@ -705,7 +604,6 @@
             </div>
 
           </div>
-
 
 
           <div class="dato sin-linea">
@@ -725,15 +623,12 @@
 
           </div>
 
-
         </section>
-
 
 
         <!-- DETALLE DEL PAGO -->
 
         <section class="caja pago">
-
 
           <div class="cabecera verde-bg">
 
@@ -746,24 +641,28 @@
           </div>
 
 
-
           <div class="pago-fila">
+
+            <div class="pago-icono dinero-pago-icono">
+              $
+            </div>
 
             <span>
               Valor de la sesión:
             </span>
 
             <strong>
-
-              $<span id="reciboImporte">150</span> MXN
-
+              $<span id="reciboImporte">500</span> MXN
             </strong>
 
           </div>
 
 
-
           <div class="pago-fila">
+
+            <div class="pago-icono tarjeta-pago-icono">
+              ▰
+            </div>
 
             <span>
               Método de pago:
@@ -774,7 +673,6 @@
             </strong>
 
           </div>
-
 
 
           <div class="estatus">
@@ -793,9 +691,7 @@
 
           </div>
 
-
         </section>
-
 
 
         <!-- BANCO -->
@@ -804,7 +700,6 @@
           class="caja banco"
           id="transferencia"
         >
-
 
           <div class="cabecera verde-bg">
 
@@ -815,12 +710,9 @@
           </div>
 
 
-
           <div class="banco-contenido">
 
-
             <div class="banco-datos">
-
 
               <div>
 
@@ -854,13 +746,10 @@
 
               </div>
 
-
             </div>
 
 
-
             <div class="tarjeta-dibujo">
-
 
               <div class="telefono">
 
@@ -870,31 +759,24 @@
 
               </div>
 
-
               <div class="tarjeta">
                 <div></div>
               </div>
 
-
             </div>
-
 
           </div>
 
-
         </section>
-
 
 
         <!-- MENSAJE FINAL -->
 
         <section class="mensaje">
 
-
           <div class="circulo-corazon">
             ♥
           </div>
-
 
           <div class="mensaje-texto">
 
@@ -912,21 +794,16 @@
 
           </div>
 
-
         </section>
-
 
 
         <div class="decoracion-final">
           ❧ ❦ ❧
         </div>
 
-
       </div>
 
-
     </div>
-
 
 
     <!-- DESCARGAR -->
@@ -938,20 +815,20 @@
       Descargar documento
     </button>
 
-
   </section>
-
 
 </div>
 
 
+<!-- IMPORTANTE:
+     VOLVEMOS A HTML2CANVAS
+-->
 
 <script
   src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js">
 </script>
 
 <script src="script.js"></script>
-
 
 </body>
 
