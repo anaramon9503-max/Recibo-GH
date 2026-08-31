@@ -1524,3 +1524,12 @@ button {
     overflow: hidden;
   }
 }
+#confirmacion {
+  background: #fffaf6 !important;
+  background-image: none !important;
+}
+
+#recibo {
+  background: #fffaf6 !important;
+  background-image: none !important;
+}
