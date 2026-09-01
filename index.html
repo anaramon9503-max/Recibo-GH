@@ -9,16 +9,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 <style>
-
 :root{
   --rosa:#e994a6;
   --rosa-fuerte:#d9788d;
   --rosa-claro:#fff0f3;
-
   --verde:#6baba9;
   --verde-fuerte:#4f9290;
   --verde-claro:#edf8f7;
-
   --crema:#fffaf5;
   --texto:#554c48;
   --gris:#847873;
@@ -36,42 +33,25 @@ body{
   font-family:Arial, Helvetica, sans-serif;
 }
 
-
-/* =========================================
-   PÁGINA
-========================================= */
-
 .app{
   width:min(1000px,94%);
   margin:25px auto 60px;
 }
 
-
-/* =========================================
-   FORMULARIO
-========================================= */
-
 .panel{
   width:min(700px,100%);
   margin:0 auto 25px;
-
   padding:22px;
-
   background:white;
-
   border-radius:22px;
-
-  box-shadow:
-    0 10px 30px rgba(80,60,55,.08);
+  box-shadow:0 10px 30px rgba(80,60,55,.08);
 }
 
 .panel h1{
   margin:0 0 5px;
-
   font-family:Georgia,serif;
   font-size:25px;
   font-weight:500;
-
   color:var(--verde);
 }
 
@@ -105,36 +85,23 @@ label{
 input{
   width:100%;
   height:48px;
-
   border:1px solid #e2d7d2;
   border-radius:12px;
-
   padding:0 13px;
-
   background:#fffdfb;
-
   font-size:15px;
 }
 
 input:focus{
   outline:none;
-
   border-color:var(--verde);
-
-  box-shadow:
-    0 0 0 3px rgba(107,171,169,.10);
+  box-shadow:0 0 0 3px rgba(107,171,169,.10);
 }
-
-
-/* =========================================
-   BOTONES SUPERIORES
-========================================= */
 
 .botones{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:10px;
-
   margin-top:20px;
 }
 
@@ -145,9 +112,7 @@ button{
 
 .btn-tipo{
   min-height:52px;
-
   border-radius:13px;
-
   font-weight:bold;
   font-size:14px;
 }
@@ -162,130 +127,65 @@ button{
   color:white;
 }
 
-
-/* =========================================
-   ÁREA DE PREVIEW
-========================================= */
-
 .preview{
   width:min(760px,100%);
   margin:auto;
-
   padding:20px;
-
   background:white;
-
   border-radius:24px;
-
-  box-shadow:
-    0 10px 30px rgba(80,60,55,.08);
+  box-shadow:0 10px 30px rgba(80,60,55,.08);
 }
 
 .preview-label{
   margin-bottom:14px;
-
   text-align:center;
-
   color:#948781;
-
   font-size:11px;
-
   letter-spacing:2px;
 }
 
-
-/* =========================================
-   TARJETA QUE SE DESCARGA
-========================================= */
-
 .tarjeta{
   width:700px;
-
   margin:auto;
-
   position:relative;
-
   overflow:hidden;
-
-  padding:
-    28px
-    38px
-    32px;
-
+  padding:28px 38px 32px;
   background:
-    radial-gradient(
-      circle at 8% 8%,
-      rgba(233,148,166,.11),
-      transparent 150px
-    ),
-    radial-gradient(
-      circle at 92% 12%,
-      rgba(107,171,169,.11),
-      transparent 160px
-    ),
-    linear-gradient(
-      180deg,
-      #fffdf9,
-      #fff8f3
-    );
-
-  border:
-    2px solid
-    #ddcec7;
-
+    radial-gradient(circle at 8% 8%, rgba(233,148,166,.11), transparent 150px),
+    radial-gradient(circle at 92% 12%, rgba(107,171,169,.11), transparent 160px),
+    linear-gradient(180deg,#fffdf9,#fff8f3);
+  border:2px solid #ddcec7;
   border-radius:32px;
 }
 
-
-/* bordes interiores */
-
 .tarjeta::before{
   content:"";
-
   position:absolute;
-
   inset:9px;
-
-  border:
-    1px solid
-    rgba(222,205,198,.55);
-
+  border:1px solid rgba(222,205,198,.55);
   border-radius:24px;
-
   pointer-events:none;
 }
-
-
-/* =========================================
-   ADORNOS
-========================================= */
 
 .adorno{
   position:absolute;
   z-index:0;
-
   font-family:Georgia,serif;
-
   opacity:.28;
-
   user-select:none;
 }
 
 .adorno-rosa{
   top:105px;
   left:18px;
-
   color:var(--rosa);
-
   font-size:55px;
 }
 
 .adorno-verde{
   top:105px;
   right:18px;
-
   color:var(--verde);
-
   font-size:55px;
 }
 
@@ -294,11 +194,6 @@ button{
   z-index:2;
 }
 
-
-/* =========================================
-   LOGO
-========================================= */
-
 .logo{
   text-align:center;
 }
@@ -306,236 +201,121 @@ button{
 .logo img{
   width:138px;
   height:138px;
-
   object-fit:cover;
-
   border-radius:50%;
-
   background:white;
-
-  box-shadow:
-    0 7px 20px
-    rgba(83,70,63,.08);
+  box-shadow:0 7px 20px rgba(83,70,63,.08);
 }
 
-
-/* =========================================
-   TÍTULO
-========================================= */
-
 .titulo{
-  margin:
-    8px
-    0
-    5px;
-
+  margin:8px 0 5px;
   text-align:center;
-
   font-family:Georgia,serif;
-
   font-size:34px;
   font-weight:500;
-
   letter-spacing:2px;
 }
 
 .divisor{
   display:flex;
-
   align-items:center;
   justify-content:center;
-
   gap:10px;
-
   margin:7px 0 10px;
-
   color:var(--rosa);
 }
 
 .divisor::before,
 .divisor::after{
   content:"";
-
   width:100px;
   height:1px;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      #dfc9c1
-    );
+  background:linear-gradient(90deg,transparent,#dfc9c1);
 }
 
 .divisor::after{
-  background:
-    linear-gradient(
-      90deg,
-      #dfc9c1,
-      transparent
-    );
+  background:linear-gradient(90deg,#dfc9c1,transparent);
 }
 
 .intro{
-  margin:
-    0
-    auto
-    22px;
-
+  margin:0 auto 22px;
   max-width:520px;
-
   text-align:center;
-
   color:#746964;
-
   font-size:15px;
   line-height:1.6;
 }
 
-
-/* =========================================
-   NOMBRE
-========================================= */
-
 .nombre-card{
   display:grid;
-
-  grid-template-columns:
-    45px
-    180px
-    1fr;
-
+  grid-template-columns:45px 180px 1fr;
   align-items:center;
-
   min-height:67px;
-
-  padding:
-    0
-    16px;
-
+  padding:0 16px;
   margin-bottom:17px;
-
-  background:
-    rgba(255,255,255,.68);
-
-  border:
-    1.5px solid
-    #ebaeb9;
-
+  background:rgba(255,255,255,.68);
+  border:1.5px solid #ebaeb9;
   border-radius:17px;
-
-  box-shadow:
-    0 7px 18px
-    rgba(220,130,150,.06);
+  box-shadow:0 7px 18px rgba(220,130,150,.06);
 }
 
 .icono{
   width:35px;
   height:35px;
-
   display:flex;
-
   align-items:center;
   justify-content:center;
-
   border-radius:50%;
-
   background:#f5d1d8;
-
   color:#ce7588;
-
   font-size:17px;
 }
 
 .nombre-label{
   color:#cf7588;
-
   font-size:13px;
   font-weight:bold;
-
   letter-spacing:.6px;
 }
 
 .nombre-valor{
   color:var(--verde-fuerte);
-
   font-size:19px;
   font-weight:bold;
-
   word-break:break-word;
 }
 
-
-/* =========================================
-   DETALLES
-========================================= */
-
 .detalles{
   overflow:hidden;
-
   margin-bottom:17px;
-
-  background:
-    rgba(255,255,255,.58);
-
-  border:
-    1.5px solid
-    #e9adb9;
-
+  background:rgba(255,255,255,.58);
+  border:1.5px solid #e9adb9;
   border-radius:19px;
 }
 
 .detalles-titulo{
   width:max-content;
-
   margin:auto;
-
-  padding:
-    9px
-    24px;
-
-  background:
-    linear-gradient(
-      135deg,
-      #72b2b0,
-      #5a9e9c
-    );
-
-  border-radius:
-    0
-    0
-    12px
-    12px;
-
+  padding:9px 24px;
+  background:linear-gradient(135deg,#72b2b0,#5a9e9c);
+  border-radius:0 0 12px 12px;
   color:white;
-
   font-size:14px;
   font-weight:bold;
-
   letter-spacing:.6px;
 }
 
 .detalles-grid{
   display:grid;
-
-  grid-template-columns:
-    1fr
-    1fr
-    1fr;
-
+  grid-template-columns:1fr 1fr 1fr;
   padding-top:15px;
 }
 
 .detalle{
   min-height:118px;
-
   padding:12px;
-
   text-align:center;
-
-  border-right:
-    1px solid
-    #eee1dc;
+  border-right:1px solid #eee1dc;
 }
 
 .detalle:last-child{
@@ -545,73 +325,42 @@ button{
 .detalle-icon{
   width:38px;
   height:38px;
-
-  margin:
-    0
-    auto
-    8px;
-
+  margin:0 auto 8px;
   display:flex;
-
   align-items:center;
   justify-content:center;
-
   border-radius:50%;
-
   background:var(--rosa-claro);
-
   color:var(--rosa-fuerte);
-
   font-size:19px;
 }
 
 .detalle-label{
   margin-bottom:6px;
-
   color:#756a65;
-
   font-size:12px;
-
   letter-spacing:1px;
 }
 
 .detalle strong{
   display:block;
-
   color:var(--verde-fuerte);
-
   font-size:17px;
 }
 
-
-/* =========================================
-   PRECIO
-========================================= */
-
 .precio-fila{
   min-height:68px;
-
   display:flex;
-
   align-items:center;
   justify-content:space-between;
-
-  padding:
-    0
-    18px;
-
-  border-top:
-    1px solid
-    #eee1dc;
+  padding:0 18px;
+  border-top:1px solid #eee1dc;
 }
 
 .precio-label{
   display:flex;
-
   align-items:center;
-
   gap:10px;
-
   font-size:14px;
   font-weight:bold;
 }
@@ -619,76 +368,34 @@ button{
 .precio-icon{
   width:35px;
   height:35px;
-
   display:flex;
-
   align-items:center;
   justify-content:center;
-
   border-radius:50%;
-
   background:#f4d0d7;
-
   color:var(--rosa-fuerte);
-
   font-size:19px;
 }
 
 .precio{
-  padding:
-    10px
-    18px;
-
-  background:
-    linear-gradient(
-      135deg,
-      #eb9bad,
-      #d9778c
-    );
-
+  padding:10px 18px;
+  background:linear-gradient(135deg,#eb9bad,#d9778c);
   border-radius:10px;
-
   color:white;
-
   font-size:20px;
   font-weight:bold;
-
-  box-shadow:
-    0 5px 12px
-    rgba(217,119,140,.18);
+  box-shadow:0 5px 12px rgba(217,119,140,.18);
 }
-
-
-/* =========================================
-   RECORDATORIO
-========================================= */
 
 .recordatorio{
   display:flex;
-
   gap:12px;
-
   align-items:center;
-
-  padding:
-    12px
-    17px;
-
-  background:
-    linear-gradient(
-      90deg,
-      #fdecee,
-      #fff4f4
-    );
-
-  border-top:
-    1px solid
-    #f1d8dc;
-
+  padding:12px 17px;
+  background:linear-gradient(90deg,#fdecee,#fff4f4);
+  border-top:1px solid #f1d8dc;
   color:#685d59;
-
   font-size:14px;
-
   line-height:1.45;
 }
 
@@ -696,77 +403,36 @@ button{
   color:#cf7488;
 }
 
-
-/* =========================================
-   TRANSFERENCIA
-========================================= */
-
 .transferencia{
   overflow:hidden;
-
   margin-top:17px;
-
-  background:
-    rgba(255,255,255,.62);
-
-  border:
-    1.5px solid
-    #8dc3c1;
-
+  background:rgba(255,255,255,.62);
+  border:1.5px solid #8dc3c1;
   border-radius:19px;
-
-  box-shadow:
-    0 7px 18px
-    rgba(80,150,148,.06);
+  box-shadow:0 7px 18px rgba(80,150,148,.06);
 }
 
 .transfer-titulo{
   width:max-content;
-
   margin:auto;
-
-  padding:
-    9px
-    25px;
-
-  background:
-    linear-gradient(
-      135deg,
-      #6eb0ae,
-      #559a98
-    );
-
-  border-radius:
-    0
-    0
-    12px
-    12px;
-
+  padding:9px 25px;
+  background:linear-gradient(135deg,#6eb0ae,#559a98);
+  border-radius:0 0 12px 12px;
   color:white;
-
   font-size:14px;
   font-weight:bold;
-
   letter-spacing:.6px;
 }
 
 .transfer-body{
-  padding:
-    17px
-    20px;
+  padding:17px 20px;
 }
 
 .transfer-fila{
   display:grid;
-
-  grid-template-columns:
-    120px
-    1fr;
-
+  grid-template-columns:120px 1fr;
   align-items:center;
-
   min-height:36px;
-
   font-size:15px;
 }
 
@@ -776,142 +442,80 @@ button{
 
 .transfer-fila span{
   color:var(--verde-fuerte);
-
   font-size:16px;
   font-weight:bold;
-
   word-break:break-word;
 }
 
-
-/* =========================================
-   MENSAJES
-========================================= */
-
 .mensaje{
   display:flex;
-
   gap:12px;
-
   align-items:center;
-
   margin-top:13px;
-
-  padding:
-    13px
-    16px;
-
+  padding:13px 16px;
   background:#f6fcfb;
-
-  border:
-    1px solid
-    #b6d9d7;
-
+  border:1px solid #b6d9d7;
   border-radius:14px;
-
   color:#675d58;
-
   font-size:14px;
-
   line-height:1.5;
 }
 
 .mensaje.rosa{
   background:#fff5f6;
-
   border-color:#efd0d6;
 }
 
 .mensaje-icon{
   width:34px;
   height:34px;
-
   flex:0 0 34px;
-
   display:flex;
-
   align-items:center;
   justify-content:center;
-
   border-radius:50%;
-
   background:var(--verde);
-
   color:white;
-
   font-size:17px;
 }
 
 .mensaje.rosa .mensaje-icon{
   background:#f3cbd3;
-
   color:#ce7185;
 }
 
-
-/* =========================================
-   PIE
-========================================= */
-
 .pie{
   padding-top:22px;
-
   text-align:center;
 }
 
 .pie-frase{
   color:#d37a8c;
-
   font-family:Georgia,serif;
-
   font-size:18px;
-
   font-style:italic;
 }
 
 .pie-linea{
   width:180px;
   height:1px;
-
-  margin:
-    13px
-    auto
-    9px;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      var(--rosa),
-      var(--verde),
-      transparent
-    );
+  margin:13px auto 9px;
+  background:linear-gradient(90deg,transparent,var(--rosa),var(--verde),transparent);
 }
 
 .pie-nombre{
   color:var(--verde);
-
   font-family:Georgia,serif;
-
   font-size:15px;
 }
 
 .pie-profesion{
   margin-top:4px;
-
   color:#b28b91;
-
   font-size:10px;
-
   font-weight:bold;
-
   letter-spacing:3px;
 }
-
-
-/* =========================================
-   RECIBO
-========================================= */
 
 .oculto{
   display:none !important;
@@ -919,95 +523,54 @@ button{
 
 .recibo-titulo{
   margin:8px 0 3px;
-
   text-align:center;
-
   font-family:Georgia,serif;
-
   font-size:37px;
-
   letter-spacing:7px;
-
   font-weight:500;
 }
 
 .recibo-sub{
   text-align:center;
-
   color:#8b7d77;
-
   font-size:12px;
-
   letter-spacing:4px;
 }
 
 .pagado{
   width:72%;
-
-  margin:
-    20px
-    auto;
-
+  margin:20px auto;
   padding:14px;
-
-  background:
-    linear-gradient(
-      90deg,
-      #eef8f7,
-      #f7fcfb
-    );
-
-  border:
-    2px solid
-    #98c9c7;
-
+  background:linear-gradient(90deg,#eef8f7,#f7fcfb);
+  border:2px solid #98c9c7;
   border-radius:14px;
-
   text-align:center;
-
   color:var(--verde-fuerte);
-
   font-size:21px;
-
   font-weight:bold;
 }
 
 .recibo-intro{
   text-align:center;
-
   color:#716762;
-
   line-height:1.6;
-
   font-size:15px;
 }
 
 .recibo-gracias{
   margin-top:4px;
-
   text-align:center;
-
   color:var(--verde);
-
   font-family:Georgia,serif;
-
   font-size:20px;
-
   font-style:italic;
 }
 
 .bloque{
   overflow:hidden;
-
   margin-top:19px;
-
-  background:
-    rgba(255,255,255,.60);
-
-  border:
-    1.5px solid
-    #eab0bb;
-
+  background:rgba(255,255,255,.60);
+  border:1.5px solid #eab0bb;
   border-radius:18px;
 }
 
@@ -1016,53 +579,27 @@ button{
 }
 
 .bloque-titulo{
-  padding:
-    11px
-    18px;
-
-  background:
-    linear-gradient(
-      135deg,
-      #e99aaa,
-      #d77a8e
-    );
-
+  padding:11px 18px;
+  background:linear-gradient(135deg,#e99aaa,#d77a8e);
   color:white;
-
   font-size:14px;
-
   font-weight:bold;
 }
 
 .bloque.verde .bloque-titulo{
-  background:
-    linear-gradient(
-      135deg,
-      #6eaeac,
-      #559997
-    );
+  background:linear-gradient(135deg,#6eaeac,#559997);
 }
 
 .bloque-body{
-  padding:
-    6px
-    18px;
+  padding:6px 18px;
 }
 
 .rec-fila{
   display:grid;
-
-  grid-template-columns:
-    190px
-    1fr;
-
+  grid-template-columns:190px 1fr;
   align-items:center;
-
   min-height:57px;
-
-  border-bottom:
-    1px solid
-    #eee1dc;
+  border-bottom:1px solid #eee1dc;
 }
 
 .rec-fila:last-child{
@@ -1075,9 +612,7 @@ button{
 
 .rec-fila strong{
   color:var(--rosa-fuerte);
-
   font-size:17px;
-
   word-break:break-word;
 }
 
@@ -1087,87 +622,37 @@ button{
 
 .confirmada{
   width:82%;
-
-  margin:
-    22px
-    auto
-    0;
-
+  margin:22px auto 0;
   padding:17px;
-
-  background:
-    linear-gradient(
-      135deg,
-      #fff1f3,
-      #f4fbfa
-    );
-
-  border:
-    1px solid
-    #ecd0d6;
-
+  background:linear-gradient(135deg,#fff1f3,#f4fbfa);
+  border:1px solid #ecd0d6;
   border-radius:17px;
-
   text-align:center;
 }
 
 .confirmada strong{
   display:block;
-
   margin-bottom:6px;
-
   color:var(--rosa-fuerte);
-
   font-family:Georgia,serif;
-
   font-size:20px;
 }
-
-
-/* =========================================
-   DESCARGAR
-========================================= */
 
 .descargar{
   width:700px;
   max-width:100%;
-
   min-height:56px;
-
   display:block;
-
-  margin:
-    18px
-    auto
-    0;
-
-  background:
-    linear-gradient(
-      90deg,
-      #e994a6,
-      #6baba9
-    );
-
+  margin:18px auto 0;
+  background:linear-gradient(90deg,#e994a6,#6baba9);
   border-radius:16px;
-
   color:white;
-
   font-size:16px;
-
   font-weight:bold;
-
-  box-shadow:
-    0 8px 20px
-    rgba(105,170,168,.18);
+  box-shadow:0 8px 20px rgba(105,170,168,.18);
 }
 
-
-/* =========================================
-   CELULAR
-========================================= */
-
 @media(max-width:750px){
-
   .grid,
   .botones{
     grid-template-columns:1fr;
@@ -1189,21 +674,13 @@ button{
     width:700px;
     max-width:none;
   }
-
 }
-
 </style>
 </head>
-
 
 <body>
 
 <div class="app">
-
-
-<!-- =====================================
-     FORMULARIO
-===================================== -->
 
 <section class="panel">
 
@@ -1213,664 +690,655 @@ button{
   Completa únicamente los datos de la sesión.
 </div>
 
-
 <div class="grid">
 
-<div class="campo full">
+  <div class="campo full">
+    <label>Nombre del paciente</label>
+    <input id="nombre" type="text" placeholder="Nombre del paciente">
+  </div>
 
-<label>
-Nombre del paciente
-</label>
+  <div class="campo">
+    <label>Fecha de la sesión</label>
+    <input id="fecha" type="date">
+  </div>
 
-<input
-  id="nombre"
-  type="text"
-  placeholder="Nombre del paciente"
->
+  <div class="campo">
+    <label>Hora</label>
+    <input id="hora" type="time">
+  </div>
 
-</div>
-
-
-<div class="campo">
-
-<label>
-Fecha de la sesión
-</label>
-
-<input
-  id="fecha"
-  type="date"
->
+  <div class="campo full">
+    <label>Valor de la sesión</label>
+    <input id="importe" type="number" placeholder="Ej. 250">
+  </div>
 
 </div>
-
-
-<div class="campo">
-
-<label>
-Hora
-</label>
-
-<input
-  id="hora"
-  type="time"
->
-
-</div>
-
-
-<div class="campo full">
-
-<label>
-Valor de la sesión
-</label>
-
-<input
-  id="importe"
-  type="number"
-  placeholder="Ej. 250"
->
-
-</div>
-
-</div>
-
 
 <div class="botones">
 
-<button
-  id="btnConfirmacion"
-  class="btn-tipo btn-confirmacion"
-  type="button"
->
-♡ Confirmación de cita
-</button>
+  <button id="btnConfirmacion" class="btn-tipo btn-confirmacion" type="button">
+    ♡ Confirmación de cita
+  </button>
 
-
-<button
-  id="btnRecibo"
-  class="btn-tipo btn-recibo"
-  type="button"
->
-✓ Recibo de pago
-</button>
+  <button id="btnRecibo" class="btn-tipo btn-recibo" type="button">
+    ✓ Recibo de pago
+  </button>
 
 </div>
 
 </section>
 
-
-
-<!-- =====================================
-     PREVIEW
-===================================== -->
-
 <section class="preview">
 
-
-<div
-  id="previewLabel"
-  class="preview-label"
->
-VISTA PREVIA · CONFIRMACIÓN DE CITA
+<div id="previewLabel" class="preview-label">
+  VISTA PREVIA · CONFIRMACIÓN DE CITA
 </div>
 
+<article id="confirmacion" class="tarjeta">
 
-
-<!-- =====================================
-     CONFIRMACIÓN
-===================================== -->
-
-<article
-  id="confirmacion"
-  class="tarjeta"
->
-
-
-<div class="adorno adorno-rosa">
-❧
-</div>
-
-<div class="adorno adorno-verde">
-❧
-</div>
-
+<div class="adorno adorno-rosa">❧</div>
+<div class="adorno adorno-verde">❧</div>
 
 <div class="contenido">
 
-
 <div class="logo">
-
-<img
-  src="logo.jpg"
-  alt="Logo"
->
-
+  <img src="logo.jpg" alt="Logo">
 </div>
 
+<h2 class="titulo">¡BIENVENID@!</h2>
 
-<h2 class="titulo">
-¡BIENVENID@!
-</h2>
-
-
-<div class="divisor">
-♡
-</div>
-
+<div class="divisor">♡</div>
 
 <p class="intro">
-
-Nos da mucho gusto saludarte.
-<br>
-
-Te compartimos la información
-de tu próxima sesión.
-
+  Nos da mucho gusto saludarte.<br>
+  Te compartimos la información de tu próxima sesión.
 </p>
-
-
-
-<!-- PACIENTE -->
 
 <div class="nombre-card">
 
-<div class="icono">
-♡
-</div>
+  <div class="icono">♡</div>
 
-<div class="nombre-label">
-NOMBRE DEL PACIENTE
-</div>
+  <div class="nombre-label">
+    NOMBRE DEL PACIENTE
+  </div>
 
-<div
-  id="confNombre"
-  class="nombre-valor"
->
-Nombre del paciente
-</div>
+  <div id="confNombre" class="nombre-valor">
+    Nombre del paciente
+  </div>
 
 </div>
-
-
-
-<!-- SESIÓN -->
 
 <div class="detalles">
 
-
 <div class="detalles-titulo">
-DETALLES DE TU SESIÓN
+  DETALLES DE TU SESIÓN
 </div>
-
 
 <div class="detalles-grid">
 
+  <div class="detalle">
+    <div class="detalle-icon">▣</div>
+    <div class="detalle-label">FECHA</div>
+    <strong id="confFecha">—</strong>
+  </div>
 
-<div class="detalle">
+  <div class="detalle">
+    <div class="detalle-icon">◷</div>
+    <div class="detalle-label">HORA</div>
+    <strong id="confHora">—</strong>
+  </div>
 
-<div class="detalle-icon">
-▣
-</div>
-
-<div class="detalle-label">
-FECHA
-</div>
-
-<strong id="confFecha">
-—
-</strong>
-
-</div>
-
-
-
-<div class="detalle">
-
-<div class="detalle-icon">
-◷
-</div>
-
-<div class="detalle-label">
-HORA
-</div>
-
-<strong id="confHora">
-—
-</strong>
+  <div class="detalle">
+    <div class="detalle-icon">♡</div>
+    <div class="detalle-label">MODALIDAD</div>
+    <strong>En línea</strong>
+  </div>
 
 </div>
-
-
-
-<div class="detalle">
-
-<div class="detalle-icon">
-♡
-</div>
-
-<div class="detalle-label">
-MODALIDAD
-</div>
-
-<strong>
-En línea
-</strong>
-
-</div>
-
-
-</div>
-
-
 
 <div class="precio-fila">
 
+  <div class="precio-label">
+    <div class="precio-icon">$</div>
+    VALOR DE LA SESIÓN
+  </div>
 
-<div class="precio-label">
-
-<div class="precio-icon">
-$
-</div>
-
-VALOR DE LA SESIÓN
-
-</div>
-
-
-<div
-  id="confImporte"
-  class="precio"
->
-$250 MXN
-</div>
-
+  <div id="confImporte" class="precio">
+    —
+  </div>
 
 </div>
-
-
 
 <div class="recordatorio">
 
-<div class="precio-icon">
-◷
-</div>
+  <div class="precio-icon">◷</div>
 
-<div>
-
-Para confirmar tu cita, realiza
-la transferencia
-
-<strong>
-al menos 1 hora antes de tu sesión.
-</strong>
+  <div>
+    Para confirmar tu cita, realiza la transferencia
+    <strong>al menos 1 hora antes de tu sesión.</strong>
+  </div>
 
 </div>
 
 </div>
-
-
-</div>
-
-
-
-<!-- TRANSFERENCIA -->
 
 <div class="transferencia">
 
-
 <div class="transfer-titulo">
-DATOS PARA TRANSFERENCIA
+  DATOS PARA TRANSFERENCIA
 </div>
-
 
 <div class="transfer-body">
 
+  <div class="transfer-fila">
+    <strong>Titular</strong>
+    <span>Nancy Gabriela Hernández Villa</span>
+  </div>
 
-<div class="transfer-fila">
+  <div class="transfer-fila">
+    <strong>Institución</strong>
+    <span>Hey Banco</span>
+  </div>
 
-<strong>
-Titular
-</strong>
-
-<span>
-Nancy Gabriela Hernández Villa
-</span>
-
-</div>
-
-
-<div class="transfer-fila">
-
-<strong>
-Institución
-</strong>
-
-<span>
-Hey Banco
-</span>
-
-</div>
-
-
-<div class="transfer-fila">
-
-<strong>
-CLABE
-</strong>
-
-<span>
-167180000014587725
-</span>
-
-</div>
-
+  <div class="transfer-fila">
+    <strong>CLABE</strong>
+    <span>167180000014587725</span>
+  </div>
 
 </div>
 
 </div>
-
-
-
-<!-- MENSAJES -->
 
 <div class="mensaje">
 
-<div class="mensaje-icon">
-✓
-</div>
+  <div class="mensaje-icon">✓</div>
 
-<div>
-
-Una vez realizado el pago,
-por favor envíanos tu comprobante
-por este medio para dejar
-<strong>
-confirmada tu sesión.
-</strong>
+  <div>
+    Una vez realizado el pago, por favor envíanos tu comprobante
+    por este medio para dejar <strong>confirmada tu sesión.</strong>
+  </div>
 
 </div>
-
-</div>
-
-
 
 <div class="mensaje rosa">
 
-<div class="mensaje-icon">
-♡
-</div>
+  <div class="mensaje-icon">♡</div>
 
-<div>
-
-Si tienes alguna duda sobre tu cita,
-con gusto estamos para apoyarte.
+  <div>
+    Si tienes alguna duda sobre tu cita,
+    con gusto estamos para apoyarte.
+  </div>
 
 </div>
-
-</div>
-
-
-
-<!-- PIE -->
 
 <div class="pie">
 
-<div class="pie-frase">
-¡Gracias por confiar en este espacio para ti! ♡
+  <div class="pie-frase">
+    ¡Gracias por confiar en este espacio para ti! ♡
+  </div>
+
+  <div class="pie-linea"></div>
+
+  <div class="pie-nombre">
+    Nancy Gabriela Hernández V.
+  </div>
+
+  <div class="pie-profesion">
+    PSICÓLOGA
+  </div>
+
 </div>
-
-<div class="pie-linea"></div>
-
-<div class="pie-nombre">
-Nancy Gabriela Hernández V.
-</div>
-
-<div class="pie-profesion">
-PSICÓLOGA
-</div>
-
-</div>
-
 
 </div>
 
 </article>
 
-
-
-<!-- =====================================
-     RECIBO
-===================================== -->
-
-<article
-  id="recibo"
-  class="tarjeta oculto"
->
-
+<article id="recibo" class="tarjeta oculto">
 
 <div class="contenido">
 
-
 <div class="logo">
-
-<img
-  src="logo.jpg"
-  alt="Logo"
->
-
+  <img src="logo.jpg" alt="Logo">
 </div>
-
 
 <div class="recibo-titulo">
-RECIBO
+  RECIBO
 </div>
-
 
 <div class="recibo-sub">
-CITA CONFIRMADA
+  CITA CONFIRMADA
 </div>
-
 
 <div class="pagado">
-✓ PAGO RECIBIDO
+  ✓ PAGO RECIBIDO
 </div>
-
 
 <div class="recibo-intro">
-
-Confirmamos que el pago
-correspondiente a tu sesión
-ha sido recibido correctamente.
-
+  Confirmamos que el pago correspondiente a tu sesión
+  ha sido recibido correctamente.
 </div>
-
 
 <div class="recibo-gracias">
-¡Gracias por tu confianza!
+  ¡Gracias por tu confianza!
 </div>
-
-
-
-<!-- DATOS SESIÓN -->
 
 <div class="bloque">
 
+  <div class="bloque-titulo">
+    ♡ DATOS DE LA SESIÓN
+  </div>
 
-<div class="bloque-titulo">
-♡ DATOS DE LA SESIÓN
-</div>
+  <div class="bloque-body">
 
+    <div class="rec-fila">
+      <span>Paciente</span>
+      <strong id="recNombre">Nombre del paciente</strong>
+    </div>
 
-<div class="bloque-body">
+    <div class="rec-fila">
+      <span>Fecha</span>
+      <strong id="recFecha">—</strong>
+    </div>
 
+    <div class="rec-fila">
+      <span>Hora</span>
+      <strong id="recHora">—</strong>
+    </div>
 
-<div class="rec-fila">
+    <div class="rec-fila">
+      <span>Modalidad</span>
+      <strong>En línea</strong>
+    </div>
 
-<span>
-Paciente
-</span>
-
-<strong id="recNombre"></strong>
-
-</div>
-
-
-<div class="rec-fila">
-
-<span>
-Fecha
-</span>
-
-<strong id="recFecha"></strong>
-
-</div>
-
-
-<div class="rec-fila">
-
-<span>
-Hora
-</span>
-
-<strong id="recHora"></strong>
+  </div>
 
 </div>
-
-
-<div class="rec-fila">
-
-<span>
-Modalidad
-</span>
-
-<strong>
-En línea
-</strong>
-
-</div>
-
-
-</div>
-
-</div>
-
-
-
-<!-- PAGO -->
 
 <div class="bloque verde">
 
+  <div class="bloque-titulo">
+    $ DETALLE DEL PAGO
+  </div>
 
-<div class="bloque-titulo">
-$ DETALLE DEL PAGO
-</div>
+  <div class="bloque-body">
 
+    <div class="rec-fila">
+      <span>Valor de la sesión</span>
+      <strong id="recImporte">—</strong>
+    </div>
 
-<div class="bloque-body">
+    <div class="rec-fila">
+      <span>Método de pago</span>
+      <strong>Transferencia bancaria</strong>
+    </div>
 
+    <div class="rec-fila">
+      <span>Estado</span>
+      <strong>PAGO RECIBIDO</strong>
+    </div>
 
-<div class="rec-fila">
-
-<span>
-Valor de la sesión
-</span>
-
-<strong id="recImporte"></strong>
-
-</div>
-
-
-<div class="rec-fila">
-
-<span>
-Método de pago
-</span>
-
-<strong>
-Transferencia bancaria
-</strong>
+  </div>
 
 </div>
-
-
-<div class="rec-fila">
-
-<span>
-Estado
-</span>
-
-<strong>
-PAGO RECIBIDO
-</strong>
-
-</div>
-
-
-</div>
-
-</div>
-
-
-
-<!-- TRANSFERENCIA -->
 
 <div class="bloque verde">
 
+  <div class="bloque-titulo">
+    DATOS DE TRANSFERENCIA
+  </div>
 
-<div class="bloque-titulo">
-DATOS DE TRANSFERENCIA
-</div>
+  <div class="bloque-body">
 
+    <div class="rec-fila">
+      <span>Titular</span>
+      <strong>Nancy Gabriela Hernández Villa</strong>
+    </div>
 
-<div class="bloque-body">
+    <div class="rec-fila">
+      <span>Banco</span>
+      <strong>Hey Banco</strong>
+    </div>
 
+    <div class="rec-fila">
+      <span>CLABE</span>
+      <strong>167180000014587725</strong>
+    </div>
 
-<div class="rec-fila">
-
-<span>
-Titular
-</span>
-
-<strong>
-Nancy Gabriela Hernández Villa
-</strong>
-
-</div>
-
-
-<div class="rec-fila">
-
-<span>
-Banco
-</span>
-
-<strong>
-Hey Banco
-</strong>
+  </div>
 
 </div>
-
-
-<div class="rec-fila">
-
-<span>
-CLABE
-</span>
-
-<strong>
-167180000014587725
-</strong>
-
-</div>
-
-
-</div>
-
-</div>
-
-
 
 <div class="confirmada">
 
-<stron
+  <strong>
+    Tu sesión está confirmada ♡
+  </strong>
+
+  Te esperamos en la fecha y hora indicadas.
+
+</div>
+
+<div class="pie">
+
+  <div class="pie-linea"></div>
+
+  <div class="pie-nombre">
+    Nancy Gabriela Hernández V.
+  </div>
+
+  <div class="pie-profesion">
+    PSICÓLOGA
+  </div>
+
+</div>
+
+</div>
+
+</article>
+
+<button id="btnDescargar" class="descargar" type="button">
+  ♡ Descargar imagen
+</button>
+
+</section>
+
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+
+  const nombre = document.getElementById("nombre");
+  const fecha = document.getElementById("fecha");
+  const hora = document.getElementById("hora");
+  const importe = document.getElementById("importe");
+
+  const confirmacion = document.getElementById("confirmacion");
+  const recibo = document.getElementById("recibo");
+
+  const btnConfirmacion = document.getElementById("btnConfirmacion");
+  const btnRecibo = document.getElementById("btnRecibo");
+  const btnDescargar = document.getElementById("btnDescargar");
+  const previewLabel = document.getElementById("previewLabel");
+
+  let documentoActivo = "confirmacion";
+
+  function formatoFecha(valor){
+
+    if(!valor){
+      return "—";
+    }
+
+    const partes = valor.split("-");
+
+    const f = new Date(
+      Number(partes[0]),
+      Number(partes[1]) - 1,
+      Number(partes[2])
+    );
+
+    return f.toLocaleDateString(
+      "es-MX",
+      {
+        weekday:"long",
+        day:"numeric",
+        month:"long",
+        year:"numeric"
+      }
+    );
+  }
+
+  function formatoHora(valor){
+
+    if(!valor){
+      return "—";
+    }
+
+    const partes = valor.split(":");
+
+    let h = Number(partes[0]);
+    const minutos = partes[1];
+
+    const periodo =
+      h >= 12 ? "p. m." : "a. m.";
+
+    h = h % 12;
+
+    if(h === 0){
+      h = 12;
+    }
+
+    return `${h}:${minutos} ${periodo}`;
+  }
+
+  function formatoPrecio(valor){
+
+    if(!valor){
+      return "—";
+    }
+
+    const numero = Number(valor);
+
+    if(isNaN(numero)){
+      return "—";
+    }
+
+    return `$${numero.toLocaleString("es-MX")} MXN`;
+  }
+
+  function actualizar(){
+
+    const paciente =
+      nombre.value.trim() || "Nombre del paciente";
+
+    const fechaTexto =
+      formatoFecha(fecha.value);
+
+    const horaTexto =
+      formatoHora(hora.value);
+
+    const precioTexto =
+      formatoPrecio(importe.value);
+
+    document.getElementById("confNombre").textContent =
+      paciente;
+
+    document.getElementById("confFecha").textContent =
+      fechaTexto;
+
+    document.getElementById("confHora").textContent =
+      horaTexto;
+
+    document.getElementById("confImporte").textContent =
+      precioTexto;
+
+    document.getElementById("recNombre").textContent =
+      paciente;
+
+    document.getElementById("recFecha").textContent =
+      fechaTexto;
+
+    document.getElementById("recHora").textContent =
+      horaTexto;
+
+    document.getElementById("recImporte").textContent =
+      precioTexto;
+  }
+
+  [nombre, fecha, hora, importe].forEach(function(campo){
+
+    campo.addEventListener("input", actualizar);
+    campo.addEventListener("change", actualizar);
+
+  });
+
+  btnConfirmacion.addEventListener("click", function(){
+
+    actualizar();
+
+    documentoActivo = "confirmacion";
+
+    confirmacion.classList.remove("oculto");
+    recibo.classList.add("oculto");
+
+    previewLabel.textContent =
+      "VISTA PREVIA · CONFIRMACIÓN DE CITA";
+  });
+
+  btnRecibo.addEventListener("click", function(){
+
+    actualizar();
+
+    documentoActivo = "recibo";
+
+    recibo.classList.remove("oculto");
+    confirmacion.classList.add("oculto");
+
+    previewLabel.textContent =
+      "VISTA PREVIA · RECIBO DE PAGO";
+  });
+
+  async function esperarImagenes(elemento){
+
+    const imagenes =
+      elemento.querySelectorAll("img");
+
+    const promesas =
+      Array.from(imagenes).map(function(img){
+
+        if(img.complete){
+          return Promise.resolve();
+        }
+
+        return new Promise(function(resolve){
+
+          img.addEventListener(
+            "load",
+            resolve,
+            { once:true }
+          );
+
+          img.addEventListener(
+            "error",
+            resolve,
+            { once:true }
+          );
+
+        });
+
+      });
+
+    await Promise.all(promesas);
+  }
+
+  btnDescargar.addEventListener("click", async function(){
+
+    actualizar();
+
+    const elemento =
+      documentoActivo === "confirmacion"
+        ? confirmacion
+        : recibo;
+
+    if(typeof html2canvas === "undefined"){
+
+      alert("No se pudo cargar la herramienta de descarga.");
+      return;
+    }
+
+    const textoOriginal =
+      btnDescargar.textContent;
+
+    btnDescargar.disabled = true;
+    btnDescargar.textContent = "♡ Generando imagen...";
+
+    try{
+
+      await esperarImagenes(elemento);
+
+      if(document.fonts && document.fonts.ready){
+        await document.fonts.ready;
+      }
+
+      const canvas =
+        await html2canvas(
+          elemento,
+          {
+            scale:2,
+            backgroundColor:"#fffaf5",
+            useCORS:true,
+            allowTaint:false,
+            logging:false,
+            scrollX:0,
+            scrollY:0
+          }
+        );
+
+      const pacienteArchivo =
+        nombre.value
+          .trim()
+          .replace(/\s+/g,"_")
+          .replace(
+            /[^a-zA-Z0-9áéíóúÁÉÍÓÚñÑ_-]/g,
+            ""
+          )
+          || "paciente";
+
+      const nombreArchivo =
+        `${documentoActivo}_${pacienteArchivo}.png`;
+
+      const blob =
+        await new Promise(function(resolve){
+
+          canvas.toBlob(
+            resolve,
+            "image/png"
+          );
+
+        });
+
+      if(!blob){
+        throw new Error("No se pudo generar el PNG.");
+      }
+
+      const url =
+        URL.createObjectURL(blob);
+
+      const enlace =
+        document.createElement("a");
+
+      enlace.href = url;
+      enlace.download = nombreArchivo;
+      enlace.style.display = "none";
+
+      document.body.appendChild(enlace);
+
+      enlace.click();
+
+      enlace.remove();
+
+      setTimeout(function(){
+        URL.revokeObjectURL(url);
+      },3000);
+
+    }catch(error){
+
+      console.error(error);
+
+      alert("No se pudo generar la imagen.");
+
+    }finally{
+
+      btnDescargar.disabled = false;
+      btnDescargar.textContent = textoOriginal;
+
+    }
+
+  });
+
+  actualizar();
+
+});
+</script>
+
+</body>
+</html>
